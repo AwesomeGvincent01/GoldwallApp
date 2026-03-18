@@ -1,25 +1,21 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace GoldwallApp.Models
 {
     public class Client
     {
-
-        //pk
         public int ClientId { get; set; }
 
-
-        //fk
+        [Display(Name = "Business")]
         public int BusinessId { get; set; }
 
         public string Name { get; set; }
         public string Phone { get; set; }
-
         public string Email { get; set; }
+
+        [Display(Name = "Created At")]
         public DateTime CreatedAt { get; set; }
 
-
-        //Navigation property for business again
         public Business Business { get; set; }
     }
 }

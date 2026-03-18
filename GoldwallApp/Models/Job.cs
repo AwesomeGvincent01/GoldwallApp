@@ -1,28 +1,30 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace GoldwallApp.Models
 {
     public class Job
     {
-        //pk
         public int JobId { get; set; }
 
-
-        //fk
+        [Display(Name = "Business")]
         public int BusinessId { get; set; }
+
+        [Display(Name = "Client")]
         public int ClientId { get; set; }
 
         public string Title { get; set; }
         public string Address { get; set; }
         public string Status { get; set; }
 
-        //planned dates need more exact time so we use DateTime instead of just Date
+        [Display(Name = "Planned Start Date")]
         public DateTime StartDatePlanned { get; set; }
+
+        [Display(Name = "Planned End Date")]
         public DateTime EndDatePlanned { get; set; }
 
+        [Display(Name = "Created At")]
         public DateTime CreatedAt { get; set; }
 
-        //navigation props
         public Business Business { get; set; }
         public Client Client { get; set; }
     }
