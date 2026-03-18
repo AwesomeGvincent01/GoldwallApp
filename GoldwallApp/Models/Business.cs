@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GoldwallApp.Models
 {
@@ -8,8 +9,11 @@ namespace GoldwallApp.Models
         // pk
         public int BusinessId { get; set; }
 
+
+        [Display(Name = "Business Name")] //useful validation thingy majig for displaing  names properly
         public string Name { get; set; }
 
+        [Display(Name = "Created At")]
         public DateTime CreatedAt { get; set; }
 
         // Navigation properties:

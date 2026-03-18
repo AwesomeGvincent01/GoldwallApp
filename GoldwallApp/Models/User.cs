@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GoldwallApp.Models
 {
@@ -7,17 +8,22 @@ namespace GoldwallApp.Models
     {
         //pk
         public int UserId { get; set; }
-        
+
 
         //fk
+        [Display(Name = "Business")] //useful validation thingy majig for displaing  names properly
         public int BusinessId { get; set; }
 
 
-
+        [Display(Name = "Full Name")]
         public string FullName { get; set; }
         public string Email { get; set; }
-        public string Role { get; set; }    
+        public string Role { get; set; }
+
+        [Display(Name = "Password")]
         public string PasswordHash { get; set; }
+
+        [Display(Name = "Created At")]
         public DateTime CreatedAt { get; set; }
 
 
