@@ -20,6 +20,8 @@ namespace GoldwallApp.Models
         public DateTime StartDatePlanned { get; set; }
         public DateTime EndDatePlanned { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+
         //navigation props
         public Business Business { get; set; }
         public Client Client { get; set; }
