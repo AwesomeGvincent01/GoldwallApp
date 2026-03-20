@@ -27,5 +27,8 @@ namespace GoldwallApp.Models
 
         public Business Business { get; set; }
         public Client Client { get; set; }
+
+  
+        public ICollection<Room> Rooms { get; set; }
     }
 }
