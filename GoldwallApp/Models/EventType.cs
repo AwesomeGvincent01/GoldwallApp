@@ -12,12 +12,15 @@ using System.ComponentModel.DataAnnotations;
 
 
     //business fk
+
+    [Display(Name = "Business")]
     public int BusinessId { get; set; }
 
     public string Name { get; set; }
 
     public string Categoery { get; set; }
 
+    [Display(Name = "Is Active")]
     public bool IsActive { get; set; }
 
     public Business Business { get; set; }
