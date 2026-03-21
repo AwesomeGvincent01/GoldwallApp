@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
   namespace GoldwallApp.Models;
 
-    public class EventType {
+public class EventType
+{
 
 
     //pk
@@ -27,5 +28,4 @@ using System.ComponentModel.DataAnnotations;
 
     public ICollection<WorkEvent> WorkEvents { get; set; }
 
-}
 }
