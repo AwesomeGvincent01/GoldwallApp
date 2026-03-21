@@ -22,5 +22,7 @@ namespace GoldwallApp.Models
         public DateTime CreatedAt { get; set; }
 
         public Business Business { get; set; }
+
+        public ICollection<WorkEvent> WorkEvents { get; set; }
     }
 }

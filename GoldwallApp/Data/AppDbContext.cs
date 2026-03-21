@@ -15,6 +15,8 @@ namespace GoldwallApp.Data
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Surface> Surfaces { get; set; }
+        public DbSet<EventType> EventTypes { get; set; }
+        public DbSet<WorkEvent> WorkEvents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,12 +26,13 @@ namespace GoldwallApp.Data
             modelBuilder.Entity<Job>().ToTable("Job");
             modelBuilder.Entity<Room>().ToTable("Room");
             modelBuilder.Entity<Surface>().ToTable("Surface");
+            modelBuilder.Entity<EventType>().ToTable("EventType");
+            modelBuilder.Entity<WorkEvent>().ToTable("WorkEvent");
 
             modelBuilder.Entity<Surface>()
                 .Property(s => s.AreaM2)
                 .HasPrecision(6, 2);
 
-       
             modelBuilder.Entity<Client>()
                 .HasOne(c => c.Business)
                 .WithMany(b => b.Clients)
@@ -64,6 +67,30 @@ namespace GoldwallApp.Data
                 .HasOne(s => s.Room)
                 .WithMany(r => r.Surfaces)
                 .HasForeignKey(s => s.RoomId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<EventType>()
+                .HasOne(e => e.Business)
+                .WithMany(b => b.EventTypes)
+                .HasForeignKey(e => e.BusinessId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<WorkEvent>()
+                .HasOne(w => w.Surface)
+                .WithMany(s => s.WorkEvents)
+                .HasForeignKey(w => w.SurfaceId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<WorkEvent>()
+                .HasOne(w => w.User)
+                .WithMany(u => u.WorkEvents)
+                .HasForeignKey(w => w.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<WorkEvent>()
+                .HasOne(w => w.EventType)
+                .WithMany(e => e.WorkEvents)
+                .HasForeignKey(w => w.EventTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

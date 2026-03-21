@@ -21,5 +21,9 @@ namespace GoldwallApp.Models
         public ICollection<User> Users { get; set; }
         public ICollection<Client> Clients { get; set; }
         public ICollection<Job> Jobs { get; set; }
+
+        public ICollection<EventType> EventTypes { get; set; }
+
+
     }
 }
