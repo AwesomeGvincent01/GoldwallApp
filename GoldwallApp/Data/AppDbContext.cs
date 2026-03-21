@@ -24,6 +24,47 @@ namespace GoldwallApp.Data
             modelBuilder.Entity<Job>().ToTable("Job");
             modelBuilder.Entity<Room>().ToTable("Room");
             modelBuilder.Entity<Surface>().ToTable("Surface");
+
+            modelBuilder.Entity<Surface>()
+                .Property(s => s.AreaM2)
+                .HasPrecision(6, 2);
+
+       
+            modelBuilder.Entity<Client>()
+                .HasOne(c => c.Business)
+                .WithMany(b => b.Clients)
+                .HasForeignKey(c => c.BusinessId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Business)
+                .WithMany(b => b.Users)
+                .HasForeignKey(u => u.BusinessId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Job>()
+                .HasOne(j => j.Business)
+                .WithMany(b => b.Jobs)
+                .HasForeignKey(j => j.BusinessId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Job>()
+                .HasOne(j => j.Client)
+                .WithMany()
+                .HasForeignKey(j => j.ClientId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Room>()
+                .HasOne(r => r.Job)
+                .WithMany(j => j.Rooms)
+                .HasForeignKey(r => r.JobId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Surface>()
+                .HasOne(s => s.Room)
+                .WithMany(r => r.Surfaces)
+                .HasForeignKey(s => s.RoomId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

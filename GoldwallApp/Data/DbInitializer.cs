@@ -6,16 +6,13 @@ namespace GoldwallApp.Data
     {
         public static void Initialize(AppDbContext context)
         {
-          
             context.Database.EnsureCreated();
 
-         
             if (context.Businesses.Any())
             {
                 return;
             }
 
-        
             var businesses = new Business[]
             {
                 new Business
@@ -31,7 +28,6 @@ namespace GoldwallApp.Data
             }
             context.SaveChanges();
 
-           
             var users = new User[]
             {
                 new User
@@ -60,7 +56,6 @@ namespace GoldwallApp.Data
             }
             context.SaveChanges();
 
-          
             var clients = new Client[]
             {
                 new Client
@@ -87,7 +82,6 @@ namespace GoldwallApp.Data
             }
             context.SaveChanges();
 
-            // Seed jobs
             var jobs = new Job[]
             {
                 new Job
@@ -117,6 +111,80 @@ namespace GoldwallApp.Data
             foreach (var job in jobs)
             {
                 context.Jobs.Add(job);
+            }
+            context.SaveChanges();
+
+            var rooms = new Room[]
+            {
+                new Room
+                {
+                    JobId = jobs[0].JobId,
+                    Name = "Lounge",
+                    Notes = "Main living area"
+                },
+                new Room
+                {
+                    JobId = jobs[0].JobId,
+                    Name = "Hallway",
+                    Notes = "Connecting hallway"
+                },
+                new Room
+                {
+                    JobId = jobs[1].JobId,
+                    Name = "Bedroom 1",
+                    Notes = "Repair work area"
+                }
+            };
+
+            foreach (var room in rooms)
+            {
+                context.Rooms.Add(room);
+            }
+            context.SaveChanges();
+
+            var surfaces = new Surface[]
+            {
+                new Surface
+                {
+                    RoomId = rooms[0].RoomId,
+                    SurfaceType = "Wall",
+                    Label = "North Wall",
+                    AreaM2 = 12.50m,
+                    SubstrateType = "Plasterboard",
+                    Notes = "Main feature wall"
+                },
+                new Surface
+                {
+                    RoomId = rooms[0].RoomId,
+                    SurfaceType = "Ceiling",
+                    Label = "Lounge Ceiling",
+                    AreaM2 = 18.75m,
+                    SubstrateType = "Plasterboard",
+                    Notes = "Requires smooth finish"
+                },
+                new Surface
+                {
+                    RoomId = rooms[1].RoomId,
+                    SurfaceType = "Wall",
+                    Label = "Hallway Left Wall",
+                    AreaM2 = 9.20m,
+                    SubstrateType = "Old Plaster",
+                    Notes = "Minor surface inconsistencies"
+                },
+                new Surface
+                {
+                    RoomId = rooms[2].RoomId,
+                    SurfaceType = "Wall",
+                    Label = "Bedroom East Wall",
+                    AreaM2 = 10.40m,
+                    SubstrateType = "Concrete",
+                    Notes = "Repair area"
+                }
+            };
+
+            foreach (var surface in surfaces)
+            {
+                context.Surfaces.Add(surface);
             }
             context.SaveChanges();
         }

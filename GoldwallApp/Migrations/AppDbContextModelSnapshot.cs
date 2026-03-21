@@ -119,6 +119,70 @@ namespace GoldwallApp.Migrations
                     b.ToTable("Job", (string)null);
                 });
 
+            modelBuilder.Entity("GoldwallApp.Models.Room", b =>
+                {
+                    b.Property<int>("RoomId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomId"));
+
+                    b.Property<int>("JobId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoomId");
+
+                    b.HasIndex("JobId");
+
+                    b.ToTable("Room", (string)null);
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.Surface", b =>
+                {
+                    b.Property<int>("SurfaceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SurfaceId"));
+
+                    b.Property<decimal>("AreaM2")
+                        .HasPrecision(6, 2)
+                        .HasColumnType("decimal(6,2)");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SubstrateType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SurfaceType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SurfaceId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Surface", (string)null);
+                });
+
             modelBuilder.Entity("GoldwallApp.Models.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -161,7 +225,7 @@ namespace GoldwallApp.Migrations
                     b.HasOne("GoldwallApp.Models.Business", "Business")
                         .WithMany("Clients")
                         .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Business");
@@ -172,13 +236,13 @@ namespace GoldwallApp.Migrations
                     b.HasOne("GoldwallApp.Models.Business", "Business")
                         .WithMany("Jobs")
                         .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("GoldwallApp.Models.Client", "Client")
                         .WithMany()
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Business");
@@ -186,12 +250,34 @@ namespace GoldwallApp.Migrations
                     b.Navigation("Client");
                 });
 
+            modelBuilder.Entity("GoldwallApp.Models.Room", b =>
+                {
+                    b.HasOne("GoldwallApp.Models.Job", "Job")
+                        .WithMany("Rooms")
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Job");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.Surface", b =>
+                {
+                    b.HasOne("GoldwallApp.Models.Room", "Room")
+                        .WithMany("Surfaces")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Room");
+                });
+
             modelBuilder.Entity("GoldwallApp.Models.User", b =>
                 {
                     b.HasOne("GoldwallApp.Models.Business", "Business")
                         .WithMany("Users")
                         .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Business");
@@ -204,6 +290,16 @@ namespace GoldwallApp.Migrations
                     b.Navigation("Jobs");
 
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.Job", b =>
+                {
+                    b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.Room", b =>
+                {
+                    b.Navigation("Surfaces");
                 });
 #pragma warning restore 612, 618
         }

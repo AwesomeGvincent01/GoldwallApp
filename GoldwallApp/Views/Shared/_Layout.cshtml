@@ -1,33 +1,34 @@
-﻿@{
-    ViewData["Title"] = "Home";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Goldwall App</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
 
-<div class="jumbotron">
-    <h1>Goldwall App</h1>
-</div>
+    <div class="container">
+        <h1>Goldwall App</h1>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Welcome</h2>
         <p>
-            This is the early MVC + Entity Framework Core foundation
-            for the Goldwall plastering management application.
+            <a asp-controller="Home" asp-action="Index">Home</a> |
+            <a asp-controller="Home" asp-action="About">About</a> |
+            <a asp-controller="Businesses" asp-action="Index">Businesses</a> |
+            <a asp-controller="Users" asp-action="Index">Users</a> |
+            <a asp-controller="Clients" asp-action="Index">Clients</a> |
+            <a asp-controller="Jobs" asp-action="Index">Jobs</a> |
+            <a asp-controller="Rooms" asp-action="Index">Rooms</a> |
+            <a asp-controller="Surfaces" asp-action="Index">Surfaces</a>
         </p>
-    </div>
-    @RenderBody()
-    <div class="col-md-4">
-        <h2>What this stage does</h2>
-        <p>
-            This starter version sets up the core database-backed structure
-            so that the project can later be expanded into the final app.
-        </p>
+
+        <hr />
+
+        @RenderBody()
+
     </div>
 
-    <div class="col-md-4">
-        <h2>Current focus</h2>
-        <p>
-            Right now the goal is to get the first models, database context,
-            and CRUD pages working correctly.
-        </p>
-    </div>
-</div>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
