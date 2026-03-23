@@ -222,9 +222,9 @@ namespace GoldwallApp.Data
 
             };
 
-            foreach (var work in workEvents)
+            foreach (var workEvent in workEvents)
             {
-                context.WorkEvents.Add(work);
+                context.WorkEvents.Add(workEvent);
             }
             context.SaveChanges();
 
