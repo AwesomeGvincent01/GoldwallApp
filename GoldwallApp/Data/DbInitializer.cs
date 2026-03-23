@@ -187,6 +187,66 @@ namespace GoldwallApp.Data
                 context.Surfaces.Add(surface);
             }
             context.SaveChanges();
+
+
+            var workEvents = new WorkEvent[]
+            {
+                new WorkEvent
+                {
+                    SurfaceId = surfaces[0].SurfaceId,
+                    UserId = users[1].UserId,
+                    EventTypeId = 1,
+                    StartedAt = DateTime.Parse("2026-04-01T09:00:00"),
+                    EndedAt = DateTime.Parse("2026-04-01T10:30:00"),
+                    Notes = "Initial inspection of north wall surface."
+                },
+                new WorkEvent
+                {
+                    SurfaceId = surfaces[0].SurfaceId,
+                    UserId = users[1].UserId,
+                    EventTypeId = 2,
+                    StartedAt = DateTime.Parse("2026-04-02T08:00:00"),
+                    EndedAt = DateTime.Parse("2026-04-02T12:00:00"),
+                    Notes = "Surface preparation including sanding and cleaning."
+                },
+                new WorkEvent
+                {
+                    SurfaceId = surfaces[0].SurfaceId,
+                    UserId = users[1].UserId,
+                    EventTypeId = 3,
+                    StartedAt = DateTime.Parse("2026-04-03T08:00:00"),
+                    EndedAt = DateTime.Parse("2026-04-03T17:00:00"),
+                    Notes = "Applied first coat of plaster to north wall."
+                }
+
+
+            };
+
+            foreach (var work in workEvents)
+            {
+                context.WorkEvents.Add(work);
+            }
+            context.SaveChanges();
+
+
+            var eventTypes = new EventType[]
+            {
+        new EventType
+{
+          Name = "Test Event Type 1",
+         Categoery = "Preparation",
+         IsActive = true,
+         BusinessId = businesses[0].BusinessId
+}
+            };
+
+            foreach (var eventType in eventTypes)
+            {
+                context.EventTypes.Add(eventType);
+
+            }
+            context.SaveChanges();
+
         }
     }
 }
