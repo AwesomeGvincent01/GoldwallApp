@@ -114,6 +114,9 @@ namespace GoldwallApp.Data
             }
             context.SaveChanges();
 
+
+
+
             var rooms = new Room[]
             {
                 new Room
@@ -136,11 +139,18 @@ namespace GoldwallApp.Data
                 }
             };
 
+
+
+
             foreach (var room in rooms)
             {
                 context.Rooms.Add(room);
             }
             context.SaveChanges();
+
+
+
+
 
             var surfaces = new Surface[]
             {
@@ -182,11 +192,49 @@ namespace GoldwallApp.Data
                 }
             };
 
+
+
+
+
+
+
+
             foreach (var surface in surfaces)
             {
                 context.Surfaces.Add(surface);
             }
             context.SaveChanges();
+
+
+
+
+            var eventTypes = new EventType[]
+  {
+    new EventType
+    {
+
+            Name = "Test Event Type 1",
+                Categoery = "Preparation",
+                IsActive = true,
+                BusinessId = businesses[0].BusinessId
+    }
+  };
+
+            foreach (var eventType in eventTypes)
+            {
+                context.EventTypes.Add(eventType);
+            }
+            context.SaveChanges();
+
+
+
+
+
+
+
+
+
+
 
 
             var workEvents = new WorkEvent[]
@@ -228,24 +276,6 @@ namespace GoldwallApp.Data
             }
             context.SaveChanges();
 
-
-            var eventTypes = new EventType[]
-            {
-        new EventType
-{
-          Name = "Test Event Type 1",
-         Categoery = "Preparation",
-         IsActive = true,
-         BusinessId = businesses[0].BusinessId
-}
-            };
-
-            foreach (var eventType in eventTypes)
-            {
-                context.EventTypes.Add(eventType);
-
-            }
-            context.SaveChanges();
 
         }
     }
