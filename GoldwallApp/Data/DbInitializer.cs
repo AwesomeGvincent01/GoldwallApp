@@ -210,14 +210,14 @@ namespace GoldwallApp.Data
 
             var eventTypes = new EventType[]
   {
-    new EventType
-    {
+      new EventType
+      {
 
-            Name = "Test Event Type 1",
-                Categoery = "Preparation",
-                IsActive = true,
-                BusinessId = businesses[0].BusinessId
-    }
+          Name = "Test Event Type 1",
+          Categoery = "Preparation",
+          IsActive = true,
+          BusinessId = businesses[0].BusinessId
+      }
   };
 
             foreach (var eventType in eventTypes)
@@ -276,6 +276,44 @@ namespace GoldwallApp.Data
             }
             context.SaveChanges();
 
+
+
+            var materials = new Material[] {
+                new Material
+                {
+                    MaterialId = 1,
+                    BusinessId = 1,
+                    Brand = "PlasterPro",
+                    ProductName = "All-in-One Plaster",
+                    MaterialType = "Plaster",
+                    Notes = "Used for all plastering work on the north wall."
+                },
+                new Material
+                {
+                    MaterialId = 2,
+                    BusinessId = 1,
+                    Brand = "SanderMax",
+                    ProductName = "Premium Sandpaper",
+                    MaterialType = "Abrasive",
+                    Notes = "Used for surface preparation before plastering."
+                },
+                new Material
+                {
+                    MaterialId = 3,
+                    BusinessId = 1,
+                    Brand = "CleanSurface",
+                    ProductName = "Surface Cleaner",
+                    MaterialType = "Cleaning",
+                    Notes = "Used to clean the surface before plastering."
+                }
+
+            };
+
+       foreach(var material in materials) {
+                context.Materials.Add(material);
+
+            }
+       context.SaveChanges();
 
         }
     }

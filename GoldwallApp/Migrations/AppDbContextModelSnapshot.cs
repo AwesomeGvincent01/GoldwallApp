@@ -148,6 +148,43 @@ namespace GoldwallApp.Migrations
                     b.ToTable("Job", (string)null);
                 });
 
+            modelBuilder.Entity("GoldwallApp.Models.Material", b =>
+                {
+                    b.Property<int>("MaterialId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaterialId"));
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("BusinessId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MaterialType")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("MaterialId");
+
+                    b.HasIndex("BusinessId");
+
+                    b.ToTable("Material");
+                });
+
             modelBuilder.Entity("GoldwallApp.Models.Room", b =>
                 {
                     b.Property<int>("RoomId")
@@ -326,6 +363,17 @@ namespace GoldwallApp.Migrations
                     b.Navigation("Business");
 
                     b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.Material", b =>
+                {
+                    b.HasOne("GoldwallApp.Models.Business", "Business")
+                        .WithMany()
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Business");
                 });
 
             modelBuilder.Entity("GoldwallApp.Models.Room", b =>

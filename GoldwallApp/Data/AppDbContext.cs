@@ -18,6 +18,8 @@ namespace GoldwallApp.Data
         public DbSet<EventType> EventTypes { get; set; }
         public DbSet<WorkEvent> WorkEvents { get; set; }
 
+        public DbSet<Material> Materials { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Business>().ToTable("Business");
@@ -28,6 +30,7 @@ namespace GoldwallApp.Data
             modelBuilder.Entity<Surface>().ToTable("Surface");
             modelBuilder.Entity<EventType>().ToTable("EventType");
             modelBuilder.Entity<WorkEvent>().ToTable("WorkEvent");
+            modelBuilder.Entity<Material>().ToTable("Material");
 
             modelBuilder.Entity<Surface>()
                 .Property(s => s.AreaM2)
@@ -93,5 +96,6 @@ namespace GoldwallApp.Data
                 .HasForeignKey(w => w.EventTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
+        
     }
 }
