@@ -11,18 +11,18 @@ namespace GoldwallApp.Models
 
 
         [Display(Name = "Business Name")] //useful validation thingy majig for displaing  names properly
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Display(Name = "Created At")]
         public DateTime CreatedAt { get; set; }
 
         // Navigation properties:
         // one business can have many users, clients, and jobs
-        public ICollection<User> Users { get; set; }
-        public ICollection<Client> Clients { get; set; }
-        public ICollection<Job> Jobs { get; set; }
+        public ICollection<User>? Users { get; set; }
+        public ICollection<Client>? Clients { get; set; }
+        public ICollection<Job>? Jobs { get; set; }
 
-        public ICollection<EventType> EventTypes { get; set; }
+        public ICollection<EventType>? EventTypes { get; set; }
 
 
     }
