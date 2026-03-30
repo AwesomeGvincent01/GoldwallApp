@@ -22,7 +22,7 @@ namespace GoldwallApp.Models
         public string? MaterialType { get; set; }
 
 
-        [MinLength(255)]
+        [MaxLength(255)]
 
         public string? Notes { get; set; }
 
