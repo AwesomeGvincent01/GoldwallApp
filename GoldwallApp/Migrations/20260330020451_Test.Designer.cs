@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoldwallApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260326234718_MaterialAgain")]
-    partial class MaterialAgain
+    [Migration("20260330020451_Test")]
+    partial class Test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,6 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BusinessId");
@@ -185,7 +184,7 @@ namespace GoldwallApp.Migrations
 
                     b.HasIndex("BusinessId");
 
-                    b.ToTable("Material");
+                    b.ToTable("Material", (string)null);
                 });
 
             modelBuilder.Entity("GoldwallApp.Models.Room", b =>

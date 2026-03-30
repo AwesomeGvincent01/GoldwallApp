@@ -12,21 +12,21 @@ namespace GoldwallApp.Models
         public int BusinessId { get; set; }
 
         [MaxLength(50)]
-        public string Brand { get; set; }
+        public string? Brand { get; set; }
 
         [MaxLength(100)]
 
-        public string ProductName { get; set; }
+        public string? ProductName { get; set; }
 
         [MaxLength(50)]
-        public string MaterialType { get; set; }
+        public string? MaterialType { get; set; }
 
 
         [MinLength(255)]
 
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
 
-        public Business Business { get; set; }
+        public Business? Business { get; set; }
     }
 }

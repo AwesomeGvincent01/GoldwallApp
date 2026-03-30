@@ -17,15 +17,15 @@ public class EventType
     [Display(Name = "Business")]
     public int BusinessId { get; set; }
 
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
-    public string Categoery { get; set; }
+    public string? Categoery { get; set; }
 
     [Display(Name = "Is Active")]
     public bool IsActive { get; set; }
 
-    public Business Business { get; set; }
+    public Business? Business { get; set; }
 
-    public ICollection<WorkEvent> WorkEvents { get; set; }
+    public ICollection<WorkEvent>? WorkEvents { get; set; }
 
 }

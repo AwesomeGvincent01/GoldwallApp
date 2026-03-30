@@ -26,12 +26,12 @@ namespace GoldwallApp.Models
         [Display(Name = "Ended At")]
         public DateTime EndedAt { get; set; }
 
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
-        public Surface Surface { get; set; }
+        public Surface? Surface { get; set; }
 
-        public User User { get; set; }
+        public User? User { get; set; }
 
-        public EventType EventType { get; set; }
+        public EventType? EventType { get; set; }
     }
 }

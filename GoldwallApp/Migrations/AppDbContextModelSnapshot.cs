@@ -34,7 +34,6 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BusinessId");
@@ -182,7 +181,7 @@ namespace GoldwallApp.Migrations
 
                     b.HasIndex("BusinessId");
 
-                    b.ToTable("Material");
+                    b.ToTable("Material", (string)null);
                 });
 
             modelBuilder.Entity("GoldwallApp.Models.Room", b =>

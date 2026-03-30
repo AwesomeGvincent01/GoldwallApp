@@ -11,13 +11,13 @@ namespace GoldwallApp.Models
         [Display(Name = "Job")]
         public int JobId { get; set; }
 
-        public string Name { get; set; }
-        public string Notes { get; set; }
+        public string? Name { get; set; }
+        public string? Notes { get; set; }
 
         
-        public Job Job { get; set; }
+        public Job? Job { get; set; }
 
       
-        public ICollection<Surface> Surfaces { get; set; }
+        public ICollection<Surface>? Surfaces { get; set; }
     }
 }

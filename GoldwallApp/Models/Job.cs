@@ -12,9 +12,9 @@ namespace GoldwallApp.Models
         [Display(Name = "Client")]
         public int ClientId { get; set; }
 
-        public string Title { get; set; }
-        public string Address { get; set; }
-        public string Status { get; set; }
+        public string? Title { get; set; }
+        public string? Address { get; set; }
+        public string? Status { get; set; }
 
         [Display(Name = "Planned Start Date")]
         public DateTime StartDatePlanned { get; set; }
@@ -25,10 +25,10 @@ namespace GoldwallApp.Models
         [Display(Name = "Created At")]
         public DateTime CreatedAt { get; set; }
 
-        public Business Business { get; set; }
-        public Client Client { get; set; }
+        public Business? Business { get; set; }
+        public Client? Client { get; set; }
 
   
-        public ICollection<Room> Rooms { get; set; }
+        public ICollection<Room>? Rooms { get; set; }
     }
 }
