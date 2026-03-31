@@ -25,7 +25,15 @@ namespace GoldwallApp.Data
 
         public DbSet<DefectReport> DefectReports { get; set; }
 
-        public DbSet<DefectReport> DefectTypes { get; set; }
+        public DbSet<DefectType> DefectTypes { get; set; }
+
+        public DbSet<EvidencePhoto> EvidencePhotos { get; set; }
+
+        public DbSet<Pattern> Patterns { get; set; }
+
+        public DbSet<PatternRule> PatternRules { get; set; }    
+        
+        public DbSet<PatternOutcome> PatternOutcomes { get; set; }  
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,6 +49,11 @@ namespace GoldwallApp.Data
             modelBuilder.Entity<EventContext>().ToTable("EventContext");
             modelBuilder.Entity<DefectReport>().ToTable("DefectReport");
             modelBuilder.Entity<DefectType>().ToTable("DefectType");
+            modelBuilder.Entity <EvidencePhoto>().ToTable("EvidencePhoto"); 
+            modelBuilder.Entity<Pattern>().ToTable("Pattern");
+            modelBuilder.Entity<PatternRule>().ToTable("PatternRule");
+            modelBuilder.Entity<PatternOutcome>().ToTable("PatternOutcome");
+
 
             modelBuilder.Entity<Surface>()
                 .Property(s => s.AreaM2)
@@ -114,6 +127,41 @@ namespace GoldwallApp.Data
                 .WithMany(b => b.Materials)
                 .HasForeignKey(m => m.BusinessId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+
+            //new
+
+            modelBuilder.Entity<EventContext>()
+                .Property(ec => ec.ThicknessMm)
+                .HasPrecision(5, 2);
+
+            modelBuilder.Entity<EventContext>()
+                .Property (ec => ec.HumidityPct)
+                .HasPrecision (5, 2);
+
+
+            modelBuilder.Entity<EventContext>()
+                .Property(ec => ec.TemperatureC)
+                .HasPrecision(5, 2);
+
+            modelBuilder.Entity<EventContext>()
+                .Property(ec => ec.TimeSincePrevEventHours)
+                .HasPrecision(5, 2);
+
+            
+
+            modelBuilder.Entity<EventOutcome>()
+                .Property (eo => eo.DryTimeHoursActual)
+                .HasPrecision(5, 2);
+
+            modelBuilder.Entity<Pattern>()
+                .Property(p => p.Confidence)
+                .HasPrecision(5, 2);
+
+            modelBuilder.Entity<PatternOutcome>()
+                .Property(po => po.Probability)
+                .HasPrecision(4, 2);
+
         }
        
         
