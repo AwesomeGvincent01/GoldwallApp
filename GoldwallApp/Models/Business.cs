@@ -24,6 +24,8 @@ namespace GoldwallApp.Models
 
         public ICollection<EventType>? EventTypes { get; set; }
 
+        public ICollection<Material>? Materials { get; set; }
+
 
     }
 }

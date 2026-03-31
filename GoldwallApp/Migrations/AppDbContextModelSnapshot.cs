@@ -345,9 +345,9 @@ namespace GoldwallApp.Migrations
             modelBuilder.Entity("GoldwallApp.Models.Material", b =>
                 {
                     b.HasOne("GoldwallApp.Models.Business", "Business")
-                        .WithMany()
+                        .WithMany("Materials")
                         .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Business");
@@ -420,6 +420,8 @@ namespace GoldwallApp.Migrations
                     b.Navigation("EventTypes");
 
                     b.Navigation("Jobs");
+
+                    b.Navigation("Materials");
 
                     b.Navigation("Users");
                 });

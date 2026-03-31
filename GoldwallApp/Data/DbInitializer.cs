@@ -289,7 +289,10 @@ namespace GoldwallApp.Data
 
 
 
-            var materials = new Material[] {
+
+            var materials = new Material[] 
+            {
+
                 new Material
                 {
                     MaterialId = 1,
@@ -328,9 +331,40 @@ namespace GoldwallApp.Data
 
 
 
+            var defectTypes = new DefectType[]
+            {
+                new DefectType
+                {
+                    Name = "Crack",
+                    Notes = "A visible crack in the surface.",
+                    BusinessId = businesses[0].BusinessId
+                },
+                new DefectType
+                {
+                    Name = "Bubble",
+                    Notes = "A raised area indicating a bubble in the plaster.",
+                    BusinessId = businesses[0].BusinessId
+                },
+                new DefectType
+                {
+                    Name = "Uneven Surface",
+                    Notes = "An area where the surface is not smooth.",
+                    BusinessId = businesses[0].BusinessId
+                }
+            };
+            foreach (var defectType in defectTypes) {
+                context.DefectTypes.Add(defectType);
+            }
+            context.SaveChanges();
 
 
 
+
+
+
+
+            
+            
 
 
         }
