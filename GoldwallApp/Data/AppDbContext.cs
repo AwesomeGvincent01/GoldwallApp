@@ -20,6 +20,9 @@ namespace GoldwallApp.Data
 
         public DbSet<Material> Materials { get; set; }
 
+
+        public DbSet<EventContext> EventContexts { get; set; }
+
         public DbSet<DefectReport> DefectReports { get; set; }
 
         public DbSet<DefectReport> DefectTypes { get; set; }
@@ -35,6 +38,7 @@ namespace GoldwallApp.Data
             modelBuilder.Entity<EventType>().ToTable("EventType");
             modelBuilder.Entity<WorkEvent>().ToTable("WorkEvent");
             modelBuilder.Entity<Material>().ToTable("Material");
+            modelBuilder.Entity<EventContext>().ToTable("EventContext");
             modelBuilder.Entity<DefectReport>().ToTable("DefectReport");
             modelBuilder.Entity<DefectType>().ToTable("DefectType");
 
