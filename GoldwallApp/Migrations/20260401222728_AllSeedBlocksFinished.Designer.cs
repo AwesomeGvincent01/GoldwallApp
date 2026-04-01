@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoldwallApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260401213246_FixMaterialInitializer")]
-    partial class FixMaterialInitializer
+    [Migration("20260401222728_AllSeedBlocksFinished")]
+    partial class AllSeedBlocksFinished
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -108,6 +108,8 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("DefectReportId");
+
+                    b.HasIndex("SurfaceId");
 
                     b.ToTable("DefectReport", (string)null);
                 });
@@ -574,6 +576,17 @@ namespace GoldwallApp.Migrations
                     b.Navigation("Business");
                 });
 
+            modelBuilder.Entity("GoldwallApp.Models.DefectReport", b =>
+                {
+                    b.HasOne("GoldwallApp.Models.Surface", "Surface")
+                        .WithMany("DefectReports")
+                        .HasForeignKey("SurfaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Surface");
+                });
+
             modelBuilder.Entity("GoldwallApp.Models.EventType", b =>
                 {
                     b.HasOne("GoldwallApp.Models.Business", "Business")
@@ -705,6 +718,8 @@ namespace GoldwallApp.Migrations
 
             modelBuilder.Entity("GoldwallApp.Models.Surface", b =>
                 {
+                    b.Navigation("DefectReports");
+
                     b.Navigation("WorkEvents");
                 });
 

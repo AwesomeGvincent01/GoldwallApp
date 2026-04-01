@@ -448,7 +448,7 @@ namespace GoldwallApp.Data
                 {
                     WorkEventId = workEvents[0].WorkEventId,
                     FileUrl = "https://example.com/photos/inspection1.jpg",
-                    Caption = "Initial inspection of north wall surface."
+                    Caption = "Initial inspection of north wall surface.",
                     TakenAt = DateTime.Now,
                 },
                 new EvidencePhoto
@@ -462,7 +462,7 @@ namespace GoldwallApp.Data
                 {
                     WorkEventId = workEvents[2].WorkEventId,
                     FileUrl = "https://example.com/photos/application1.jpg",
-                    Caption = "Applied first coat of plaster to north wall."
+                    Caption = "Applied first coat of plaster to north wall.",
                     TakenAt = DateTime.Now,
                 }
             };
@@ -472,6 +472,12 @@ namespace GoldwallApp.Data
                 context.EvidencePhotos.Add(photo);
             }
             context.SaveChanges();
+
+
+
+
+
+
 
 
 
@@ -488,12 +494,161 @@ namespace GoldwallApp.Data
                     FixEventId = 0,
                     Status = "Open"
                 },
+                new DefectReport
+                {
+                    SurfaceId = surfaces[0].SurfaceId,
+                    DefectTypeId = defectTypes[1].DefectTypeId,
+                    ReportedAt = DateTime.Now,
+                    Severity = 2,
+                    Description = "Bubble observed in the plaster surface.",
+                    SuspectedCauseEventId = 0,
+                    FixEventId = 0,
+                    Status = "Open"
+                },
+                new DefectReport
+                {
+                    SurfaceId = surfaces[0].SurfaceId,
+                    DefectTypeId = defectTypes[2].DefectTypeId,
+                    ReportedAt = DateTime.Now,
+                    Severity = 2,
+                    Description = "Uneven surface observed after first coat application.",
+                    SuspectedCauseEventId= 0,
+                    FixEventId= 0,
+                    Status = "Open"
+                }
 
 
-               
-           
+
+
             };
 
+            foreach (var defectReport in defectreports)
+            {
+                context.DefectReports.Add(defectReport);
+            }
+            context.SaveChanges();
+
+
+
+
+            var patterns = new Pattern[]
+            {
+                new Pattern
+                {
+                    Title = "Crack Pattern",
+                    Description = "Common crack patterns observed in plaster surfaces.",
+                    Confidence = 0.70m,
+                    CreatedAt = DateTime.Now,
+                    BusinessId = businesses[0].BusinessId
+                },
+                new Pattern
+                {
+                    Title = "Bubble Pattern",
+                    Description = "Typical bubble formations in plaster surfaces.",
+                    Confidence = 0.81m,
+                    CreatedAt = DateTime.Now,
+                    BusinessId = businesses[0].BusinessId
+                },
+                new Pattern
+                {
+                    Title = "Uneven Surface Pattern",
+                    Description = "Patterns of uneven surfaces observed after plaster application.",
+                    Confidence = 0.85m,
+                    CreatedAt = DateTime.Now,
+                    BusinessId = businesses[0].BusinessId
+                }
+            };
+
+
+
+            foreach (var pattern in patterns)
+            {
+                context.Patterns.Add(pattern);
+            }
+            context.SaveChanges();
+
+
+
+
+
+
+
+
+
+
+
+            var patternrules = new PatternRule[]
+            {
+                new PatternRule
+                {
+                    PatternId = patterns[0].PatternId,
+                    FieldName = "HumidityPct", 
+                    Operator = ">",
+                    Value1 = "65",
+                    Value2 = "N/A"
+
+                },
+                new PatternRule
+                {
+                    PatternId = patterns[1].PatternId,
+                    FieldName = "VentilationRating",
+                    Operator= ">",
+                    Value1 = "4",
+                    Value2 = "N/A"
+
+                },
+                new PatternRule
+                {
+                    PatternId = patterns[2].PatternId,
+                    FieldName = "TimeSincePrevEventHours",
+                    Operator = ">",
+                    Value1 = "20",
+                    Value2 = "N/A"
+
+                }
+            };
+
+
+            foreach (var patternRule in patternrules)
+            {
+                context.PatternRules.Add(patternRule);
+            }
+            context.SaveChanges();
+
+
+            var patternoutcomes = new PatternOutcome[]
+            {
+
+                new PatternOutcome {
+                    PatternId = patterns[0].PatternId,
+                    OutcomeMetric = "Crack Severity",
+                    Probability = 0.70m,
+                    Notes = "Higher humidity levels are associated with increased crack severity."
+
+            },
+
+                new PatternOutcome {
+                PatternId= patterns[1].PatternId,
+                OutcomeMetric = "Bubble Size",
+                Probability = 0.81m,
+                Notes = "Poor ventilation is linked to larger bubble formations in plaster surfaces."
+
+                },
+
+               new PatternOutcome
+               {
+                   PatternId= patterns[2].PatternId,
+                   OutcomeMetric = "Surface Unevenness",
+                   Probability = 0.85m,
+                   Notes = "Longer time between events is correlated with increased surface unevenness after plaster application."
+               }
+            };
+
+            foreach (var patternOutcome in patternoutcomes)
+            {
+                context.PatternOutcomes.Add(patternOutcome);
+            }
+            context.SaveChanges();
 
 
 

@@ -106,6 +106,8 @@ namespace GoldwallApp.Migrations
 
                     b.HasKey("DefectReportId");
 
+                    b.HasIndex("SurfaceId");
+
                     b.ToTable("DefectReport", (string)null);
                 });
 
@@ -571,6 +573,17 @@ namespace GoldwallApp.Migrations
                     b.Navigation("Business");
                 });
 
+            modelBuilder.Entity("GoldwallApp.Models.DefectReport", b =>
+                {
+                    b.HasOne("GoldwallApp.Models.Surface", "Surface")
+                        .WithMany("DefectReports")
+                        .HasForeignKey("SurfaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Surface");
+                });
+
             modelBuilder.Entity("GoldwallApp.Models.EventType", b =>
                 {
                     b.HasOne("GoldwallApp.Models.Business", "Business")
@@ -702,6 +715,8 @@ namespace GoldwallApp.Migrations
 
             modelBuilder.Entity("GoldwallApp.Models.Surface", b =>
                 {
+                    b.Navigation("DefectReports");
+
                     b.Navigation("WorkEvents");
                 });
 

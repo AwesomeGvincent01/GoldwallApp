@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GoldwallApp.Migrations
 {
     /// <inheritdoc />
-    public partial class FixMaterialInitializer : Migration
+    public partial class AllSeedBlocksFinished : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,26 +23,6 @@ namespace GoldwallApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Business", x => x.BusinessId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DefectReport",
-                columns: table => new
-                {
-                    DefectReportId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SurfaceId = table.Column<int>(type: "int", nullable: false),
-                    DefectTypeId = table.Column<int>(type: "int", nullable: false),
-                    ReportedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Severity = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    SuspectedCauseEventId = table.Column<int>(type: "int", nullable: false),
-                    FixEventId = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DefectReport", x => x.DefectReportId);
                 });
 
             migrationBuilder.CreateTable(
@@ -334,6 +314,32 @@ namespace GoldwallApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DefectReport",
+                columns: table => new
+                {
+                    DefectReportId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SurfaceId = table.Column<int>(type: "int", nullable: false),
+                    DefectTypeId = table.Column<int>(type: "int", nullable: false),
+                    ReportedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Severity = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    SuspectedCauseEventId = table.Column<int>(type: "int", nullable: false),
+                    FixEventId = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DefectReport", x => x.DefectReportId);
+                    table.ForeignKey(
+                        name: "FK_DefectReport_Surface_SurfaceId",
+                        column: x => x.SurfaceId,
+                        principalTable: "Surface",
+                        principalColumn: "SurfaceId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "WorkEvent",
                 columns: table => new
                 {
@@ -373,6 +379,11 @@ namespace GoldwallApp.Migrations
                 name: "IX_Client_BusinessId",
                 table: "Client",
                 column: "BusinessId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DefectReport_SurfaceId",
+                table: "DefectReport",
+                column: "SurfaceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EventType_BusinessId",
