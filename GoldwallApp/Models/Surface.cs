@@ -30,5 +30,7 @@ namespace GoldwallApp.Models
         public Room? Room { get; set; }
 
         public ICollection<WorkEvent>? WorkEvents { get; set; }
+
+        public ICollection <DefectReport>? DefectReports { get; set; }
     }
 }

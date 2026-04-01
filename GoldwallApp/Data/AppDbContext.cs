@@ -20,6 +20,7 @@ namespace GoldwallApp.Data
 
         public DbSet<Material> Materials { get; set; }
 
+        public DbSet<EventOutcome> EventOutcomes { get; set; }  
 
         public DbSet<EventContext> EventContexts { get; set; }
 

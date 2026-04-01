@@ -23,5 +23,8 @@ namespace GoldwallApp.Models
 
         public string? Status { get; set; }
 
+
+        public Surface? Surface { get; set; }   
+
     }
 }

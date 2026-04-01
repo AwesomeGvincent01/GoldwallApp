@@ -210,27 +210,27 @@ namespace GoldwallApp.Data
 
             var eventTypes = new EventType[]
   {
-    new EventType
-    {
-        Name = "Inspection",
-        Categoery = "Preparation",
-        IsActive = true,
-        BusinessId = businesses[0].BusinessId
-    },
-    new EventType
-    {
-        Name = "Surface Preparation",
-        Categoery = "Preparation",
-        IsActive = true,
-        BusinessId = businesses[0].BusinessId
-    },
-    new EventType
-    {
-        Name = "First Coat",
-        Categoery = "Application",
-        IsActive = true,
-        BusinessId = businesses[0].BusinessId
-    }
+      new EventType
+      {
+          Name = "Inspection",
+          Categoery = "Preparation",
+          IsActive = true,
+          BusinessId = businesses[0].BusinessId
+      },
+      new EventType
+      {
+          Name = "Surface Preparation",
+          Categoery = "Preparation",
+          IsActive = true,
+          BusinessId = businesses[0].BusinessId
+      },
+      new EventType
+      {
+          Name = "First Coat",
+          Categoery = "Application",
+          IsActive = true,
+          BusinessId = businesses[0].BusinessId
+      }
   };
 
             foreach (var eventType in eventTypes)
@@ -290,12 +290,12 @@ namespace GoldwallApp.Data
 
 
 
-            var materials = new Material[] 
+            var materials = new Material[]
             {
 
                 new Material
                 {
-                   
+
                     BusinessId = businesses[0].BusinessId,
                     Brand = "PlasterPro",
                     ProductName = "All-in-One Plaster",
@@ -321,11 +321,12 @@ namespace GoldwallApp.Data
 
             };
 
-       foreach(var material in materials) {
+            foreach (var material in materials)
+            {
                 context.Materials.Add(material);
 
             }
-       context.SaveChanges();
+            context.SaveChanges();
 
 
 
@@ -350,7 +351,8 @@ namespace GoldwallApp.Data
                     BusinessId = businesses[0].BusinessId
                 }
             };
-            foreach (var defectType in defectTypes) {
+            foreach (var defectType in defectTypes)
+            {
                 context.DefectTypes.Add(defectType);
             }
             context.SaveChanges();
@@ -361,10 +363,148 @@ namespace GoldwallApp.Data
 
 
 
-            
-            
+
+            var eventcontexts = new EventContext[] {
+
+                new EventContext
+                {
+                    MaterialId = materials[0].MaterialId,
+
+                    ThicknessMm = 5.0m,
+                    HumidityPct = 60.0m,
+                    TemperatureC = 22.0m,
+                    VentilationRating = 3,
+                    TimeSincePrevEventHours = 24.0m,
+                    MixRatio = "1:1:1",
+                    Notes = "Standard mix ratio for plaster application."
+                },
+                new EventContext
+                {
+                    MaterialId = materials[1].MaterialId,
+                    ThicknessMm = 5.0m,
+                    HumidityPct = 50.0m,
+                    TemperatureC = 22.0m,
+                    VentilationRating = 4,
+                    TimeSincePrevEventHours = 12.0m,
+                    MixRatio = "N/A",
+                    Notes = "Sanding sealer applied before plastering."
+                },
+                new EventContext {
+                    MaterialId= materials[2].MaterialId,
+                    ThicknessMm = 4.0m,
+                    HumidityPct = 55.0m,
+                    TemperatureC = 22.0m,
+                    VentilationRating = 6,
+                    TimeSincePrevEventHours = 18.0m,
+                    MixRatio = "N/A",
+                    Notes = "Primer applied to ensure good adhesion of plaster."
+
+                    }
+                };
+            foreach (var eventcontext in eventcontexts)
+            {
+                context.EventContexts.Add(eventcontext);
+            }
+            context.SaveChanges();
+
+
+
+            var eventoutcomes = new EventOutcome[]
+            {
+                new EventOutcome {
+                    OutcomeStatus = "Success",
+                    DryTimeHoursActual = 6.0m,
+                    ReworkRequired = false,
+                    QualityRating = 5,
+                    Notes = "First coat dried successfully with excellent finish."
+
+            },
+                new EventOutcome {
+                    OutcomeStatus = "Minor Issues",
+                    DryTimeHoursActual = 8.0m,
+                    ReworkRequired = true,
+                    QualityRating= 2,
+                    Notes = "Some minor cracking observed, rework required to fix imperfections."
+                },
+                new EventOutcome {
+                    OutcomeStatus = "Success",
+                    DryTimeHoursActual = 5.0m,
+                    ReworkRequired = false,
+                    QualityRating = 4,
+                    Notes = "Primer dried well, surface ready for plastering."
+                }
+        };
+            foreach (var eventout in eventoutcomes)
+            {
+                context.EventOutcomes.Add(eventout);
+            }
+            context.SaveChanges();
+
+
+
+            var evidencephotos = new EvidencePhoto[]
+            {
+                new EvidencePhoto
+                {
+                    WorkEventId = workEvents[0].WorkEventId,
+                    FileUrl = "https://example.com/photos/inspection1.jpg",
+                    Caption = "Initial inspection of north wall surface."
+                    TakenAt = DateTime.Now,
+                },
+                new EvidencePhoto
+                {
+                    WorkEventId = workEvents[1].WorkEventId,
+                    FileUrl = "https://example.com/photos/preparation1.jpg",
+                    Caption = "Surface preparation including sanding and cleaning.",
+                    TakenAt = DateTime.Now,
+                },
+                new EvidencePhoto
+                {
+                    WorkEventId = workEvents[2].WorkEventId,
+                    FileUrl = "https://example.com/photos/application1.jpg",
+                    Caption = "Applied first coat of plaster to north wall."
+                    TakenAt = DateTime.Now,
+                }
+            };
+
+            foreach (var photo in evidencephotos)
+            {
+                context.EvidencePhotos.Add(photo);
+            }
+            context.SaveChanges();
+
+
+
+            var defectreports = new DefectReport[]
+            {
+                new DefectReport
+                {
+                    SurfaceId = surfaces[0].SurfaceId,
+                    DefectTypeId = defectTypes[0].DefectTypeId,
+                   ReportedAt = DateTime.Now,
+                    Severity = 3,
+                     Description = "Crack observed in the plaster after drying.",
+                    SuspectedCauseEventId = 0,
+                    FixEventId = 0,
+                    Status = "Open"
+                },
+
+
+               
+           
+            };
+
+
+
+
+
+
+
+
+
 
 
         }
+
     }
 }
