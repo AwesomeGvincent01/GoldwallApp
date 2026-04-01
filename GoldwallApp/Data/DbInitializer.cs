@@ -295,8 +295,8 @@ namespace GoldwallApp.Data
 
                 new Material
                 {
-                    MaterialId = 1,
-                    BusinessId = 1,
+                   
+                    BusinessId = businesses[0].BusinessId,
                     Brand = "PlasterPro",
                     ProductName = "All-in-One Plaster",
                     MaterialType = "Plaster",
@@ -304,21 +304,19 @@ namespace GoldwallApp.Data
                 },
                 new Material
                 {
-                    MaterialId = 2,
-                    BusinessId = 1,
-                    Brand = "SanderMax",
-                    ProductName = "Premium Sandpaper",
-                    MaterialType = "Abrasive",
-                    Notes = "Used for surface preparation before plastering."
+                    BusinessId = businesses[0].BusinessId,
+                    Brand = "SmoothFinish",
+                    ProductName = "Premium Sanding Sealer",
+                    MaterialType = "Sealer",
+                    Notes = "Applied before plastering to ensure a smooth finish."
                 },
                 new Material
                 {
-                    MaterialId = 3,
-                    BusinessId = 1,
-                    Brand = "CleanSurface",
-                    ProductName = "Surface Cleaner",
-                    MaterialType = "Cleaning",
-                    Notes = "Used to clean the surface before plastering."
+                    BusinessId = businesses[0].BusinessId,
+                    Brand = "QuickDry",
+                    ProductName = "Fast-Drying Primer",
+                    MaterialType = "Primer",
+                    Notes = "Used to prime the surface before plastering."
                 }
 
             };

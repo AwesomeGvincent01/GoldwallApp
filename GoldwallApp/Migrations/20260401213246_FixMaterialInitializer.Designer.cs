@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoldwallApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260401000106_AllModelsDone")]
-    partial class AllModelsDone
+    [Migration("20260401213246_FixMaterialInitializer")]
+    partial class FixMaterialInitializer
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
