@@ -1,0 +1,48 @@
+﻿@model GoldwallApp.Models.EventOutcome
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>EventOutcome</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OutcomeStatus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OutcomeStatus)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DryTimeHoursActual)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DryTimeHoursActual)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReworkRequired)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReworkRequired)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.QualityRating)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.QualityRating)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.WorkEventId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

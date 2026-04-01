@@ -1,0 +1,53 @@
+﻿@model IEnumerable<GoldwallApp.Models.PatternOutcome>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PatternId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OutcomeMetric)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Probability)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PatternId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OutcomeMetric)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Probability)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PatternOutcomeId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PatternOutcomeId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PatternOutcomeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

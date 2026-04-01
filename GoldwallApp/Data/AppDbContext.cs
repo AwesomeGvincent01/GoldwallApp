@@ -163,6 +163,7 @@ namespace GoldwallApp.Data
                 .HasPrecision(4, 2);
 
         }
+        public DbSet<GoldwallApp.Models.EventOutcome> EventOutcome { get; set; } = default!;
        
         
     }

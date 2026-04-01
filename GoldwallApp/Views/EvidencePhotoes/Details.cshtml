@@ -1,0 +1,48 @@
+﻿@model GoldwallApp.Models.EvidencePhoto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>EvidencePhoto</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WorkEventId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WorkEventId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DefectReportId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DefectReportId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FileUrl)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FileUrl)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Caption)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Caption)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TakenAt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TakenAt)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.EvidencePhotoId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

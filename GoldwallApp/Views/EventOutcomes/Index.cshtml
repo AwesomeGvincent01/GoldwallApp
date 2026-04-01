@@ -1,0 +1,59 @@
+﻿@model IEnumerable<GoldwallApp.Models.EventOutcome>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OutcomeStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DryTimeHoursActual)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReworkRequired)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QualityRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OutcomeStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DryTimeHoursActual)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReworkRequired)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QualityRating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.WorkEventId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.WorkEventId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.WorkEventId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
