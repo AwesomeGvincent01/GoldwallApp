@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GoldwallApp.Migrations
 {
     /// <inheritdoc />
-    public partial class AllSeedBlocksFinished : Migration
+    public partial class FixEventOutcomeAndContext : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,43 +38,6 @@ namespace GoldwallApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DefectType", x => x.DefectTypeId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EventContext",
-                columns: table => new
-                {
-                    WorkEventId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MaterialId = table.Column<int>(type: "int", nullable: false),
-                    ThicknessMm = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
-                    HumidityPct = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
-                    TemperatureC = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
-                    VentilationRating = table.Column<int>(type: "int", nullable: false),
-                    TimeSincePrevEventHours = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
-                    MixRatio = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EventContext", x => x.WorkEventId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EventOutcome",
-                columns: table => new
-                {
-                    WorkEventId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OutcomeStatus = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    DryTimeHoursActual = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
-                    ReworkRequired = table.Column<bool>(type: "bit", nullable: false),
-                    QualityRating = table.Column<int>(type: "int", nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EventOutcome", x => x.WorkEventId);
                 });
 
             migrationBuilder.CreateTable(
@@ -373,6 +336,53 @@ namespace GoldwallApp.Migrations
                         principalTable: "User",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EventContext",
+                columns: table => new
+                {
+                    WorkEventId = table.Column<int>(type: "int", nullable: false),
+                    MaterialId = table.Column<int>(type: "int", nullable: false),
+                    ThicknessMm = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
+                    HumidityPct = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
+                    TemperatureC = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
+                    VentilationRating = table.Column<int>(type: "int", nullable: false),
+                    TimeSincePrevEventHours = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
+                    MixRatio = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventContext", x => x.WorkEventId);
+                    table.ForeignKey(
+                        name: "FK_EventContext_WorkEvent_WorkEventId",
+                        column: x => x.WorkEventId,
+                        principalTable: "WorkEvent",
+                        principalColumn: "WorkEventId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EventOutcome",
+                columns: table => new
+                {
+                    WorkEventId = table.Column<int>(type: "int", nullable: false),
+                    OutcomeStatus = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    DryTimeHoursActual = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
+                    ReworkRequired = table.Column<bool>(type: "bit", nullable: false),
+                    QualityRating = table.Column<int>(type: "int", nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventOutcome", x => x.WorkEventId);
+                    table.ForeignKey(
+                        name: "FK_EventOutcome_WorkEvent_WorkEventId",
+                        column: x => x.WorkEventId,
+                        principalTable: "WorkEvent",
+                        principalColumn: "WorkEventId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

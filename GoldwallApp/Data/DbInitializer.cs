@@ -1,4 +1,5 @@
 ﻿using GoldwallApp.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace GoldwallApp.Data
 {
@@ -368,6 +369,8 @@ namespace GoldwallApp.Data
 
                 new EventContext
                 {
+                 
+                    WorkEventId = workEvents[0].WorkEventId,
                     MaterialId = materials[0].MaterialId,
 
                     ThicknessMm = 5.0m,
@@ -380,6 +383,7 @@ namespace GoldwallApp.Data
                 },
                 new EventContext
                 {
+                    WorkEventId= workEvents[1].WorkEventId,
                     MaterialId = materials[1].MaterialId,
                     ThicknessMm = 5.0m,
                     HumidityPct = 50.0m,
@@ -390,6 +394,7 @@ namespace GoldwallApp.Data
                     Notes = "Sanding sealer applied before plastering."
                 },
                 new EventContext {
+                    WorkEventId = workEvents[2].WorkEventId,
                     MaterialId= materials[2].MaterialId,
                     ThicknessMm = 4.0m,
                     HumidityPct = 55.0m,
@@ -412,6 +417,7 @@ namespace GoldwallApp.Data
             var eventoutcomes = new EventOutcome[]
             {
                 new EventOutcome {
+                    WorkEventId = workEvents[0].WorkEventId,
                     OutcomeStatus = "Success",
                     DryTimeHoursActual = 6.0m,
                     ReworkRequired = false,
@@ -420,6 +426,7 @@ namespace GoldwallApp.Data
 
             },
                 new EventOutcome {
+                    WorkEventId= workEvents[1].WorkEventId,
                     OutcomeStatus = "Minor Issues",
                     DryTimeHoursActual = 8.0m,
                     ReworkRequired = true,
@@ -427,6 +434,7 @@ namespace GoldwallApp.Data
                     Notes = "Some minor cracking observed, rework required to fix imperfections."
                 },
                 new EventOutcome {
+                    WorkEventId=workEvents[2].WorkEventId,
                     OutcomeStatus = "Success",
                     DryTimeHoursActual = 5.0m,
                     ReworkRequired = false,

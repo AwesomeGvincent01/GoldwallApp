@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GoldwallApp.Models
 {
@@ -7,6 +8,7 @@ namespace GoldwallApp.Models
 
 
         [Key]
+        [ForeignKey("WorkEvent")]
         public int WorkEventId { get; set; }
 
         public int MaterialId { get; set; }
@@ -26,5 +28,8 @@ namespace GoldwallApp.Models
 
         [MaxLength(255)]
         public string? Notes { get; set; }
+
+
+        public WorkEvent? WorkEvent { get; set; }
     }
 }

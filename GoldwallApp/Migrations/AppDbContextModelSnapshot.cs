@@ -140,10 +140,7 @@ namespace GoldwallApp.Migrations
             modelBuilder.Entity("GoldwallApp.Models.EventContext", b =>
                 {
                     b.Property<int>("WorkEventId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkEventId"));
 
                     b.Property<decimal>("HumidityPct")
                         .HasPrecision(5, 2)
@@ -183,10 +180,7 @@ namespace GoldwallApp.Migrations
             modelBuilder.Entity("GoldwallApp.Models.EventOutcome", b =>
                 {
                     b.Property<int>("WorkEventId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkEventId"));
 
                     b.Property<decimal>("DryTimeHoursActual")
                         .HasPrecision(5, 2)
@@ -582,6 +576,28 @@ namespace GoldwallApp.Migrations
                         .IsRequired();
 
                     b.Navigation("Surface");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.EventContext", b =>
+                {
+                    b.HasOne("GoldwallApp.Models.WorkEvent", "WorkEvent")
+                        .WithMany()
+                        .HasForeignKey("WorkEventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WorkEvent");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.EventOutcome", b =>
+                {
+                    b.HasOne("GoldwallApp.Models.WorkEvent", "WorkEvent")
+                        .WithMany()
+                        .HasForeignKey("WorkEventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WorkEvent");
                 });
 
             modelBuilder.Entity("GoldwallApp.Models.EventType", b =>
