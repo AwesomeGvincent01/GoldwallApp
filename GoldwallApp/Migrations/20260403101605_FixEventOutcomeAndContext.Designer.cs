@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoldwallApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260402001159_FixEventOutcomeAndContext")]
+    [Migration("20260403101605_FixEventOutcomeAndContext")]
     partial class FixEventOutcomeAndContext
     {
         /// <inheritdoc />
