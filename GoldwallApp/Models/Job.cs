@@ -12,8 +12,16 @@ namespace GoldwallApp.Models
         [Display(Name = "Client")]
         public int ClientId { get; set; }
 
+        [Required]
+        [StringLength(100)]
         public string? Title { get; set; }
+
+        [Required]
+        [StringLength(150)]
         public string? Address { get; set; }
+
+        [Required]
+        [StringLength(30)]
         public string? Status { get; set; }
 
         [Display(Name = "Planned Start Date")]
