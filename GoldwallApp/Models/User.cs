@@ -9,7 +9,7 @@ namespace GoldwallApp.Models
         [Display(Name = "Business")]
         public int BusinessId { get; set; }
 
-        [MaxLength(100)]  
+        [StringLength(100)]  
         [Required]
         [Display(Name = "Full Name")]
         public string? FullName { get; set; }
@@ -17,15 +17,15 @@ namespace GoldwallApp.Models
 
         [Required] 
         [EmailAddress] //required and checked so email input follows the proper format
-        [MaxLength(100)]
+        [StringLength(100)]
         public string? Email { get; set; }
         [Required]
         [EmailAddress]
-        [MaxLength(100)]
+        [StringLength(100)]
         public string? Role { get; set; }
 
         [Required]
-        [MaxLength(255)]
+        [StringLength(255)]
         [Display(Name = "Password Hash")]
         public string? PasswordHash { get; set; }
 

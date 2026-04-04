@@ -10,16 +10,16 @@ namespace GoldwallApp.Models
         public int BusinessId { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [StringLength(100)]
         public string? Name { get; set; }
 
         [Required]
         [Phone]
-        [MaxLength(30)]
+       [StringLength(30)]
         public string? Phone { get; set; }
 
         [EmailAddress]
-        [MaxLength(100)]
+        [StringLength(100)]
         public string? Email { get; set; }
 
         [Display(Name = "Created At")]

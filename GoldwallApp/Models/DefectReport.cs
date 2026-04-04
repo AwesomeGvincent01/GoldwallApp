@@ -14,7 +14,7 @@ namespace GoldwallApp.Models
 
         public int Severity { get; set; }
 
-        [MaxLength(500)]
+        [StringLength(500)]
         public string? Description { get; set; }
 
         public int SuspectedCauseEventId { get; set; }

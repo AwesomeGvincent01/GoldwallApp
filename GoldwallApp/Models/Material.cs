@@ -11,18 +11,18 @@ namespace GoldwallApp.Models
         //fk
         public int BusinessId { get; set; }
 
-        [MaxLength(50)]
+        [StringLength(50)]
         public string? Brand { get; set; }
 
-        [MaxLength(100)]
+        [StringLength(100)]
 
         public string? ProductName { get; set; }
 
-        [MaxLength(50)]
+        [StringLength(50)]
         public string? MaterialType { get; set; }
 
 
-        [MaxLength(255)]
+        [StringLength(255)]
 
         public string? Notes { get; set; }
 

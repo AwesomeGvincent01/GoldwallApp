@@ -9,16 +9,16 @@ namespace GoldwallApp.Models
 
         public int PatternId { get; set; }
 
-        [MaxLength(50)]
+        [StringLength(50)]
         public string? FieldName { get; set; }
 
-        [MaxLength (20)]
+        [StringLength (20)]
         public string? Operator { get; set; }
 
-        [MaxLength(50)]
+        [StringLength(50)]
         public string? Value1 { get; set; }
 
-        [MaxLength(50)  ]
+        [StringLength(50)  ]
         public string Value2 { get; set; }
     }
 }

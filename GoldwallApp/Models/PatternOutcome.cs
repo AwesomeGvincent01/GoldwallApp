@@ -9,7 +9,7 @@ namespace GoldwallApp.Models
 
         public int PatternId { get; set; }
 
-        [MaxLength(50)]
+        [StringLength(50)]
         public string? OutcomeMetric { get; set; }
 
         public decimal Probability { get; set; }    

@@ -9,10 +9,10 @@ namespace GoldwallApp.Models
 
         public int BusinessId { get; set; }
 
-        [MaxLength(100)]
+        [StringLength(100)]
         public string? Title { get; set; }
 
-        [MaxLength(255)]
+        [StringLength(255)]
 
         public string? Description { get; set; }
 

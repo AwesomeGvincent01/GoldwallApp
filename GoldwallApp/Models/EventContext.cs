@@ -23,10 +23,10 @@ namespace GoldwallApp.Models
 
         public decimal TimeSincePrevEventHours { get; set; }
 
-        [MaxLength(50)]
+        [StringLength(50)]
         public string? MixRatio { get; set; }
 
-        [MaxLength(255)]
+        [StringLength(255)]
         public string? Notes { get; set; }
 
 

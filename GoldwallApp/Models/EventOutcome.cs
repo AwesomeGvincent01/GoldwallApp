@@ -11,7 +11,7 @@ namespace GoldwallApp.Models
         public int WorkEventId { get; set; }
 
 
-        [MaxLength(30)]
+        [StringLength(30)]
         public string? OutcomeStatus { get; set; }
 
         public decimal DryTimeHoursActual { get; set; }
@@ -20,7 +20,7 @@ namespace GoldwallApp.Models
 
         public int QualityRating { get; set; }
 
-        [MaxLength(255)]
+        [StringLength(255)]
         public string? Notes { get; set; }
 
 
