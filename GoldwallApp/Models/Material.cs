@@ -9,16 +9,25 @@ namespace GoldwallApp.Models
         public int MaterialId { get; set; }
 
         //fk
+        [Required]
+        [StringLength(50)]
         public int BusinessId { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string? Brand { get; set; }
 
         [StringLength(100)]
+        [Required]
+
+        [Display(Name = "Product Name")]
+
 
         public string? ProductName { get; set; }
 
+        [Required]
         [StringLength(50)]
+        [Display(Name = "Material Type")]
         public string? MaterialType { get; set; }
 
 
@@ -28,5 +37,6 @@ namespace GoldwallApp.Models
 
 
         public Business? Business { get; set; }
+        public ICollection<EventContext>? EventContexts { get; set; }
     }
 }

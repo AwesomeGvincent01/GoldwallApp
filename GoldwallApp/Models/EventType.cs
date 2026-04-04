@@ -15,10 +15,17 @@ public class EventType
     //business fk
 
     [Display(Name = "Business")]
+
     public int BusinessId { get; set; }
 
+
+    [Required]
+    [StringLength(50)]
     public string? Name { get; set; }
 
+
+    [Required]
+    [StringLength(30)]
     public string? Categoery { get; set; }
 
     [Display(Name = "Is Active")]
