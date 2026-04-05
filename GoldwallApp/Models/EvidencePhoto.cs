@@ -10,13 +10,20 @@ namespace GoldwallApp.Models
 
         public int DefectReportId { get; set; }
 
+        [Required]
         [StringLength(255)]
+        [Display(Name = "File URL")]
         public string? FileUrl { get; set; }
 
         [StringLength(100)]
         public string? Caption { get; set; }
 
-        public DateTime TakenAt { get; set; }  
+        [StringLength(150)]
+        public DateTime TakenAt { get; set; }
+
+
+        public WorkEvent? WorkEvent { get; set; }
+        public DefectReport? DefectReport { get; set; }
 
     }
 }

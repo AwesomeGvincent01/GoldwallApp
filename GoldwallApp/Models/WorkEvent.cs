@@ -26,6 +26,7 @@ namespace GoldwallApp.Models
         [Display(Name = "Ended At")]
         public DateTime EndedAt { get; set; }
 
+        [StringLength(255)]
         public string? Notes { get; set; }
 
         public Surface? Surface { get; set; }
@@ -33,5 +34,10 @@ namespace GoldwallApp.Models
         public User? User { get; set; }
 
         public EventType? EventType { get; set; }
+
+
+        public EventContext? EventContext { get; set; }
+        public EventOutcome? EventOutcome { get; set; }
+        public ICollection<EvidencePhoto>? EvidencePhotos { get; set; }
     }
 }

@@ -28,6 +28,9 @@ namespace GoldwallApp.Models
 
         public ICollection<Material>? Materials { get; set; }
 
+        public ICollection<DefectType>? DefectTypes { get; set; }
+        public ICollection<Pattern>? Patterns { get; set; }
+
 
     }
 }

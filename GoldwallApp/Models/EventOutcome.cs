@@ -11,13 +11,22 @@ namespace GoldwallApp.Models
         public int WorkEventId { get; set; }
 
 
+        [Required]
         [StringLength(30)]
+        [Display(Name = "Outcome Status")]
         public string? OutcomeStatus { get; set; }
 
+        [Range(0, 9999.99)]
+        [Display(Name = "Dry Time Hours Actual")]
         public decimal DryTimeHoursActual { get; set; }
 
-       public bool ReworkRequired { get; set; }
 
+        [Display(Name = "Rework Required")]
+        public bool ReworkRequired { get; set; }
+
+
+        [Range(1, 5)]
+        [Display(Name = "Quality Rating")]
         public int QualityRating { get; set; }
 
         [StringLength(255)]
