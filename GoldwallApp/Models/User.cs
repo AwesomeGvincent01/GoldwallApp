@@ -21,7 +21,7 @@ namespace GoldwallApp.Models
         public string? Email { get; set; }
         [Required]
         [EmailAddress]
-        [StringLength(100)]
+        [StringLength(30)]
         public string? Role { get; set; }
 
         [Required]

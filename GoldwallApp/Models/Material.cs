@@ -11,13 +11,14 @@ namespace GoldwallApp.Models
         //fk
         [Required]
         [StringLength(50)]
+        [Display(Name = "Business")]
         public int BusinessId { get; set; }
 
-        [Required]
+        [Required] 
         [StringLength(50)]
         public string? Brand { get; set; }
 
-        [StringLength(100)]
+        [StringLength(100)] 
         [Required]
 
         [Display(Name = "Product Name")]

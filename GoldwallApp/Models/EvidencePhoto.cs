@@ -8,7 +8,7 @@ namespace GoldwallApp.Models
 
         public int WorkEventId { get; set; }
 
-        public int DefectReportId { get; set; }
+        public int? DefectReportId { get; set; }
 
         [Required]
         [StringLength(255)]
@@ -18,7 +18,7 @@ namespace GoldwallApp.Models
         [StringLength(100)]
         public string? Caption { get; set; }
 
-        [StringLength(150)]
+       
         public DateTime TakenAt { get; set; }
 
 

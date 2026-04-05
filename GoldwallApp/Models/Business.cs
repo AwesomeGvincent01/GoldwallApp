@@ -11,7 +11,7 @@ namespace GoldwallApp.Models
 
 
         [Required] //required so every business has a name
-        [StringLength(255)]    //names need to have a limit to prevent overly long entries
+        [StringLength(100)]    //names need to have a limit to prevent overly long entries
         [Display(Name = "Business Name")] //useful thingy majig for displaing  names properly
         public string? Name { get; set; }
 

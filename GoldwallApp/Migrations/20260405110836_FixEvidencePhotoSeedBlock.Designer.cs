@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoldwallApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260403101605_FixEventOutcomeAndContext")]
-    partial class FixEventOutcomeAndContext
+    [Migration("20260405110836_FixEvidencePhotoSeedBlock")]
+    partial class FixEvidencePhotoSeedBlock
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,9 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("BusinessId");
 
@@ -59,13 +61,18 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("ClientId");
 
@@ -86,10 +93,11 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("FixEventId")
+                    b.Property<int?>("FixEventId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ReportedAt")
@@ -99,15 +107,19 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int>("SurfaceId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SuspectedCauseEventId")
+                    b.Property<int?>("SuspectedCauseEventId")
                         .HasColumnType("int");
 
                     b.HasKey("DefectReportId");
+
+                    b.HasIndex("DefectTypeId");
 
                     b.HasIndex("SurfaceId");
 
@@ -123,6 +135,7 @@ namespace GoldwallApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DefectTypeId"));
 
                     b.Property<int>("BusinessId")
+                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -136,6 +149,8 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.HasKey("DefectTypeId");
+
+                    b.HasIndex("BusinessId");
 
                     b.ToTable("DefectType", (string)null);
                 });
@@ -177,6 +192,8 @@ namespace GoldwallApp.Migrations
 
                     b.HasKey("WorkEventId");
 
+                    b.HasIndex("MaterialId");
+
                     b.ToTable("EventContext", (string)null);
                 });
 
@@ -194,6 +211,7 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("OutcomeStatus")
+                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
@@ -220,13 +238,17 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Categoery")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("EventTypeId");
 
@@ -247,10 +269,11 @@ namespace GoldwallApp.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("DefectReportId")
+                    b.Property<int?>("DefectReportId")
                         .HasColumnType("int");
 
                     b.Property<string>("FileUrl")
+                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
@@ -261,6 +284,10 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("EvidencePhotoId");
+
+                    b.HasIndex("DefectReportId");
+
+                    b.HasIndex("WorkEventId");
 
                     b.ToTable("EvidencePhoto", (string)null);
                 });
@@ -274,7 +301,9 @@ namespace GoldwallApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("JobId"));
 
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("BusinessId")
                         .HasColumnType("int");
@@ -292,10 +321,14 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("JobId");
 
@@ -315,13 +348,16 @@ namespace GoldwallApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaterialId"));
 
                     b.Property<string>("Brand")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("BusinessId")
+                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<string>("MaterialType")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -330,6 +366,7 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("ProductName")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -363,10 +400,13 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("PatternId");
+
+                    b.HasIndex("BusinessId");
 
                     b.ToTable("Pattern", (string)null);
                 });
@@ -380,9 +420,11 @@ namespace GoldwallApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PatternOutcomeId"));
 
                     b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("OutcomeMetric")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -394,6 +436,8 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("decimal(4,2)");
 
                     b.HasKey("PatternOutcomeId");
+
+                    b.HasIndex("PatternId");
 
                     b.ToTable("PatternOutcome", (string)null);
                 });
@@ -407,10 +451,12 @@ namespace GoldwallApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PatternRuleId"));
 
                     b.Property<string>("FieldName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Operator")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -422,11 +468,12 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Value2")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("PatternRuleId");
+
+                    b.HasIndex("PatternId");
 
                     b.ToTable("PatternRule", (string)null);
                 });
@@ -443,10 +490,13 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("RoomId");
 
@@ -468,19 +518,26 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("decimal(6,2)");
 
                     b.Property<string>("Label")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
                     b.Property<string>("SubstrateType")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SurfaceType")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("SurfaceId");
 
@@ -504,16 +561,24 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Role")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("UserId");
 
@@ -537,7 +602,8 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("StartedAt")
                         .HasColumnType("datetime2");
@@ -572,22 +638,49 @@ namespace GoldwallApp.Migrations
 
             modelBuilder.Entity("GoldwallApp.Models.DefectReport", b =>
                 {
+                    b.HasOne("GoldwallApp.Models.DefectType", "DefectType")
+                        .WithMany("DefectReports")
+                        .HasForeignKey("DefectTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("GoldwallApp.Models.Surface", "Surface")
                         .WithMany("DefectReports")
                         .HasForeignKey("SurfaceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("DefectType");
+
                     b.Navigation("Surface");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.DefectType", b =>
+                {
+                    b.HasOne("GoldwallApp.Models.Business", "Business")
+                        .WithMany("DefectTypes")
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Business");
                 });
 
             modelBuilder.Entity("GoldwallApp.Models.EventContext", b =>
                 {
-                    b.HasOne("GoldwallApp.Models.WorkEvent", "WorkEvent")
-                        .WithMany()
-                        .HasForeignKey("WorkEventId")
+                    b.HasOne("GoldwallApp.Models.Material", "Material")
+                        .WithMany("EventContexts")
+                        .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("GoldwallApp.Models.WorkEvent", "WorkEvent")
+                        .WithOne("EventContext")
+                        .HasForeignKey("GoldwallApp.Models.EventContext", "WorkEventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Material");
 
                     b.Navigation("WorkEvent");
                 });
@@ -595,8 +688,8 @@ namespace GoldwallApp.Migrations
             modelBuilder.Entity("GoldwallApp.Models.EventOutcome", b =>
                 {
                     b.HasOne("GoldwallApp.Models.WorkEvent", "WorkEvent")
-                        .WithMany()
-                        .HasForeignKey("WorkEventId")
+                        .WithOne("EventOutcome")
+                        .HasForeignKey("GoldwallApp.Models.EventOutcome", "WorkEventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -612,6 +705,23 @@ namespace GoldwallApp.Migrations
                         .IsRequired();
 
                     b.Navigation("Business");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.EvidencePhoto", b =>
+                {
+                    b.HasOne("GoldwallApp.Models.DefectReport", "DefectReport")
+                        .WithMany("EvidencePhotos")
+                        .HasForeignKey("DefectReportId");
+
+                    b.HasOne("GoldwallApp.Models.WorkEvent", "WorkEvent")
+                        .WithMany("EvidencePhotos")
+                        .HasForeignKey("WorkEventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DefectReport");
+
+                    b.Navigation("WorkEvent");
                 });
 
             modelBuilder.Entity("GoldwallApp.Models.Job", b =>
@@ -642,6 +752,39 @@ namespace GoldwallApp.Migrations
                         .IsRequired();
 
                     b.Navigation("Business");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.Pattern", b =>
+                {
+                    b.HasOne("GoldwallApp.Models.Business", "Business")
+                        .WithMany("Patterns")
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Business");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.PatternOutcome", b =>
+                {
+                    b.HasOne("GoldwallApp.Models.Pattern", "Pattern")
+                        .WithMany("PatternOutcomes")
+                        .HasForeignKey("PatternId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pattern");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.PatternRule", b =>
+                {
+                    b.HasOne("GoldwallApp.Models.Pattern", "Pattern")
+                        .WithMany("PatternRules")
+                        .HasForeignKey("PatternId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pattern");
                 });
 
             modelBuilder.Entity("GoldwallApp.Models.Room", b =>
@@ -708,13 +851,27 @@ namespace GoldwallApp.Migrations
                 {
                     b.Navigation("Clients");
 
+                    b.Navigation("DefectTypes");
+
                     b.Navigation("EventTypes");
 
                     b.Navigation("Jobs");
 
                     b.Navigation("Materials");
 
+                    b.Navigation("Patterns");
+
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.DefectReport", b =>
+                {
+                    b.Navigation("EvidencePhotos");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.DefectType", b =>
+                {
+                    b.Navigation("DefectReports");
                 });
 
             modelBuilder.Entity("GoldwallApp.Models.EventType", b =>
@@ -725,6 +882,18 @@ namespace GoldwallApp.Migrations
             modelBuilder.Entity("GoldwallApp.Models.Job", b =>
                 {
                     b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.Material", b =>
+                {
+                    b.Navigation("EventContexts");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.Pattern", b =>
+                {
+                    b.Navigation("PatternOutcomes");
+
+                    b.Navigation("PatternRules");
                 });
 
             modelBuilder.Entity("GoldwallApp.Models.Room", b =>
@@ -742,6 +911,15 @@ namespace GoldwallApp.Migrations
             modelBuilder.Entity("GoldwallApp.Models.User", b =>
                 {
                     b.Navigation("WorkEvents");
+                });
+
+            modelBuilder.Entity("GoldwallApp.Models.WorkEvent", b =>
+                {
+                    b.Navigation("EventContext");
+
+                    b.Navigation("EventOutcome");
+
+                    b.Navigation("EvidencePhotos");
                 });
 #pragma warning restore 612, 618
         }

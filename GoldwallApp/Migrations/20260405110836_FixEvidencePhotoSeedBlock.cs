@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GoldwallApp.Migrations
 {
     /// <inheritdoc />
-    public partial class FixEventOutcomeAndContext : Migration
+    public partial class FixEvidencePhotoSeedBlock : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,94 +17,12 @@ namespace GoldwallApp.Migrations
                 {
                     BusinessId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Business", x => x.BusinessId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DefectType",
-                columns: table => new
-                {
-                    DefectTypeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BusinessId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DefectType", x => x.DefectTypeId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EvidencePhoto",
-                columns: table => new
-                {
-                    EvidencePhotoId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    WorkEventId = table.Column<int>(type: "int", nullable: false),
-                    DefectReportId = table.Column<int>(type: "int", nullable: false),
-                    FileUrl = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Caption = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    TakenAt = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EvidencePhoto", x => x.EvidencePhotoId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Pattern",
-                columns: table => new
-                {
-                    PatternId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BusinessId = table.Column<int>(type: "int", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Confidence = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pattern", x => x.PatternId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PatternOutcome",
-                columns: table => new
-                {
-                    PatternOutcomeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PatternId = table.Column<int>(type: "int", nullable: false),
-                    OutcomeMetric = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Probability = table.Column<decimal>(type: "decimal(4,2)", precision: 4, scale: 2, nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PatternOutcome", x => x.PatternOutcomeId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PatternRule",
-                columns: table => new
-                {
-                    PatternRuleId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PatternId = table.Column<int>(type: "int", nullable: false),
-                    FieldName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Operator = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Value1 = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Value2 = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PatternRule", x => x.PatternRuleId);
                 });
 
             migrationBuilder.CreateTable(
@@ -114,9 +32,9 @@ namespace GoldwallApp.Migrations
                     ClientId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BusinessId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -131,14 +49,35 @@ namespace GoldwallApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DefectType",
+                columns: table => new
+                {
+                    DefectTypeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BusinessId = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DefectType", x => x.DefectTypeId);
+                    table.ForeignKey(
+                        name: "FK_DefectType_Business_BusinessId",
+                        column: x => x.BusinessId,
+                        principalTable: "Business",
+                        principalColumn: "BusinessId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EventType",
                 columns: table => new
                 {
                     EventTypeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BusinessId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Categoery = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Categoery = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -158,10 +97,10 @@ namespace GoldwallApp.Migrations
                 {
                     MaterialId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BusinessId = table.Column<int>(type: "int", nullable: false),
-                    Brand = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    ProductName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    MaterialType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    BusinessId = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    Brand = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    MaterialType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Notes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
@@ -176,16 +115,39 @@ namespace GoldwallApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Pattern",
+                columns: table => new
+                {
+                    PatternId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BusinessId = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Confidence = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pattern", x => x.PatternId);
+                    table.ForeignKey(
+                        name: "FK_Pattern_Business_BusinessId",
+                        column: x => x.BusinessId,
+                        principalTable: "Business",
+                        principalColumn: "BusinessId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BusinessId = table.Column<int>(type: "int", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -207,9 +169,9 @@ namespace GoldwallApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BusinessId = table.Column<int>(type: "int", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     StartDatePlanned = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDatePlanned = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -232,14 +194,59 @@ namespace GoldwallApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PatternOutcome",
+                columns: table => new
+                {
+                    PatternOutcomeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PatternId = table.Column<int>(type: "int", nullable: false),
+                    OutcomeMetric = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Probability = table.Column<decimal>(type: "decimal(4,2)", precision: 4, scale: 2, nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PatternOutcome", x => x.PatternOutcomeId);
+                    table.ForeignKey(
+                        name: "FK_PatternOutcome_Pattern_PatternId",
+                        column: x => x.PatternId,
+                        principalTable: "Pattern",
+                        principalColumn: "PatternId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PatternRule",
+                columns: table => new
+                {
+                    PatternRuleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PatternId = table.Column<int>(type: "int", nullable: false),
+                    FieldName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Operator = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Value1 = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Value2 = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PatternRule", x => x.PatternRuleId);
+                    table.ForeignKey(
+                        name: "FK_PatternRule_Pattern_PatternId",
+                        column: x => x.PatternId,
+                        principalTable: "Pattern",
+                        principalColumn: "PatternId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Room",
                 columns: table => new
                 {
                     RoomId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     JobId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -259,11 +266,11 @@ namespace GoldwallApp.Migrations
                     SurfaceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoomId = table.Column<int>(type: "int", nullable: false),
-                    SurfaceType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Label = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SurfaceType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Label = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     AreaM2 = table.Column<decimal>(type: "decimal(6,2)", precision: 6, scale: 2, nullable: false),
-                    SubstrateType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SubstrateType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -286,14 +293,20 @@ namespace GoldwallApp.Migrations
                     DefectTypeId = table.Column<int>(type: "int", nullable: false),
                     ReportedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Severity = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    SuspectedCauseEventId = table.Column<int>(type: "int", nullable: false),
-                    FixEventId = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    SuspectedCauseEventId = table.Column<int>(type: "int", nullable: true),
+                    FixEventId = table.Column<int>(type: "int", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DefectReport", x => x.DefectReportId);
+                    table.ForeignKey(
+                        name: "FK_DefectReport_DefectType_DefectTypeId",
+                        column: x => x.DefectTypeId,
+                        principalTable: "DefectType",
+                        principalColumn: "DefectTypeId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DefectReport_Surface_SurfaceId",
                         column: x => x.SurfaceId,
@@ -313,7 +326,7 @@ namespace GoldwallApp.Migrations
                     EventTypeId = table.Column<int>(type: "int", nullable: false),
                     StartedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Notes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -356,6 +369,12 @@ namespace GoldwallApp.Migrations
                 {
                     table.PrimaryKey("PK_EventContext", x => x.WorkEventId);
                     table.ForeignKey(
+                        name: "FK_EventContext_Material_MaterialId",
+                        column: x => x.MaterialId,
+                        principalTable: "Material",
+                        principalColumn: "MaterialId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_EventContext_WorkEvent_WorkEventId",
                         column: x => x.WorkEventId,
                         principalTable: "WorkEvent",
@@ -368,7 +387,7 @@ namespace GoldwallApp.Migrations
                 columns: table => new
                 {
                     WorkEventId = table.Column<int>(type: "int", nullable: false),
-                    OutcomeStatus = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    OutcomeStatus = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     DryTimeHoursActual = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
                     ReworkRequired = table.Column<bool>(type: "bit", nullable: false),
                     QualityRating = table.Column<int>(type: "int", nullable: false),
@@ -385,10 +404,43 @@ namespace GoldwallApp.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "EvidencePhoto",
+                columns: table => new
+                {
+                    EvidencePhotoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WorkEventId = table.Column<int>(type: "int", nullable: false),
+                    DefectReportId = table.Column<int>(type: "int", nullable: true),
+                    FileUrl = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Caption = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    TakenAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EvidencePhoto", x => x.EvidencePhotoId);
+                    table.ForeignKey(
+                        name: "FK_EvidencePhoto_DefectReport_DefectReportId",
+                        column: x => x.DefectReportId,
+                        principalTable: "DefectReport",
+                        principalColumn: "DefectReportId");
+                    table.ForeignKey(
+                        name: "FK_EvidencePhoto_WorkEvent_WorkEventId",
+                        column: x => x.WorkEventId,
+                        principalTable: "WorkEvent",
+                        principalColumn: "WorkEventId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Client_BusinessId",
                 table: "Client",
                 column: "BusinessId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DefectReport_DefectTypeId",
+                table: "DefectReport",
+                column: "DefectTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DefectReport_SurfaceId",
@@ -396,9 +448,29 @@ namespace GoldwallApp.Migrations
                 column: "SurfaceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DefectType_BusinessId",
+                table: "DefectType",
+                column: "BusinessId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EventContext_MaterialId",
+                table: "EventContext",
+                column: "MaterialId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EventType_BusinessId",
                 table: "EventType",
                 column: "BusinessId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EvidencePhoto_DefectReportId",
+                table: "EvidencePhoto",
+                column: "DefectReportId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EvidencePhoto_WorkEventId",
+                table: "EvidencePhoto",
+                column: "WorkEventId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Job_BusinessId",
@@ -414,6 +486,21 @@ namespace GoldwallApp.Migrations
                 name: "IX_Material_BusinessId",
                 table: "Material",
                 column: "BusinessId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pattern_BusinessId",
+                table: "Pattern",
+                column: "BusinessId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatternOutcome_PatternId",
+                table: "PatternOutcome",
+                column: "PatternId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatternRule_PatternId",
+                table: "PatternRule",
+                column: "PatternId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Room_JobId",
@@ -450,12 +537,6 @@ namespace GoldwallApp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DefectReport");
-
-            migrationBuilder.DropTable(
-                name: "DefectType");
-
-            migrationBuilder.DropTable(
                 name: "EventContext");
 
             migrationBuilder.DropTable(
@@ -465,19 +546,25 @@ namespace GoldwallApp.Migrations
                 name: "EvidencePhoto");
 
             migrationBuilder.DropTable(
-                name: "Material");
-
-            migrationBuilder.DropTable(
-                name: "Pattern");
-
-            migrationBuilder.DropTable(
                 name: "PatternOutcome");
 
             migrationBuilder.DropTable(
                 name: "PatternRule");
 
             migrationBuilder.DropTable(
+                name: "Material");
+
+            migrationBuilder.DropTable(
+                name: "DefectReport");
+
+            migrationBuilder.DropTable(
                 name: "WorkEvent");
+
+            migrationBuilder.DropTable(
+                name: "Pattern");
+
+            migrationBuilder.DropTable(
+                name: "DefectType");
 
             migrationBuilder.DropTable(
                 name: "EventType");

@@ -450,6 +450,8 @@ namespace GoldwallApp.Data
 
 
 
+
+
             var evidencephotos = new EvidencePhoto[]
             {
                 new EvidencePhoto
@@ -480,8 +482,6 @@ namespace GoldwallApp.Data
                 context.EvidencePhotos.Add(photo);
             }
             context.SaveChanges();
-
-
 
 
 
