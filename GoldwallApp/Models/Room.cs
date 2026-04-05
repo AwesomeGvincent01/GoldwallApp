@@ -12,7 +12,7 @@ namespace GoldwallApp.Models
         public int JobId { get; set; }
 
 
-        [Required]
+        [Required]  //required so each room can be identified and differentiated from other rooms
         [StringLength(50)]
         public string? Name { get; set; }
 

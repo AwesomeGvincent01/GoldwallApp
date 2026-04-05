@@ -13,10 +13,12 @@ namespace GoldwallApp.Models
         //room fk
         public int RoomId { get; set; }
 
+        [Required] //required so the app knows what type of surface it is working with 
+        [StringLength(50)]
         [Display(Name = "Surface Type")]
         public string? SurfaceType { get; set; }
 
-        [Required]
+        [Required] //required so the surface can be identified and differentiated from other surface in the same room
         [StringLength(50)]
         public string? Label { get; set; }
 
@@ -24,7 +26,7 @@ namespace GoldwallApp.Models
         [Display(Name = "Area (m²)")]
         public decimal AreaM2 { get; set; }
 
-        [Required]
+        [Required] //required because substrate affects plasterer choice and work process
         [StringLength(50)]
         [Display(Name = "Substrate Type")]
         public string? SubstrateType { get; set; }
