@@ -4,21 +4,21 @@ namespace GoldwallApp.Models
 {
     public class EvidencePhoto
     {
-        public int EvidencePhotoId { get; set; }    
+        public int EvidencePhotoId { get; set; }
 
         public int WorkEventId { get; set; }
 
         public int? DefectReportId { get; set; }
 
-        [Required]
-        [StringLength(255)]
+        [Required] //ensures the photo file path/url is entered
+        [StringLength(255)] //limits file url length
         [Display(Name = "File URL")]
         public string? FileUrl { get; set; }
 
-        [StringLength(100)]
+        [StringLength(150)] //limits caption length
         public string? Caption { get; set; }
 
-       
+        [Display(Name = "Taken At")]
         public DateTime TakenAt { get; set; }
 
 

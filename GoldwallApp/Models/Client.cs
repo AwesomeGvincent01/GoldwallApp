@@ -9,17 +9,17 @@ namespace GoldwallApp.Models
         [Display(Name = "Business")]
         public int BusinessId { get; set; }
 
-        [Required] //required so every client record identifies client correctly
-        [StringLength(100)]
+        [Required] //ensures each client record has a name
+        [StringLength(100)] //limits the name length to keep client names realistic
         public string? Name { get; set; }
 
-        [Required] //required because contact details are very important for jobs and communication with clients
-        [Phone]
-       [StringLength(30)]
-        public string? Phone { get; set; } 
+        [Required] //ensures a phone number is entered
+        [Phone] //checks that the value entered follows phone number format
+        [StringLength(30)] //limits the phone number length
+        public string? Phone { get; set; }
 
-        [EmailAddress]
-        [StringLength(100)]
+        [EmailAddress] //checks email format if an email is entered
+        [StringLength(100)] //limits the email length
         public string? Email { get; set; }
 
         [Display(Name = "Created At")]
@@ -27,8 +27,8 @@ namespace GoldwallApp.Models
 
 
 
-        //public entityname entityname navigation property
-        //this is a navigation property to one related object. so a client has one business, but a business can have many clients and that is the "many" side of the relationship
-        public Business? Business { get; set; }
+//public entityname entityname navigation property
+//this is a navigation property to one related object. so a client has one business, but a business can have many clients and that is the "many" side of the relationship
+public Business? Business { get; set; }
     }
 }

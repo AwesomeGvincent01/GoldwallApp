@@ -9,14 +9,14 @@ namespace GoldwallApp.Models
         [Display(Name = "Business")]
         public int BusinessId { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Required] //ensures each pattern has a title
+        [StringLength(100)] //limits title length
         public string? Title { get; set; }
 
-        [StringLength(255)]
+        [StringLength(255)] //limits description length
         public string? Description { get; set; }
 
-        [Range(0, 99.99)]
+        [Range(0, 99.99)] //keeps confidence inside the intended range
         public decimal Confidence { get; set; }
 
         [Display(Name = "Created At")]

@@ -12,6 +12,7 @@ namespace GoldwallApp.Models
         [Display(Name = "Surface")]
         public int SurfaceId { get; set; }
 
+        [Display(Name = "User")]
         public int UserId { get; set; }
 
         [Display(Name = "Event Type")]
@@ -26,7 +27,7 @@ namespace GoldwallApp.Models
         [Display(Name = "Ended At")]
         public DateTime EndedAt { get; set; }
 
-        [StringLength(255)]
+        [StringLength(255)] //limits note length so event notes stay concise
         public string? Notes { get; set; }
 
         public Surface? Surface { get; set; }
