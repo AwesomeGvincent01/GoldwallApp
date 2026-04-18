@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoldwallApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260405110836_FixEvidencePhotoSeedBlock")]
-    partial class FixEvidencePhotoSeedBlock
+    [Migration("20260418073813_RefreshInitializer")]
+    partial class RefreshInitializer
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

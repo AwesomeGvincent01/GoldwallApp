@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GoldwallApp.Migrations
 {
     /// <inheritdoc />
-    public partial class FixEvidencePhotoSeedBlock : Migration
+    public partial class RefreshInitializer : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
