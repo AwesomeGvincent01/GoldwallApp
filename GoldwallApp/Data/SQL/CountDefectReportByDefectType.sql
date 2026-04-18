@@ -1,4 +1,9 @@
-﻿SELECT DefectType.Name, COUNT(DefectReport.DefectReportId) AS DefectCount
+﻿Use GoldwallAppDb;
+
+-- This query counts how many defect reports belong to each defect type.
+
+
+SELECT DefectType.Name, COUNT(DefectReport.DefectReportId) AS DefectCount
 FROM DefectType
 INNER JOIN DefectReport
     ON DefectType.DefectTypeId = DefectReport.DefectTypeId
