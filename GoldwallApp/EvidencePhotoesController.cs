@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace GoldwallApp
 {
@@ -15,10 +17,17 @@ namespace GoldwallApp
     public class EvidencePhotoesController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public EvidencePhotoesController(AppDbContext context)
+        
+
+
+        
+
+        public EvidencePhotoesController(AppDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            _hostEnvironment = hostEnvironment; //continue
         }
 
         // GET: EvidencePhotoes
@@ -60,6 +69,25 @@ namespace GoldwallApp
         {
             if (ModelState.IsValid)
             {
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+
+                string fileName = Path.GetFileNameWithoutExtension(evidencePhoto.FileUrl.FileName);
+
+                string extension = Path.GetExtension(evidencePhoto.FileUrl.FileName);
+
+                evidencePhoto.Caption = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+
+                string path = Path.Combine(wwwRootPath + "/Images/" + fileName);
+
+                using (var fileStream = new FileStream (path, FileMode.Create))
+                {
+                    await evidencePhoto.FileUrl.CopyToAsync (fileStream);
+                }
+
+
+
+
+
                 _context.Add(evidencePhoto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -142,6 +170,22 @@ namespace GoldwallApp
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var evidencePhoto = await _context.EvidencePhotos.FindAsync(id);
+
+
+
+            var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "Images", evidencePhoto.Caption);
+
+            if (System.IO.File.Exists(imagePath))
+            {
+                System.IO.File.Delete(imagePath);
+            }
+
+
+
+
+
+
+
             if (evidencePhoto != null)
             {
                 _context.EvidencePhotos.Remove(evidencePhoto);

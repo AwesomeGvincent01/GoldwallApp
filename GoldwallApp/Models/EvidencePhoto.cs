@@ -1,7 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GoldwallApp.Models
 {
+
+
     public class EvidencePhoto
     {
         public int EvidencePhotoId { get; set; }
@@ -10,13 +13,17 @@ namespace GoldwallApp.Models
 
         public int? DefectReportId { get; set; }
 
+        [StringLength(150)] //limits caption length
+        [Display(Name = "Caption")]
+        public string? Caption { get; set; }
+
+        [NotMapped]
         [Required] //ensures the photo file path/url is entered
         [StringLength(255)] //limits file url length
         [Display(Name = "File URL")]
-        public string? FileUrl { get; set; }
+        public IFormFile? FileUrl { get; set; }
 
-        [StringLength(150)] //limits caption length
-        public string? Caption { get; set; }
+      
 
         [Display(Name = "Taken At")]
         public DateTime TakenAt { get; set; }
