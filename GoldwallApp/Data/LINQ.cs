@@ -12,7 +12,7 @@ namespace GoldwallApp.Data
             _context = context;
         }
 
-        public object ExampleQueries()
+        public void ExampleQueries()
         {
             // LINQ query 1
             //filters jobs to include only those with a status of "Active"
@@ -25,12 +25,6 @@ namespace GoldwallApp.Data
             var orderedJobs = _context.Jobs
                 .OrderBy(j => j.Title)
                 .ToList();
-
-            return new
-            {
-                ActiveJobs = activeJobs,
-                OrderedJobs = orderedJobs
-            };
         }
     }
 }

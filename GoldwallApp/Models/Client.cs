@@ -15,7 +15,8 @@ namespace GoldwallApp.Models
 
         [Required] //ensures a phone number is entered
         [Phone] //checks that the value entered follows phone number format
-        [StringLength(30)] //limits the phone number length
+        [MaxLength(30)] //limits the phone number length
+        [MinLength(9)] //ensures the phone number is not unrealistically short
         public string? Phone { get; set; }
 
         [EmailAddress] //checks email format if an email is entered

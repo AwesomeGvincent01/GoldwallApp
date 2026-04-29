@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoldwallApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260418073813_RefreshInitializer")]
-    partial class RefreshInitializer
+    [Migration("20260428101215_IFormFileIntegration")]
+    partial class IFormFileIntegration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,7 +135,6 @@ namespace GoldwallApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DefectTypeId"));
 
                     b.Property<int>("BusinessId")
-                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -144,7 +143,6 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
@@ -266,14 +264,13 @@ namespace GoldwallApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EvidencePhotoId"));
 
                     b.Property<string>("Caption")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int?>("DefectReportId")
                         .HasColumnType("int");
 
                     b.Property<string>("FileUrl")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
@@ -353,7 +350,6 @@ namespace GoldwallApp.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("BusinessId")
-                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<string>("MaterialType")

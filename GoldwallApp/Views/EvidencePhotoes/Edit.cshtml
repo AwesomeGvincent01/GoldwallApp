@@ -10,24 +10,43 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            @* //new *@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="EvidencePhotoId" />
+            <input type="hidden" asp-for="FileUrl" /> @* //new *@
+
             <div class="form-group">
                 <label asp-for="WorkEventId" class="control-label"></label>
-                <input asp-for="WorkEventId" class="form-control" />
+                <select asp-for="WorkEventId" class="form-control" asp-items="ViewBag.WorkEventId"></select> @* //new *@
                 <span asp-validation-for="WorkEventId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DefectReportId" class="control-label"></label>
-                <input asp-for="DefectReportId" class="form-control" />
+                <select asp-for="DefectReportId" class="form-control" asp-items="ViewBag.DefectReportId">
+                    @* //new *@
+                    <option value="">None</option> @* //new *@
+                </select> @* //new *@
                 <span asp-validation-for="DefectReportId" class="text-danger"></span>
             </div>
+
+            @if (!string.IsNullOrEmpty(Model.FileUrl)) @* //new *@
+            {
+                <div class="form-group">
+                    @* //new *@
+                    <label class="control-label">Current Image</label> @* //new *@
+                    <br /> @* //new *@
+                    <img src="@Model.FileUrl" width="150" /> @* //new *@
+                </div> @* //new *@
+            }
+
             <div class="form-group">
-                <label asp-for="FileUrl" class="control-label"></label>
-                <input asp-for="FileUrl" class="form-control" />
-                <span asp-validation-for="FileUrl" class="text-danger"></span>
-            </div>
+                @* //new *@
+                <label asp-for="ImageFile" class="control-label"></label> @* //new *@
+                <input asp-for="ImageFile" type="file" class="form-control" /> @* //new *@
+                <span asp-validation-for="ImageFile" class="text-danger"></span> @* //new *@
+            </div> @* //new *@
+
             <div class="form-group">
                 <label asp-for="Caption" class="control-label"></label>
                 <input asp-for="Caption" class="form-control" />
@@ -50,5 +69,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

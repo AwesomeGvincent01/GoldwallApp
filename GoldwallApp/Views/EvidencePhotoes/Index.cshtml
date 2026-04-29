@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                Image @* //new *@
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.WorkEventId)
             </th>
             <th>
@@ -31,29 +34,37 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.WorkEventId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DefectReportId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FileUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Caption)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TakenAt)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EvidencePhotoId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EvidencePhotoId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EvidencePhotoId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @* //new *@
+                    @if (!string.IsNullOrEmpty(item.FileUrl)) @* //new *@
+                    {
+                        <img src="@item.FileUrl" width="120" /> @* //new *@
+                    }
+                </td> @* //new *@
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkEventId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DefectReportId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Caption)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TakenAt)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.EvidencePhotoId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.EvidencePhotoId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.EvidencePhotoId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

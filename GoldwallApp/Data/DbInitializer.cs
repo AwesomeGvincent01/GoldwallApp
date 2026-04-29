@@ -933,78 +933,78 @@ namespace GoldwallApp.Data
 
 
             var evidencephotos = new EvidencePhoto[]
-            {
+ {
                 new EvidencePhoto
                 {
                     WorkEventId = workEvents[0].WorkEventId,
-                    FileUrl = "https://example.com/photos/inspection1.jpg",
+                    FileUrl = "/Images/inspection1.jpg",
                     Caption = "Initial inspection of north wall surface.",
                     TakenAt = DateTime.Now,
                 },
                 new EvidencePhoto
                 {
                     WorkEventId = workEvents[1].WorkEventId,
-                    FileUrl = "https://example.com/photos/preparation1.jpg",
+                    FileUrl = "/Images/preparation1.jpg",
                     Caption = "Surface preparation including sanding and cleaning.",
                     TakenAt = DateTime.Now,
                 },
                 new EvidencePhoto
                 {
                     WorkEventId = workEvents[2].WorkEventId,
-                    FileUrl = "https://example.com/photos/application1.jpg",
+                    FileUrl = "/Images/application1.jpg",
                     Caption = "Applied first coat of plaster to north wall.",
                     TakenAt = DateTime.Now,
                 },
                 new EvidencePhoto
                 {
                     WorkEventId = workEvents[3].WorkEventId,
-                    FileUrl = "https://example.com/photos/loungeceiling1.jpg",
+                    FileUrl = "/Images/loungeceiling1.jpg",
                     Caption = "First coat on lounge ceiling.",
                     TakenAt = DateTime.Now,
                 },
                 new EvidencePhoto
                 {
                     WorkEventId = workEvents[4].WorkEventId,
-                    FileUrl = "https://example.com/photos/bedceilingprep1.jpg",
+                    FileUrl = "/Images/bedceilingprep1.jpg",
                     Caption = "Preparation stage for bedroom ceiling.",
                     TakenAt = DateTime.Now,
                 },
                 new EvidencePhoto
                 {
                     WorkEventId = workEvents[5].WorkEventId,
-                    FileUrl = "https://example.com/photos/kitchenceiling2.jpg",
+                    FileUrl = "/Images/kitchenceiling2.jpg",
                     Caption = "Second coat on kitchen ceiling.",
                     TakenAt = DateTime.Now,
                 },
                 new EvidencePhoto
                 {
                     WorkEventId = workEvents[6].WorkEventId,
-                    FileUrl = "https://example.com/photos/diningsand1.jpg",
+                    FileUrl = "/Images/diningsand1.jpg",
                     Caption = "Sanding stage on dining wall.",
                     TakenAt = DateTime.Now,
                 },
                 new EvidencePhoto
                 {
                     WorkEventId = workEvents[7].WorkEventId,
-                    FileUrl = "https://example.com/photos/receptioninspect1.jpg",
+                    FileUrl = "/Images/receptioninspect1.jpg",
                     Caption = "Reception wall inspection.",
                     TakenAt = DateTime.Now,
                 },
                 new EvidencePhoto
                 {
                     WorkEventId = workEvents[8].WorkEventId,
-                    FileUrl = "https://example.com/photos/meetingprep1.jpg",
+                    FileUrl = "/Images/meetingprep1.jpg",
                     Caption = "Meeting room wall preparation.",
                     TakenAt = DateTime.Now,
                 },
                 new EvidencePhoto
                 {
                     WorkEventId = workEvents[9].WorkEventId,
-                    FileUrl = "https://example.com/photos/bathroomfinal1.jpg",
+                    FileUrl = "/Images/bathroomfinal1.jpg",
                     Caption = "Final check of bathroom shower wall.",
                     TakenAt = DateTime.Now,
                 }
-            };
+ };
 
             foreach (var photo in evidencephotos)
             {

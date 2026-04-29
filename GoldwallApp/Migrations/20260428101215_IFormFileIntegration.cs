@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GoldwallApp.Migrations
 {
     /// <inheritdoc />
-    public partial class RefreshInitializer : Migration
+    public partial class IFormFileIntegration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,9 +54,9 @@ namespace GoldwallApp.Migrations
                 {
                     DefectTypeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BusinessId = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    BusinessId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
+                    Notes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -97,7 +97,7 @@ namespace GoldwallApp.Migrations
                 {
                     MaterialId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BusinessId = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    BusinessId = table.Column<int>(type: "int", nullable: false),
                     Brand = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     MaterialType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -412,8 +412,8 @@ namespace GoldwallApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     WorkEventId = table.Column<int>(type: "int", nullable: false),
                     DefectReportId = table.Column<int>(type: "int", nullable: true),
-                    FileUrl = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Caption = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Caption = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    FileUrl = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     TakenAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>

@@ -17,13 +17,16 @@ namespace GoldwallApp.Models
         [Display(Name = "Caption")]
         public string? Caption { get; set; }
 
-        [NotMapped]
-        [Required] //ensures the photo file path/url is entered
+       
         [StringLength(255)] //limits file url length
         [Display(Name = "File URL")]
-        public IFormFile? FileUrl { get; set; }
+        public string? FileUrl { get; set; }
 
-      
+        [NotMapped] //prevents this upload only property from being stored in the database
+        [Display(Name = "Upload Image")]
+        public IFormFile? ImageFile { get; set; }
+
+
 
         [Display(Name = "Taken At")]
         public DateTime TakenAt { get; set; }
