@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoldwallApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260428101215_IFormFileIntegration")]
+    [Migration("20260429223250_IFormFileIntegration")]
     partial class IFormFileIntegration
     {
         /// <inheritdoc />

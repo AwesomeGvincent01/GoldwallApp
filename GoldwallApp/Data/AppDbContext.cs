@@ -1,4 +1,5 @@
-﻿using GoldwallApp.Models;
+﻿using GoldwallApp.Areas.Identity.Data;
+using GoldwallApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoldwallApp.Data
@@ -54,6 +55,8 @@ namespace GoldwallApp.Data
             modelBuilder.Entity<Pattern>().ToTable("Pattern");
             modelBuilder.Entity<PatternRule>().ToTable("PatternRule");
             modelBuilder.Entity<PatternOutcome>().ToTable("PatternOutcome");
+
+
 
 
             modelBuilder.Entity<Surface>()

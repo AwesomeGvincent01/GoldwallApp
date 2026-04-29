@@ -20,6 +20,9 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+
+
+
 var app = builder.Build();
 
 
