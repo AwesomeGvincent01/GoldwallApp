@@ -18,11 +18,11 @@ namespace GoldwallApp.Models
         public string? Caption { get; set; }
 
        
-        [StringLength(255)] //limits file url length
+        [StringLength(255)] 
         [Display(Name = "File URL")]
         public string? FileUrl { get; set; }
 
-        [NotMapped] //prevents this upload only property from being stored in the database
+        [NotMapped] 
         [Display(Name = "Upload Image")]
         public IFormFile? ImageFile { get; set; }
 
