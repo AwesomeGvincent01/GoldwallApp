@@ -167,7 +167,17 @@ namespace GoldwallApp
                     Directory.CreateDirectory(imagesFolder); 
                 }
 
-                string path = Path.Combine(imagesFolder, uniqueFileName); 
+                if (!string.IsNullOrEmpty(oldEvidencePhoto.FileUrl)) 
+                {
+                    var oldImagePath = Path.Combine(_hostEnvironment.WebRootPath, oldEvidencePhoto.FileUrl.TrimStart('/')); 
+
+                    if (System.IO.File.Exists(oldImagePath)) 
+                    {
+                        System.IO.File.Delete(oldImagePath); 
+                    }
+                }
+
+                string path = Path.Combine(imagesFolder, uniqueFileName);
 
                 using (var fileStream = new FileStream(path, FileMode.Create)) 
                 {
