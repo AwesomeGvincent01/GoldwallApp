@@ -1,15 +1,27 @@
-﻿@{
+﻿
+
+@model GoldwallApp.ViewModels.DashboardViewModel
+
+
+
+@{
     ViewData["Title"] = "Home";
 }
 
-<h2>Welcome</h2>
+<div class="mb-4">
+    <h1>Goldwall Dashboard</h1>
+    <p> overview of jobs, defects, work events, evidence,  quality trends</p>
+</div>
 
-<p>
-    This is the early MVC and Entity Framework Core foundation
-    for the Goldwall plastering management application.
-</p>
 
-<p>
-    Right now the goal is to get the main models, database,
-    and CRUD pages working first.
-</p>
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5>Active Jobs</h5>
+                <h2>@Model.ActiveJobsCount</h2>
+                <p>currently in progress</p>
+            </div>
+        </div>
+    </div>
+
