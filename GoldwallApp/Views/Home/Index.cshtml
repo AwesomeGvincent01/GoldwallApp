@@ -15,56 +15,71 @@
     <p> overview of jobs, defects, work events, evidence,  quality trends</p>
 </div>
 
-<div class= "container"></div>
 
+
+
+
+
+<div class="row mb-4">
+    <div class="col">
         <div class="card">
             <div class="card-body">
                 <h5>Active Jobs</h5>
                 <h2>@Model.ActiveJobsCount</h2>
                 <p>currently in progress</p>
-          
+
+            </div>
+        </div>
     </div>
-    </div>
-  
-            <div class="card">
-                <div class="card-body">
-                    <h5>Open Defects</h5>
-                    <h2>@Model.OpenDefectsCount</h2>
-                    <p>Defects awaiting resolution</p>
-                </div>
 
-                </div>
-         
- 
-
-    <div class="card">
-        <div class="card-body">
-            <h5>Open Defects</h5>
-            <h2>@Model.TodayWorkEventsCount</h2>
-            <P>logs from last 7 days</P>
-
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5>Open Defects</h5>
+                <h2>@Model.OpenDefectsCount</h2>
+                <p>Defects awaiting resolution</p>
+            </div>
 
         </div>
-
-
-
     </div>
 
-   <div class="card">
-       <div class="card-body">
-           <h5>Evidence Photos</h5>
-           <h2>@Model.EvidencePhotosCount</h2>
-           <p>Uploaded job site photos</p>
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5>Today’s Work Events</h5>
+                <h2>@Model.TodayWorkEventsCount</h2>
+                <P>logs from last 7 days</P>
 
-       </div>
-    
-       <div class="card">
-           <div class="card-body"></div>
-          <h5>Rework Required</h5>
-          <h2>@Model.ReworkRequiredCount</h2>
-          <p>Placeholder</p>
 
-       </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5>Evidence Photos</h5>
+                <h2>@Model.EvidencePhotosCount</h2>
+                <p>Uploaded job site photos</p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5>Rework Required</h5>
+                <h2>@Model.ReworkRequiredCount</h2>
+                <p>Placeholder</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
       
 
 
