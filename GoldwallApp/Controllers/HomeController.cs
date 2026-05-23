@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using GoldwallApp.Data;
 using GoldwallApp.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoldwallApp.Controllers
 {
@@ -29,6 +30,29 @@ namespace GoldwallApp.Controllers
             };
 
             return View(dashboardData); 
+        }
+
+        public IActionResult LinqPractice()
+        {
+            var practiceData = new LinqPracticeViewModel
+            {
+                TotalJobsCount = _context.Jobs.Count(),
+
+                ActiveJobs = _context.Jobs.Count(job => job.Status == "Active"),
+
+
+                ActiveJobsList = 
+                _context.Jobs
+                .Include(job => job.Client)
+                .Where(job => job.Status == "Active")
+                .OrderByDescending(job => job.JobId)
+                .Take(3) //descending + take = take latest rows, so if we have 15 rows, take rows with id 13-15.
+                .ToList()
+            };
+
+
+
+            return View(practiceData);
         }
 
         // Simple About page for now

@@ -1,0 +1,16 @@
+﻿@model GoldwallApp.ViewModels.LinqPracticeViewModel //this page expects to receive a LinqpracticeViewModel from the controller
+
+@{
+    ViewData["Title"] = "LINQ Practice";
+}
+
+<h1>LINQ Practice</h1>
+
+<p>Total Jobs: @Model.TotalJobsCount</p>
+
+<p>Active Jobs: @Model.ActiveJobs</p>
+
+@foreach (var job in Model.ActiveJobsList) //the @ here goes where razor needs to switch from html to c#. so the reason there isnt a @ in front of the model here is cuz its already in front of the foreach.
+{
+    <p>@job.Title - @job.Client?.Name @job.Address @job.Status @job.JobId</p> //displays title then "-"" then status
+}
