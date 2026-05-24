@@ -1,87 +1,89 @@
-﻿
-
-@model GoldwallApp.ViewModels.DashboardViewModel
-
-
+﻿@model GoldwallApp.ViewModels.DashboardViewModel
 
 @{
     ViewData["Title"] = "Home";
 }
 
+<style>
+    body {
+  background: radial-gradient(circle at top left, rgba(255, 226, 130, 0.35), transparent 35%), linear-gradient(135deg, #fffdf2 0%, #fff7d6 45%, #f4e7b3 100%);
+    }
 
+    h1 {
+        font-weight: 800;
+    color: #4a3a12;
+        text-shadow: 1px 1px 0 #d6b94c, 2px 2px 0 rgba(0, 0, 0, 0.12);
+    }
 
+    h2 {
+        font-weight: 800;   color: #5a4310;
+        text-shadow: 1px 1px 0 #e2c760, 2px 2px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    .card {
+   background-color: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(150, 120, 35, 0.18);
+        box-shadow: 0 8px 18px rgba(80, 60, 10, 0.10);
+    }
+</style>
 <div class="mb-4">
     <h1>Goldwall Dashboard</h1>
-    <p> overview of jobs, defects, work events, evidence,  quality trends</p>
+    <p>Overview of jobs, defects, work events, evidence, and quality trends.</p>
 </div>
-
-
-
-
-
 
 <div class="row mb-4">
     <div class="col">
-        <div class="card">
-            <div class="card-body">
-                <h5>Active Jobs</h5>
-                <h2>@Model.ActiveJobsCount</h2>
-                <p>currently in progress</p>
-
-            </div>
+        <div class="card card-body">
+            <h5>Active Jobs</h5>
+     <h2>@Model.ActiveJobsCount</h2>
+            <p>Currently in progress</p>
         </div>
     </div>
 
     <div class="col">
-        <div class="card">
-            <div class="card-body">
-                <h5>Open Defects</h5>
-                <h2>@Model.OpenDefectsCount</h2>
-                <p>Defects awaiting resolution</p>
-            </div>
-
+        <div class="card card-body">
+    <h5>Open Defects</h5>
+            <h2>@Model.OpenDefectsCount</h2>
+            <p>Awaiting resolution</p>
         </div>
     </div>
 
     <div class="col">
-        <div class="card">
-            <div class="card-body">
-                <h5>Today’s Work Events</h5>
-                <h2>@Model.TodayWorkEventsCount</h2>
-                <P>logs from last 7 days</P>
-
-
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="col">
-        <div class="card">
-            <div class="card-body">
-                <h5>Evidence Photos</h5>
-                <h2>@Model.EvidencePhotosCount</h2>
-                <p>Uploaded job site photos</p>
-
-            </div>
+   <div class="card card-body">
+            <h5>Today’s Work Events</h5>
+            <h2>@Model.TodayWorkEventsCount</h2>
+            <p>Logged today</p>
         </div>
     </div>
 
     <div class="col">
-        <div class="card">
-            <div class="card-body">
-                <h5>Rework Required</h5>
-                <h2>@Model.ReworkRequiredCount</h2>
-                <p>Placeholder</p>
+    <div class="card card-body">
+                                          <h5>Evidence Photos</h5>
+            <h2>@Model.EvidencePhotosCount</h2>
+            <p>Uploaded job site photos</p>
+        </div>
+    </div>
 
-            </div>
+    <div class="col">
+        <div class="card card-body">
+            <h5>Rework Required</h5>
+            <h2>@Model.ReworkRequiredCount</h2>
+            <p>Needs follow-up</p>
         </div>
     </div>
 </div>
 
-      
+<div class="card card-body mb-4">
+    <h4>Active Jobs</h4>
 
-
-
-
+    <div class="list-group">
+        @foreach (var job in Model.ListOfActiveJob)
+        {
+            <div class="list-group-item">
+                <strong>@job.Title</strong>
+                <br />
+                @job.Client?.Name - @job.Address - @job.Status - @job.JobId
+            </div>
+        }
+    </div>
+</div>

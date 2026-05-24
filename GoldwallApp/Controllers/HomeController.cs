@@ -26,7 +26,15 @@ namespace GoldwallApp.Controllers
 
                 EvidencePhotosCount = _context.EvidencePhotos.Count(),  //counts all uploaded evidence photos and assigns to EvidencePhotosCount
 
-                ReworkRequiredCount = _context.EventOutcomes.Count(o => o.ReworkRequired == true) //counts event outcomes where rework is required and assigns to ReworkRequiredCount
+                ReworkRequiredCount = _context.EventOutcomes.Count(o => o.ReworkRequired == true), //counts event outcomes where rework is required and assigns to ReworkRequiredCount
+
+                  ListOfActiveJob =
+                _context.Jobs
+                .Include(job => job.Client)
+                .Where(job => job.Status == "Active")
+                .OrderByDescending(job => job.JobId)
+                .Take(3) //descending + take = take latest rows, so if we have 15 rows, take rows with id 13-15.
+                .ToList()
             };
 
             return View(dashboardData); 
