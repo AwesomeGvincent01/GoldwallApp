@@ -29,5 +29,7 @@ namespace GoldwallApp.Models
         public Surface? Surface { get; set; }
         public DefectType? DefectType { get; set; }
         public ICollection<EvidencePhoto>? EvidencePhotos { get; set; }
+
+
     }
 }

@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using GoldwallApp.Data;
+using GoldwallApp.Models;
 using GoldwallApp.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoldwallApp.Controllers
@@ -34,7 +35,15 @@ namespace GoldwallApp.Controllers
                 .Where(job => job.Status == "Active")
                 .OrderByDescending(job => job.JobId)
                 .Take(3) //descending + take = take latest rows, so if we have 15 rows, take rows with id 13-15.
-                .ToList()
+                .ToList(),
+
+                  OpenDefectsDisplay =
+                  _context.DefectReports
+                  .Include (defectReport => defectReport.DefectType)
+                  .Include (defectReport => defectReport.Surface)
+                  .OrderByDescending(defectReport => defectReport.DefectReportId)
+                  .Take(3)
+                  .ToList()
             };
 
             return View(dashboardData); 

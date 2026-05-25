@@ -11,6 +11,10 @@
         public int EvidencePhotosCount { get; set; } //stores the total number of evidence photos in the system
         public int ReworkRequiredCount { get; set; } //stores the number of event outcomes where rework is required
 
+  
+
         public List<Job> ListOfActiveJob { get; set; } = new List<Job>();
+
+    public List<DefectReport> OpenDefectsDisplay { get; set; } = new List<DefectReport>();
     }
 

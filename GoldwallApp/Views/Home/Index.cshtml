@@ -86,4 +86,20 @@
             </div>
         }
     </div>
+
+    <h4>Open Defects</h4>
+    <div class="list-group">
+        @foreach (var defectReport in Model.OpenDefectsDisplay)
+        {
+            <div class=" = "list-group-item>
+               <strong>@defectReport.DefectType?.Name</strong>
+               <br />
+               @defectReport.Surface?.Room - Severity: @defectReport.Severity - @defectReport.DefectReportId
+
+            </div>
+           
+
+        }
+
+
 </div>
