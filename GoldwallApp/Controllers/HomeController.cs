@@ -15,6 +15,10 @@ namespace GoldwallApp.Controllers
             _context = context; 
         }
 
+        public IActionResult Landing()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             var dashboardData = new DashboardViewModel  //creates a viewmodel object to hold the data for the dashboard

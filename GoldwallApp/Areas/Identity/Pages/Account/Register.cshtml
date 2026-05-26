@@ -1,64 +1,110 @@
 ﻿@page
 @model RegisterModel
+
 @{
     ViewData["Title"] = "Register";
 }
 
-<h1>@ViewData["Title"]</h1>
+<style>
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background: radial-gradient(circle at top left, rgba(255, 226, 130, 0.35), transparent 35%), linear-gradient(135deg, #fffdf2 0%, #fff7d6 45%, #f4e7b3 100%);
+    }
 
-<div class="row">
-    <div class="col-md-4">
+    .auth-page {
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+    }
+
+    .auth-box {
+        width: 100%;
+        max-width: 650px;
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(150, 120, 35, 0.22);
+        border-radius: 28px;
+        padding: 45px;
+        box-shadow: 0 12px 28px rgba(80, 60, 10, 0.18);
+        text-align: center;
+    }
+
+    .auth-logo {
+        max-width: 360px;
+        width: 80%;
+        margin-bottom: 30px;
+    }
+
+    .auth-title {
+        font-weight: 800;
+        color: #4a3a12;
+        margin-bottom: 25px;
+        text-shadow: 1px 1px 0 #d6b94c, 2px 2px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .auth-input {
+        font-size: 1.3rem;
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .register-image-button {
+        width: 360px;
+        height: 125px;
+        border: none;
+        background-color: transparent;
+        background-image: url('/images/ui/register.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+        .register-image-button:hover {
+            background-image: url('/images/ui/registerhover.png');
+        }
+
+    .auth-links {
+        margin-top: 20px;
+    }
+</style>
+
+<div class="auth-page">
+    <div class="auth-box">
+        <img src="/images/ui/goldwall.png" class="auth-logo" alt="Goldwall logo" />
+
+        <h1 class="auth-title">Register</h1>
+
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+
+            <div class="form-floating mb-4">
+                <input asp-for="Input.Email" class="form-control auth-input" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                 <label asp-for="Input.Email">Email</label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+
+            <div class="form-floating mb-4">
+                <input asp-for="Input.Password" class="form-control auth-input" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <label asp-for="Input.Password">Password</label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+
+            <div class="form-floating mb-4">
+                <input asp-for="Input.ConfirmPassword" class="form-control auth-input" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+
+            <button id="registerSubmit" type="submit" class="register-image-button" aria-label="Register"></button>
+
+            <div class="auth-links">
+                <p>
+                    <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Already have an account? Log in</a>
+                </p>
+            </div>
         </form>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
     </div>
 </div>
 
