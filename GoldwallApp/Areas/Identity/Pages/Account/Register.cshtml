@@ -81,7 +81,29 @@
             color: #4a3a12;
             font-weight: 700;
         }
+
+
+.exit-button {
+    position: fixed;
+    left: 45px;
+  top: 35px;
+  width: 135px;
+  height: 135px;
+    display: block;
+  background-image: url('/images/ui/Exit.png');
+    background-size: contain;
+   background-repeat: no-repeat;
+    background-position: center;
+}
+
+    .exit-button:hover {
+        background-image: url('/images/ui/Exithover.png');
+      transform: scale(1.02);
+
+    }
 </style>
+
+<a asp-controller="Home" asp-action="Landing" class="exit-button" aria-label="go back to landing page"></a>
 
 <div class="auth-page">
     <div class="auth-box">
