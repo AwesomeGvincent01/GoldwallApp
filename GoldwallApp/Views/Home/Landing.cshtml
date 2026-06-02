@@ -27,6 +27,7 @@
     .landing-logo {
         max-width: 950px;
         width: 58vw;
+        margin-top: -120px;
     }
 
     .landing-buttons {
@@ -59,6 +60,65 @@
         .register-button:hover {
             background-image: url('/images/ui/registerhover.png');
         }
+
+
+
+    .external-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 35px;
+        margin-top: -35px;
+    }
+
+    .external-button {
+        display: block;
+        width: 95px;
+        height: 95px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .google-button {
+        background-image: url('/images/ui/Google.png');
+    }
+
+        .google-button:hover {
+            background-image: url('/images/ui/GoogleHover.png');
+        }
+
+    .microsoft-button {
+        background-image: url('/images/ui/Microsoft.png');
+    }
+
+        .microsoft-button:hover {
+            background-image: url('/images/ui/MicrosoftHover.png');
+        }
+
+    .help-button {
+        position: fixed;
+        right: 55px;
+        bottom: 45px;
+        width: 120px;
+        height: 120px;
+        display: block;
+        background-image: url('/images/ui/Help.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+        .help-button:hover {
+            background-image: url('/images/ui/HelpHover.png');
+        }
+
+
+
+        .image-button:hover,
+        .external-button:hover,
+        .help-button:hover {
+            transform: scale(1.04);
+        }
 </style>
 
 <div class="landing-page">
@@ -68,5 +128,13 @@
         <a asp-area="Identity" asp-page="/Account/Login" class="image-button login-button" aria-label="Login"></a>
 
         <a asp-area="Identity" asp-page="/Account/Register" class="image-button register-button" aria-label="Register"></a>
+
+        <div class="external-buttons">
+                 <a href="#" class="external-button google-button" aria-label="Google login"></a>
+
+            <a href="#" class="external-button microsoft-button" aria-label="Microsoft login"></a>
+        </div>
     </div>
 </div>
+
+<a href="#" class="help-button" aria-label="Help"></a>
