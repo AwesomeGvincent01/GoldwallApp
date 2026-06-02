@@ -18,7 +18,7 @@
        background-position: center;
         background-repeat: no-repeat;
     }
-    <a asp-controller="Home" asp-action="Landing" class="exit-button" aria-label="Back to landing page"></a>
+   
 
    .auth-page {
  min-height: 100vh;
@@ -97,10 +97,15 @@
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
+        }
+        .exit-button:hover {
+            background-image: url('/images/ui/Exithover.png');
+            transform: scale(1.02);
+        }
+
 </style>
 
 <a asp-controller="Home" asp-action="Landing" class="exit-button" aria-label="go back to landing page"></a>
-
 <div class="auth-page">
     <div class="auth-box">
         <img src="/images/ui/goldwall.png" class="auth-logo" alt="Goldwall logo" />
