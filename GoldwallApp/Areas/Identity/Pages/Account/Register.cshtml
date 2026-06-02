@@ -2,57 +2,63 @@
 @model RegisterModel
 
 @{
+    Layout = null;
     ViewData["Title"] = "Register";
 }
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
 <style>
     body {
         margin: 0;
         min-height: 100vh;
-        background: radial-gradient(circle at top left, rgba(255, 226, 130, 0.35), transparent 35%), linear-gradient(135deg, #fffdf2 0%, #fff7d6 45%, #f4e7b3 100%);
+        overflow: hidden;
+        background-image: url('/images/ui/GWBackground.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 
     .auth-page {
-        min-height: 85vh;
+        min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 40px;
+        padding: 25px;
+        box-sizing: border-box;
     }
 
     .auth-box {
         width: 100%;
-        max-width: 650px;
-        background: rgba(255, 255, 255, 0.82);
-        border: 1px solid rgba(150, 120, 35, 0.22);
-        border-radius: 28px;
-        padding: 45px;
-        box-shadow: 0 12px 28px rgba(80, 60, 10, 0.18);
+        max-width: 1120px;
+        padding: 25px 70px;
         text-align: center;
     }
 
     .auth-logo {
-        max-width: 360px;
-        width: 80%;
-        margin-bottom: 30px;
+        max-width: 560px;
+        width: 45vw;
+        margin-bottom: 15px;
     }
 
     .auth-title {
         font-weight: 800;
         color: #4a3a12;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
+        font-size: 3rem;
         text-shadow: 1px 1px 0 #d6b94c, 2px 2px 0 rgba(0, 0, 0, 0.12);
     }
 
     .auth-input {
-        font-size: 1.3rem;
-        padding: 18px;
-        border-radius: 14px;
+        height: 82px;
+        font-size: 1.8rem;
+        border-radius: 18px;
+        border: 3px solid #d6b94c;
     }
 
     .register-image-button {
-        width: 360px;
-        height: 125px;
+        width: 520px;
+        height: 185px;
         border: none;
         background-color: transparent;
         background-image: url('/images/ui/register.png');
@@ -67,7 +73,14 @@
 
     .auth-links {
         margin-top: 20px;
+        font-size: 1.2rem;
     }
+
+
+        .auth-links a {
+            color: #4a3a12;
+            font-weight: 700;
+        }
 </style>
 
 <div class="auth-page">
