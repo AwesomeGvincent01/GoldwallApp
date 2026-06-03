@@ -16,5 +16,11 @@
         public List<Job> ListOfActiveJob { get; set; } = new List<Job>();
 
     public List<DefectReport> OpenDefectsDisplay { get; set; } = new List<DefectReport>();
-    }
+
+    public List<WorkEvent> RecentWorkEvent { get; set; } = new List<WorkEvent>();
+
+    public List<EvidencePhoto> RecentPhotos {  get; set; } = new List<EvidencePhoto>();
+
+    
+}
 

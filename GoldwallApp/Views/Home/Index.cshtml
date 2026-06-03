@@ -102,4 +102,38 @@
         }
 
 
+        <h4>Recent Work Events</h4>
+        <div class="list-group">
+           @foreach (var workEvent in Model.RecentWorkEvent)
+            {
+                <div class="list-group-item"> 
+
+                    <strong>@workEvent.Notes</strong>
+                    <br/>
+                    @workEvent.StartedAt
+
+
+                </div>
+            }
+
+            <h4>Evidence Photos</h4>
+            <div class=" = "list-group">
+                @foreach (var evidencePhoto in Model.RecentPhotos)
+                {
+                  <strong>@evidencePhoto.TakenAt</strong>
+
+                  <br />
+
+                  @evidencePhoto.ImageFile
+                }
+
+            </div>
+
+
+        </div>
+
+
+        </div>
+
+
 </div>

@@ -45,9 +45,22 @@ namespace GoldwallApp.Controllers
                   _context.DefectReports
                   .Include (defectReport => defectReport.DefectType)
                   .Include (defectReport => defectReport.Surface)
-                  .OrderByDescending(defectReport => defectReport.DefectReportId)
+                  .Take(3)
+                  .ToList(),
+
+                  RecentWorkEvent = 
+                  _context.WorkEvents
+                  .Include (workEvent => workEvent.EventContext)
+                  .Include (workEvent => workEvent.EventOutcome)
+                  .OrderByDescending(workEvent => workEvent.WorkEventId)
+                  .ToList(),
+
+                  RecentPhotos =
+                  _context.EvidencePhotos
                   .Take(3)
                   .ToList()
+
+
             };
 
             return View(dashboardData); 
