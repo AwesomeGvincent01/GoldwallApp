@@ -1,5 +1,6 @@
 ﻿using GoldwallApp.Data;
 using GoldwallApp.Models;
+using GoldwallApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -21,11 +22,37 @@ namespace GoldwallApp
             _context = context;
         }
 
+
+
         // GET: Jobs
         public async Task<IActionResult> Index()
         {
             var appDbContext = _context.Jobs.Include(j => j.Business).Include(j => j.Client);
             return View(await appDbContext.ToListAsync());
+
+
+        }
+
+        public async Task<IActionResult> Overview()
+        {
+          var viewModel = new JobsOverviewViewModel
+            {
+                TotalJobsCount = await _context.Jobs.CountAsync(),
+
+         ActiveJobsCount = await _context.Jobs.CountAsync(job => job.Status == "Active"),
+
+             PlannedJobsCount = await _context.Jobs.CountAsync(job => job.Status == "Planned"),
+
+                CompletedJobsCount = await _context.Jobs.CountAsync(job => job.Status == "Completed"),
+
+                Jobs = await _context.Jobs
+                    .Include(job => job.Client)
+                .OrderByDescending(job => job.JobId)
+               .Take(10)
+                 .ToListAsync()
+            };
+
+            return View(viewModel);
         }
 
         // GET: Jobs/Details/5

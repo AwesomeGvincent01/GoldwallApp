@@ -1,0 +1,100 @@
+﻿@model GoldwallApp.ViewModels.JobsOverviewViewModel
+
+@{
+    ViewData["Title"] = "Jobs";
+}
+
+<h1>Jobs</h1>
+<p>Manage current, planned, and completed plastering work.</p>
+
+<div class="mb-4">
+    <a asp-controller="Jobs" asp-action="Create" class="btn btn-primary">+ Create Job</a>
+</div>
+
+<div class="row mb-4">
+    <div class="col">
+        <div class="card card-body">
+            <h5>Total Jobs</h5>
+            <h2>@Model.TotalJobsCount</h2>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card card-body">
+            <h5>Active Jobs</h5>
+            <h2>@Model.ActiveJobsCount</h2>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card card-body">
+            <h5>Planned Jobs</h5>
+            <h2>@Model.PlannedJobsCount</h2>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card card-body">
+            <h5>Completed Jobs</h5>
+            <h2>@Model.CompletedJobsCount</h2>
+        </div>
+    </div>
+</div>
+
+<div class="card card-body mb-4">
+    <div class="row">
+        <div class="col">
+            <input class="form-control" placeholder="Search jobs..." />
+        </div>
+
+        <div class="col">
+            <select class="form-control">
+                <option>Status: All</option> <!-- these options/search are still purely visual. will be implemented later -->
+                <option>Active</option>
+                <option>Planned</option>
+                <option>Completed</option>
+            </select>
+        </div>
+
+        <div class="col">
+            <select class="form-control">
+                <option>Client: All</option>
+            </select>
+        </div>
+
+        <div class="col">
+            <button class="btn btn-outline-secondary w-100">Clear Filters</button>
+        </div>
+    </div>
+</div>
+
+<div class="card card-body">
+    <h4>Job List</h4>
+
+    <table class="table table-sm">
+        <thead>
+            <tr>
+              <th>Job Title</th>
+              <th>Client</th>
+        <th>Address</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+         @foreach (var job in Model.Jobs)
+            {
+                <tr>
+                  <td>@job.Title</td>
+                    <td>@job.Client?.Name</td>
+                    <td>@job.Address</td>
+                  <td>@job.Status</td>
+                    <td>
+                <a asp-controller="Jobs" asp-action="Details" asp-route-id="@job.JobId" class="btn btn-sm btn-outline-secondary">View</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
