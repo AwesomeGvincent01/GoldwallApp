@@ -1,5 +1,6 @@
 ﻿using GoldwallApp.Data;
 using GoldwallApp.Models;
+using GoldwallApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,6 +27,27 @@ namespace GoldwallApp
         {
             return View(await _context.Patterns.ToListAsync());
         }
+
+
+
+
+        public async Task<IActionResult> Insights()
+        {
+            var viewModel = new InsightsViewModel
+            {
+               PatternsFound = _context.Patterns.Count(),
+
+               HighConfidence = _context.Patterns.Count(p => p.Confidence >= 0.80M), //dont forget to add m suffix next time
+
+              // InsightsList = _context.Patterns
+           // .Include(pattern => pattern.PatternOutcomes) WIP
+            };
+
+            return View(viewModel);
+        }
+
+
+
 
         // GET: Patterns/Details/5
         public async Task<IActionResult> Details(int? id)
