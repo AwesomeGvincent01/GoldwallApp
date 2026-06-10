@@ -1,8 +1,11 @@
 ﻿@model GoldwallApp.ViewModels.DashboardViewModel
 
 @{
+    Layout = null;
     ViewData["Title"] = "Home";
 }
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
 <style>
     body {
@@ -24,14 +27,85 @@
    background-color: rgba(255, 255, 255, 0.82);
   border: 1px solid rgba(150, 120, 35, 0.18);
         box-shadow: 0 8px 18px rgba(80, 60, 10, 0.10);
+        }
+
+        .dashboard-shell {
+   display: flex;
+    min-height: 100vh;
+}
+
+    .side-nav {
+    width: 260px;
+    padding: 25px;
+    background: rgba(255, 240, 170, 0.75);
+  border-right: 2px solid rgba(150, 120, 35, 0.25);
+    box-shadow: 8px 0 20px rgba(80, 60, 10, 0.08);
+}
+
+    .side-logo {
+    width: 190px;
+    margin-bottom: 35px;
+}
+
+   .nav-link-gw {
+    display: block;
+  padding: 13px 18px;
+   margin-bottom: 10px;
+    border-radius: 12px;
+    color: #2e2508;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.nav-link-gw:hover { background: rgba(255, 196, 0, 0.45);
+    transform: scale(1.02);
+}
+
+.nav-link-active {
+        background: rgba(255, 196, 0, 0.55);
+    border: 1px solid rgba(150, 120, 35, 0.25);
+}
+
+.main-dashboard {
+    flex: 1;
+    padding: 35px;
+}
+
+.help-link {
+    margin-top: 70px;
+          border-top: 1px solid rgba(100, 80, 20, 0.25);
+    padding-top: 25px;
+}
     }
 </style>
+
+<div class="dashboard-shell">
+
+  <div class="side-nav">
+                  <img src="/images/ui/goldwall.png" class="side-logo" />
+
+      <a href="#" class="nav-link-gw nav-link-active">▦ Dashboard</a>
+        <a asp-controller="Jobs" asp-action="Overview" class="nav-link-gw">▣ Jobs</a>
+     <a href="#" class="nav-link-gw">♙ Clients</a>
+        <a href="#" class="nav-link-gw">▤ Work Events</a>
+     <a href="#" class="nav-link-gw">△ Defects</a>
+        <a href="#" class="nav-link-gw">▧ Evidence Photos</a>
+        <a href="#" class="nav-link-gw">◈ Materials</a>
+       <a href="#" class="nav-link-gw">▥ Reports</a>
+       <a href="#" class="nav-link-gw">⚙ Settings</a>
+
+     <div class="help-link">
+            <a href="#" class="nav-link-gw">? Help</a>
+        </div>
+    </div>
+
+    <div class="main-dashboard">
+
 <div class="mb-4">
     <h1>Goldwall Dashboard</h1>
     <p>Overview of jobs, defects, work events, evidence, and quality trends.</p>
 </div>
 
-<a asp-controller="Jobs" asp-action="Overview" class="btn btn-primary">View Jobs</a>
 
 <div class="row mb-4">
     <div class="col">
@@ -118,16 +192,22 @@
                 </div>
             }
 
-            <h4>Evidence Photos</h4>
-            <div class=" = "list-group">
-                @foreach (var evidencePhoto in Model.RecentPhotos)
-                {
-                  <strong>@evidencePhoto.TakenAt</strong>
+                    <h4>Evidence Photos</h4>
 
-                  <br />
+                    <div class="row">
+                        @foreach (var evidencePhoto in Model.RecentPhotos)
+                        {
+                            <div class="col-md-3 mb-3">
+              <img src="@evidencePhoto.FileUrl" class="img-fluid rounded" />
 
-                  @evidencePhoto.ImageFile
-                }
+                                <p>
+                                    <strong>@evidencePhoto.TakenAt</strong>
+                                    <br />
+                                    @evidencePhoto.Caption
+                                </p>
+                            </div>
+                        }
+                    </div>
 
             </div>
 
@@ -138,4 +218,6 @@
         </div>
 
 
+</div>
+</div>
 </div>
