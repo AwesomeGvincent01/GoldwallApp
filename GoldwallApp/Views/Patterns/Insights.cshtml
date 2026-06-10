@@ -1,0 +1,63 @@
+﻿<style>
+    body {
+        background: radial-gradient(circle at top left, rgba(255, 226, 130, 0.35), transparent 35%), linear-gradient(135deg, #fffdf2 0%, #fff7d6 45%, #f4e7b3 100%);
+    }
+
+    h1 {
+        font-weight: 800;
+        color: #4a3a12;
+        text-shadow: 1px 1px 0 #d6b94c, 2px 2px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    h2 {
+        font-weight: 800;
+        color: #5a4310;
+        text-shadow: 1px 1px 0 #e2c760, 2px 2px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    .card {
+        background-color: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(150, 120, 35, 0.18);
+        box-shadow: 0 8px 18px rgba(80, 60, 10, 0.10);
+    }
+</style>
+<div class="mb-4">
+    <h1>Insights</h1>
+   
+</div>
+
+<a asp-controller="Jobs" asp-action="Overview" class="btn btn-primary">View Jobs</a>
+
+<div class="row mb-4">
+
+    <div class="col">
+        <div class="card card-body">
+            <h5>Patterns found:</h5>
+            <h2>@Model.PatternsFound</h2>
+        </div>
+    </div>
+
+
+    <div class="col">
+        <div class="card card-body">
+            <h5>High Confidence:</h5>
+            <h2>@Model.HighConfidence</h2>
+        
+        </div>
+    </div>
+
+    </div>
+
+
+<div class="list-group">
+    @foreach (var pattern in Model.InsightsList)
+    {
+        <div class="list-group-item">
+            <strong>@pattern.Description</strong>
+            <br />
+            <p>Confidence: @pattern.Outcome</p>
+            <p>Based on: (TBC) </p>
+            <p> Likely outcome: (TBC) </p>
+        </div>
+    }
+</div>

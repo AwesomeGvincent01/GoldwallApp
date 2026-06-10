@@ -9,7 +9,7 @@ namespace GoldwallApp.ViewModels
         
         public int NeedsReview {  get; set; }
 
-        public List<PatternOutcome> InsightsList { get; set; } = new List<PatternOutcome>();
+        public List<Pattern> InsightsList { get; set; } = new List<Pattern>();
 
     }
 }

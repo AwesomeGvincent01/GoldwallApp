@@ -39,8 +39,11 @@ namespace GoldwallApp
 
                HighConfidence = _context.Patterns.Count(p => p.Confidence >= 0.80M), //dont forget to add m suffix next time
 
-              // InsightsList = _context.Patterns
-           // .Include(pattern => pattern.PatternOutcomes) WIP
+               InsightsList = _context.Patterns
+               .Include (p => p.PatternOutcomes)
+               .ToList()
+
+               
             };
 
             return View(viewModel);
