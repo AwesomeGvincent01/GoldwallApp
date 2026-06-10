@@ -1,5 +1,6 @@
 ﻿using GoldwallApp.Data;
 using GoldwallApp.Models;
+using GoldwallApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,6 +27,24 @@ namespace GoldwallApp
         {
             return View(await _context.DefectReports.ToListAsync());
         }
+
+
+
+        public async Task<IActionResult> Defects()
+        {
+            var viewModel = new DefectsViewModel
+            {
+              DefectsList = _context.DefectReports
+              .Include(defectReport => defectReport.DefectType)
+              .ToList()
+
+
+            };
+
+            return View(viewModel);
+        }
+
+
 
         // GET: DefectReports/Details/5
         public async Task<IActionResult> Details(int? id)

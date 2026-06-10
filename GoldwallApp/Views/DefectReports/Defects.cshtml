@@ -1,0 +1,22 @@
+﻿@model GoldwallApp.ViewModels.DefectsViewModel  
+
+@{
+    ViewData["Title"] = "Defects";
+}
+
+<h1>Defects</h1>
+
+
+
+
+        <tbody>
+            @foreach (var defectReport in Model.DefectsList)
+            {
+                <tr>
+      <td>@defectReport.DefectType?.Name</td>
+      <td>@defectReport.Description</td>
+                 
+                </tr>
+            }
+        </tbody>
+
