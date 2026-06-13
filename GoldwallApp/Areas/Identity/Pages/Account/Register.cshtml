@@ -110,6 +110,8 @@
 
         <h1 class="auth-title">Register</h1>
 
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+
         <div class="form-floating mb-4">
             <input asp-for="Input.FirstName" class="form-control auth-input" autocomplete="given-name" aria-required="true" placeholder="First Name" />
             <label asp-for="Input.FirstName">First Name</label>
@@ -142,7 +144,7 @@
             <span asp-validation-for="Input.BusinessInviteCode" class="text-danger"></span>
         </div>
 
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+       
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
             <div class="form-floating mb-4">
