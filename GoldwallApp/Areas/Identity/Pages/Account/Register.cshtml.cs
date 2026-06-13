@@ -30,13 +30,14 @@ namespace GoldwallApp.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-
+        private readonly RoleManager<IdentityRole> _roleManager;
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +45,7 @@ namespace GoldwallApp.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -75,6 +77,31 @@ namespace GoldwallApp.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            /// 
+
+            [Required]
+            [StringLength(50)]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [StringLength(50)]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [Phone]
+            [Display(Name = "Phone Number")]
+            public string PhoneNumber { get; set; }
+
+            [Required]
+            [Display(Name = "Role")]
+            public string Role { get; set; } = "Admin";
+
+            [Required]
+            [StringLength(50)]
+            [Display(Name = "Business Invite Code")]
+            public string BusinessInviteCode { get; set; }
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -113,7 +140,19 @@ namespace GoldwallApp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                if (Input.BusinessInviteCode != "GOLDWALL2026")
+                {
+                    ModelState.AddModelError("Input.BusinessInviteCode", " business invite code invalid, try again");
+                    return Page();
+                }
+
                 var user = CreateUser();
+
+         
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+                user.PhoneNumber = Input.PhoneNumber;
+                user.BusinessInviteCode = Input.BusinessInviteCode;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -122,6 +161,18 @@ namespace GoldwallApp.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+                    // currently only admin role is supported during registration
+                    Input.Role = "Admin";
+
+                    // Check whether the Admin role already exists in ASP.NET Identity.
+                    if (!await _roleManager.RoleExistsAsync(Input.Role))
+                    {
+                        // create the Admin role if does not exist yet.
+                        await _roleManager.CreateAsync(new IdentityRole(Input.Role));
+                    }
+                    // link newly created user account to the Admin role.
+                    await _userManager.AddToRoleAsync(user, Input.Role);
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
