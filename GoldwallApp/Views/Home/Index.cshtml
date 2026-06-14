@@ -23,11 +23,17 @@
         text-shadow: 1px 1px 0 #e2c760, 2px 2px 0 rgba(0, 0, 0, 0.08);
     }
 
+    h4 {
+        font-weight: 800;   color: #5a4310;
+        margin-bottom: 18px;
+    }
+
     .card {
    background-color: rgba(255, 255, 255, 0.82);
   border: 1px solid rgba(150, 120, 35, 0.18);
         box-shadow: 0 8px 18px rgba(80, 60, 10, 0.10);
-        }
+  border-radius: 18px;
+    }
 
         .dashboard-shell {
    display: flex;
@@ -57,9 +63,10 @@
     font-weight: 700;
 }
 
-.nav-link-gw:hover { background: rgba(255, 196, 0, 0.45);
-    transform: scale(1.02);
-}
+        .nav-link-gw:hover {
+            background: rgba(255, 196, 0, 0.45);
+            transform: scale(1.02);
+        }
 
 .nav-link-active {
         background: rgba(255, 196, 0, 0.55);
@@ -71,153 +78,314 @@
     padding: 35px;
 }
 
-.help-link {
-    margin-top: 70px;
-          border-top: 1px solid rgba(100, 80, 20, 0.25);
-    padding-top: 25px;
-}
+    .help-link {
+        margin-top: 70px;
+        border-top: 1px solid rgba(100, 80, 20, 0.25);
+        padding-top: 25px;
+    }
+
+    .quick-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+    }
+
+    .quick-action-btn {
+        padding: 10px 16px;
+        border-radius: 12px;
+        background: rgba(255, 196, 0, 0.65);
+        border: 1px solid rgba(150, 120, 35, 0.25);
+        color: #2e2508;
+        text-decoration: none;
+        font-weight: 800;
+    }
+
+        .quick-action-btn:hover {
+            background: rgba(255, 196, 0, 0.9);
+            color: #2e2508;
+        }
+
+    .metric-card {
+        min-height: 150px;
+    }
+
+    .section-card {
+        margin-bottom: 24px;
+    }
+
+    .table {
+        margin-bottom: 0;
+    }
+
+        .table th {
+            color: #5a4310;
+            font-size: 0.9rem;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+
+    .defect-box {
+        padding: 14px;
+        margin-bottom: 12px;
+        border-radius: 14px;
+        background: rgba(255, 250, 230, 0.85);
+        border: 1px solid rgba(150, 120, 35, 0.18);
+    }
+
+    .photo-box {
+        padding: 10px;
+        border-radius: 14px;
+        background: rgba(255, 250, 230, 0.85);
+        border: 1px solid rgba(150, 120, 35, 0.18);
+        height: 100%;
+    }
+
+        .photo-box img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+
+    .small-gw-text {
+        color: #6b5a21;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    .empty-message {
+        color: #6b5a21;
+        font-weight: 700;
     }
 </style>
 
 <div class="dashboard-shell">
 
-  <div class="side-nav">
+    <div class="side-nav">
                   <img src="/images/ui/goldwall.png" class="side-logo" />
 
-      <a href="#" class="nav-link-gw nav-link-active">▦ Dashboard</a>
+        <a href="#" class="nav-link-gw nav-link-active">▦ Dashboard</a>
         <a asp-controller="Jobs" asp-action="Overview" class="nav-link-gw">▣ Jobs</a>
-     <a href="#" class="nav-link-gw">♙ Clients</a>
-        <a href="#" class="nav-link-gw">▤ Work Events</a>
+        <a asp-controller="Clients" asp-action="Index" class="nav-link-gw">♙ Clients</a>
+        <a asp-controller="WorkEvents" asp-action="Index" class="nav-link-gw">▤ Work Events</a>
         <a asp-controller="DefectReports" asp-action="Defects" class="nav-link-gw">△ Defects</a>
-        <a href="#" class="nav-link-gw">▧ Evidence Photos</a>
-        <a href="#" class="nav-link-gw">◈ Materials</a>
-       <a href="#" class="nav-link-gw">▥ Reports</a>
-       <a href="#" class="nav-link-gw">⚙ Settings</a>
+        <a asp-controller="EvidencePhotoes" asp-action="Index" class="nav-link-gw">▧ Evidence Photos</a>
+        <a asp-controller="Materials" asp-action="Index" class="nav-link-gw">◈ Materials</a>
+        <a href="#" class="nav-link-gw">▥ Reports</a>
+        <a href="#" class="nav-link-gw">⚙ Settings</a>
 
-     <div class="help-link">
+        <div class="help-link">
             <a href="#" class="nav-link-gw">? Help</a>
         </div>
     </div>
 
     <div class="main-dashboard">
 
-<div class="mb-4">
-    <h1>Goldwall Dashboard</h1>
-    <p>Overview of jobs, defects, work events, evidence, and quality trends.</p>
-</div>
+        <div class="mb-4">
+            <h1>Goldwall Dashboard</h1>
+            <p>Overview of jobs, defects, work events, evidence, and quality trends.</p>
 
-
-<div class="row mb-4">
-    <div class="col">
-        <div class="card card-body">
-            <h5>Active Jobs</h5>
-     <h2>@Model.ActiveJobsCount</h2>
-            <p>Currently in progress</p>
-        </div>
-    </div>
-
-    <div class="col">
-        <div class="card card-body">
-    <h5>Open Defects</h5>
-            <h2>@Model.OpenDefectsCount</h2>
-            <p>Awaiting resolution</p>
-        </div>
-    </div>
-
-    <div class="col">
-   <div class="card card-body">
-            <h5>Today’s Work Events</h5>
-            <h2>@Model.TodayWorkEventsCount</h2>
-            <p>Logged today</p>
-        </div>
-    </div>
-
-    <div class="col">
-    <div class="card card-body">
-                                          <h5>Evidence Photos</h5>
-            <h2>@Model.EvidencePhotosCount</h2>
-            <p>Uploaded job site photos</p>
-        </div>
-    </div>
-
-    <div class="col">
-        <div class="card card-body">
-            <h5>Rework Required</h5>
-            <h2>@Model.ReworkRequiredCount</h2>
-            <p>Needs follow-up</p>
-        </div>
-    </div>
-</div>
-
-<div class="card card-body mb-4">
-    <h4>Active Jobs</h4>
-
-    <div class="list-group">
-        @foreach (var job in Model.ListOfActiveJob)
-        {
-            <div class="list-group-item">
-                <strong>@job.Title</strong>
-                <br />
-                @job.Client?.Name - @job.Address - @job.Status - @job.JobId
+            <div class="quick-actions">
+                <button type="button" class="quick-action-btn">Create Job</button>
+                <button type="button" class="quick-action-btn">Log Work Event</button>
+                <button type="button" class="quick-action-btn">Report Defect</button>
+                <button type="button" class="quick-action-btn">Upload Photo</button>
             </div>
-        }
-    </div>
-
-    <h4>Open Defects</h4>
-    <div class="list-group">
-        @foreach (var defectReport in Model.OpenDefectsDisplay)
-        {
-            <div class=" = "list-group-item>
-               <strong>@defectReport.DefectType?.Name</strong>
-               <br />
-               @defectReport.Surface?.Room - Severity: @defectReport.Severity - @defectReport.DefectReportId
-
-            </div>
-           
-
-        }
+        </div>
 
 
-        <h4>Recent Work Events</h4>
-        <div class="list-group">
-           @foreach (var workEvent in Model.RecentWorkEvent)
-            {
-                <div class="list-group-item"> 
-
-                    <strong>@workEvent.Notes</strong>
-                    <br/>
-                    @workEvent.StartedAt
-
-
+        <div class="row g-3 mb-4">
+            <div class="col">
+                <div class="card card-body metric-card">
+                    <h5>Active Jobs</h5>
+                    <h2>@Model.ActiveJobsCount</h2>
+                    <p>Currently in progress</p>
                 </div>
-            }
+            </div>
 
-                    <h4>Evidence Photos</h4>
+            <div class="col">
+                <div class="card card-body metric-card">
+                    <h5>Open Defects</h5>
+                    <h2>@Model.OpenDefectsCount</h2>
+                    <p>Awaiting resolution</p>
+                </div>
+            </div>
 
-                    <div class="row">
-                        @foreach (var evidencePhoto in Model.RecentPhotos)
+            <div class="col">
+                <div class="card card-body metric-card">
+                    <h5>Today’s Work Events</h5>
+                    <h2>@Model.TodayWorkEventsCount</h2>
+                    <p>Logged today</p>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card card-body metric-card">
+                    <h5>Evidence Photos</h5>
+                    <h2>@Model.EvidencePhotosCount</h2>
+                    <p>Uploaded job site photos</p>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card card-body metric-card">
+                    <h5>Rework Required</h5>
+                    <h2>@Model.ReworkRequiredCount</h2>
+                    <p>Needs follow-up</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-8">
+
+                <div class="card card-body section-card">
+                    <h4>Active Jobs</h4>
+
+                    @if (Model.ListOfActiveJob.Any())
+                    {
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Job</th>
+                                    <th>Client</th>
+                                    <th>Address</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var job in Model.ListOfActiveJob)
+                                {
+                                    <tr>
+                                        <td><strong>@job.Title</strong></td>
+                                        <td>@job.Client?.Name</td>
+                                        <td>@job.Address</td>
+                                        <td>@job.Status</td>
+                                        <td>
+                                            <a asp-controller="Jobs" asp-action="Details" asp-route-id="@job.JobId">View</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="empty-message">No active jobs to show.</p>
+                    }
+                </div>
+
+
+                <div class="card card-body section-card">
+                    <h4>Recent Work Events</h4>
+
+                    @if (Model.RecentWorkEvent.Any())
+                    {
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Work Event</th>
+                                    <th>Started</th>
+                                    <th>Ended</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var workEvent in Model.RecentWorkEvent.Take(5))
+                                {
+                                    <tr>
+                                        <td><strong>@workEvent.Notes</strong></td>
+                                        <td>@workEvent.StartedAt.ToString("dd MMM yyyy, h:mm tt")</td>
+                                        <td>@workEvent.EndedAt.ToString("dd MMM yyyy, h:mm tt")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="empty-message">No recent work events to show.</p>
+                    }
+                </div>
+
+
+                <div class="card card-body section-card">
+                    <h4>Recent Activity</h4>
+
+                    <ul class="mb-0">
+                        <li>@Model.ActiveJobsCount active jobs are currently being tracked.</li>
+                        <li>@Model.OpenDefectsCount open defects are awaiting resolution.</li>
+                        <li>@Model.ReworkRequiredCount work outcomes require follow-up.</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="card card-body section-card">
+                    <h4>Open Defects</h4>
+
+                    @if (Model.OpenDefectsDisplay.Any())
+                    {
+                        @foreach (var defectReport in Model.OpenDefectsDisplay)
                         {
-                            <div class="col-md-3 mb-3">
-              <img src="@evidencePhoto.FileUrl" class="img-fluid rounded" />
-
-                                <p>
-                                    <strong>@evidencePhoto.TakenAt</strong>
-                                    <br />
-                                    @evidencePhoto.Caption
-                                </p>
+                            <div class="defect-box">
+                                <strong>@defectReport.DefectType?.Name</strong>
+                                <br />
+                                <span class="small-gw-text">Surface: @defectReport.Surface?.Label</span>
+                                <br />
+                                <span class="small-gw-text">Severity: @defectReport.Severity</span>
+                                <br />
+                                <a asp-controller="DefectReports" asp-action="Details" asp-route-id="@defectReport.DefectReportId">View defect</a>
                             </div>
                         }
-                    </div>
+                    }
+                    else
+                    {
+                        <p class="empty-message">No open defects to show.</p>
+                    }
+                </div>
+
+
+                <div class="card card-body section-card">
+                    <h4>Evidence Photos</h4>
+
+                    @if (Model.RecentPhotos.Any())
+                    {
+                   <div class="row g-3">
+                            @foreach (var evidencePhoto in Model.RecentPhotos)
+                            {
+                         <div class="col-md-6">
+                                    <div class="photo-box">
+                   <img src="@evidencePhoto.FileUrl" class="img-fluid rounded" />
+
+                                   <p class="mb-0">
+             <strong>@evidencePhoto.TakenAt.ToString("dd MMM yyyy")</strong>
+                                            <br />
+                                            @evidencePhoto.Caption
+                                        </p>
+                            </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="empty-message">No recent photos to show.</p>
+                    }
+                </div>
 
             </div>
 
-
         </div>
 
-
-        </div>
-
-
-</div>
-</div>
+    </div>
 </div>
