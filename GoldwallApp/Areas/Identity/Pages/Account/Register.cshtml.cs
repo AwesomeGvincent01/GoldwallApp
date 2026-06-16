@@ -71,7 +71,7 @@ namespace GoldwallApp.Areas.Identity.Pages.Account
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
-        public class InputModel
+        public class InputModel //this is the model for the registration form
         {
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -152,7 +152,7 @@ namespace GoldwallApp.Areas.Identity.Pages.Account
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
                 user.PhoneNumber = Input.PhoneNumber;
-                user.BusinessInviteCode = Input.BusinessInviteCode;
+                user.BusinessInviteCode = Input.BusinessInviteCode; //the form values are first stored in the InputModel, then mapped to the ApplicationUser model before creating the user account in ASP.NET Identity
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
