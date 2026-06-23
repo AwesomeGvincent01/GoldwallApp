@@ -2,14 +2,59 @@
 
 @{
     ViewData["Title"] = "Jobs";
+    Layout = null;
 }
 
 <style>
     body {
-        background-image: linear-gradient(rgba(255, 253, 242, 0.88), rgba(244, 231, 179, 0.92)), url('/images/ui/GWBackground.png');
-        background-size: cover;
-        background-position: center;
+     background-image: linear-gradient(rgba(255, 253, 242, 0.88), rgba(244, 231, 179, 0.92)), url('/images/ui/GWBackground.png');
+                      background-size: cover;
+    background-position: center;
         background-attachment: fixed;
+    }
+
+    h1 {
+     font-weight: 800;
+     color: #4a3a12;
+        text-shadow: 1px 1px 0 #d6b94c, 2px 2px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .card {
+    background-color: rgba(255, 255, 255, 0.86);
+ border: 1px solid rgba(150, 120, 35, 0.18);
+        border-radius: 16px;
+        box-shadow: 0 8px 18px rgba(80, 60, 10, 0.10);
+
+    }
+
+    .goldwall-btn
+
+    {
+   display: inline-block;
+        padding: 10px 16px;
+     border-radius: 12px;
+       background: rgba(255, 196, 0, 0.75);
+      border: 1px solid rgba(150, 120, 35, 0.25);
+        color: #2e2508;
+        text-decoration: none;
+        font-weight: 800;
+    }
+
+        .goldwall-btn:hover {
+            background: rgba(255, 196, 0, 0.95);
+            color: #2e2508;
+        
+        
+        }
+
+    .goldwall-small-btn {
+     padding: 5px 10px;
+    border-radius: 9px;
+                      background: rgba(255, 196, 0, 0.45);
+    border: 1px solid rgba(150, 120, 35, 0.25);
+    color: #2e2508;
+  text-decoration: none;
+        font-weight: 700;
     }
 </style>
 
@@ -17,7 +62,7 @@
 <p>Manage current, planned, and completed plastering work.</p>
 
 <div class="mb-4">
-    <a asp-controller="Jobs" asp-action="Create" class="btn btn-primary">+ Create Job</a>
+    <a asp-controller="Jobs" asp-action="Create" class="goldwall-btn">+ Create Job</a>
 </div>
 
 <div class="row mb-4">
@@ -100,7 +145,7 @@
                     <td>@job.Address</td>
                   <td>@job.Status</td>
                     <td>
-                <a asp-controller="Jobs" asp-action="Details" asp-route-id="@job.JobId" class="btn btn-sm btn-outline-secondary">View</a>
+                <a asp-controller="Jobs" asp-action="Details" asp-route-id="@job.JobId" class="goldwall-small-btn">View</a>
                     </td>
                 </tr>
             }
