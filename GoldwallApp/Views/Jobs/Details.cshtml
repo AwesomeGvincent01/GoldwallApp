@@ -33,55 +33,56 @@
     <h4>Job Info</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Title)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Address)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Address)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Status)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
 
             <span class="badge bg-warning text-dark">
             @Html.DisplayFor(model => model.Status)
             </span>
 
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.StartDatePlanned)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Model.StartDatePlanned.ToString("dd MMM yyyy")
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.EndDatePlanned)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
+            dd class = "col-sm-10">
             @Model.EndDatePlanned.ToString("dd MMM yyyy")
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Business)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Business.BusinessId)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Client)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Model.Client?.Name
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" class="btn btn-warning fw-bold" asp-route-id="@Model?.JobId">Edit</a> |
+<div class="d-flex gap-2">
+    <a asp-action="Edit" class="btn btn-warning fw-bold" asp-route-id="@Model?.JobId">Edit</a>
     <a asp-action="Overview" class="btn btn-outline-dark">Back to Jobs</a>
 </div>
