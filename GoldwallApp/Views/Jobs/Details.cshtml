@@ -4,10 +4,33 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<style>
+  body {
+    background-image: linear-gradient(rgba(255, 253, 242, 0.88), rgba(244, 231, 179, 0.92)), url('/images/ui/GWBackground.png');
+     background-size: cover;
+    background-position: center;
+     background-attachment: fixed;
+    }
 
-<div>
-    <h4>Job</h4>
+  h1 {
+    font-weight: 800;
+   color: #4a3a12;
+     text-shadow: 1px 1px 0 #d6b94c, 2px 2px 0 rgba(0, 0, 0, 0.12);
+  }
+
+  .card {
+     background-color: rgba(255, 255, 255, 0.86);
+    border: 1px solid rgba(150, 120, 35, 0.18);
+      border-radius: 16px;
+     box-shadow: 0 8px 18px rgba(80, 60, 10, 0.10);
+    }
+</style>
+
+<h1>@Model.Title</h1>
+<p>Job detail/planned plastering information</p>
+
+<div class="card card-body mb-4">
+    <h4>Job Info</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -26,19 +49,23 @@
             @Html.DisplayNameFor(model => model.Status)
         </dt>
         <dd class = "col-sm-10">
+
+            <span class="badge bg-warning text-dark">
             @Html.DisplayFor(model => model.Status)
+            </span>
+
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.StartDatePlanned)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StartDatePlanned)
+            @Model.StartDatePlanned.ToString("dd MMM yyyy")
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.EndDatePlanned)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EndDatePlanned)
+            @Model.EndDatePlanned.ToString("dd MMM yyyy")
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Business)
@@ -50,11 +77,11 @@
             @Html.DisplayNameFor(model => model.Client)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Client.ClientId)
+            @Model.Client?.Name
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.JobId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" class="btn btn-warning fw-bold" asp-route-id="@Model?.JobId">Edit</a> |
+    <a asp-action="Overview" class="btn btn-outline-dark">Back to Jobs</a>
 </div>
