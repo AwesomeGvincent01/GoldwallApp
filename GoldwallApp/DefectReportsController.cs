@@ -50,7 +50,7 @@ namespace GoldwallApp
 
                 OpenDefectsCount = await _context.DefectReports.CountAsync(defectReport => defectReport.Status == "Open"),
 
-                HighSeverityCount = await _context.DefectReports.CountAsync(defectReport => defectReport.Severity == "High"),
+                HighSeverityCount = await _context.DefectReports.CountAsync(defectReport => defectReport.Severity == 3),
 
                 MonitoringCount = await _context.DefectReports.CountAsync(defectReport => defectReport.Status == "Monitoring"),
 
@@ -58,7 +58,6 @@ namespace GoldwallApp
 
                 DefectsList = defectsList,
 
-                DefectsList = defectsList,
 
 
                 SelectedDefect = selectedDefectId.HasValue
