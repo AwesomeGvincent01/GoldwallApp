@@ -1,0 +1,254 @@
+﻿@* Evidence Photos Gallery. IMPORTANT: this page uses EvidencePhotosViewModel instead of IEnumerable<EvidencePhoto> because it needs to display additional information beyond just the photo data.*@
+
+
+@model GoldwallApp.ViewModels.EvidencePhotosViewModel
+
+@{
+    ViewData["Title"] = "Evidence Photos";
+}
+
+<style>
+    body {
+        background-image: linear-gradient(rgba(255, 253, 242, 0.88), rgba(244, 231, 179, 0.92)), url('/images/ui/GWBackground.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    h1 {
+        font-weight: 800;
+        color: #4a3a12;
+        text-shadow: 1px 1px 0 #d6b94c, 2px 2px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .card {
+        background-color: rgba(255, 255, 255, 0.86);
+        border: 1px solid rgba(150, 120, 35, 0.18);
+        border-radius: 16px;
+        box-shadow: 0 8px 18px rgba(80, 60, 10, 0.10);
+    }
+</style>
+
+
+
+
+
+
+<div class="d-flex justify-content-between align-items-start mb-4"> @*this bootstrap d-flex thingy majig puts the title/logo on the left and the upload button on the right*@
+    <div>
+        <h1>Evidence Photos / Gallery</h1>
+        <p>Upload and manage job-site evidence photos.</p>
+    </div>
+
+    @*this links to the existing scaffolded create action. i pretty much just copied this from evidencephotos create, and im modifying it by changing the class here*@
+             <a asp-action="Create" class="btn btn-warning fw-bold px-4">Upload Photo</a>
+                 </div>
+
+
+                 @*filter cards. currently just placeholders.*@
+<div class="card card-body mb-4">
+  <div class="row g-3">
+
+     <div class="col-md-3">
+               <input class="form-control" placeholder="Search caption..." />
+        </div>
+
+        <div class="col-md-3">
+         <select class="form-select">
+              <option>Filter by Job</option>
+       </select>
+                   </div>
+
+        <div class="col-md-3">
+            <select class="form-select">
+                <option>Filter by Defect</option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <select class="form-select">
+                <option>Sort by Date</option>
+            </select>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+@*IMPORTANT: This is the main content area for the evidence photos gallery. Left side is the photo grid/gallery, right side is the selected photo details*@
+
+
+<div class="row g-4">
+
+
+    @*Left column: takes up 8 columns on large screens.*@
+    <div class="col-lg-8">
+        <div class="card card-body">
+            <h4 class="mb-3">Photo Gallery</h4>
+
+            @*checks whether the viewmodel contains any evidence photos, otherwise display a message that says "No evidence photos have been uploaded yet."*@
+            @if (Model.EvidencePhotos.Any())
+            {
+                <div class="row g-4">
+
+                    @*loops through every evidence photo in the viewmodel and creates a card for each item. so essentially its the reason the photos are able to be displayed in a grid*@
+
+                    @foreach (var item in Model.EvidencePhotos)
+                    {
+                  <div class="col-md-6 col-xl-4">
+
+                       <div class="card card-body h-100">
+                           @*only show an image if the photo has a saved FileUrl, otherwise it just shows a broken/missing image thing*@
+                        @if (!string.IsNullOrEmpty(item.FileUrl))
+                                {
+                                    <img src="@item.FileUrl"
+                                         class="evidence-photo-img mb-3"
+                                         alt="@item.Caption" />
+                                }
+
+                                @*shows the caption, if none, shows fallback text aka "No caption"*@
+
+                                <p class="mb-1">
+                                    <strong>
+                                        @(string.IsNullOrWhiteSpace(item.Caption)
+                                            ? "No caption"
+                                            : item.Caption)
+                                    </strong>
+                                </p>
+
+                                <p class="text-muted mb-3">
+                                    @item.TakenAt.ToString("dd MMM yyyy")
+                                </p>
+
+                                <div class="d-flex gap-2 flex-wrap mt-auto">
+
+                                    <a asp-action="Gallery"
+                                       asp-route-selectedPhotoId="@item.EvidencePhotoId"
+                                       class="btn btn-sm btn-warning fw-bold">
+                                        View
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@item.EvidencePhotoId"
+                                       class="btn btn-sm btn-warning fw-bold">
+                                        Edit
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-id="@item.EvidencePhotoId"
+                                       class="btn btn-sm btn-danger fw-bold">
+                                        Delete
+                                    </a>
+
+                           </div>
+
+                          </div>
+
+                        </div>
+                    }
+
+                          </div>
+            }
+            else
+            {
+                <p class="text-muted mb-0">
+                    No evidence photos have  uploaded yet.
+                </p>
+            }
+
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+
+        <div class="card card-body">
+            <h4 class="mb-3">Selected Photo Details</h4>
+
+            @if (Model.SelectedPhoto != null)
+            {
+                var selectedPhoto = Model.SelectedPhoto;
+
+                @if (!string.IsNullOrEmpty(selectedPhoto.FileUrl))
+                {
+                         <img src="@selectedPhoto.FileUrl"
+                         class="img-fluid rounded mb-3"
+                         alt="@selectedPhoto.Caption" />
+                }
+
+                <p>
+                    <strong>Caption:</strong>
+
+                    @(string.IsNullOrWhiteSpace(selectedPhoto.Caption)
+                        ? "No caption"
+                        : selectedPhoto.Caption)
+                </p>
+
+                <p>
+                    <strong>Job:</strong>
+
+                    @(selectedPhoto.WorkEvent?
+              .Surface?
+                          .Room?
+                          .Job?
+                          .Title ?? "Not available")
+                </p>
+
+                <p>
+                    <strong>Work Event:</strong>
+
+               @(selectedPhoto.WorkEvent?.Notes
+                              ?? ("Work event #" + selectedPhoto.WorkEventId))
+                </p>
+
+                <p>
+                    <strong>Defect:</strong>
+
+            @(selectedPhoto.DefectReport?
+                           .DefectType?
+                          .Name ?? "Not linked")
+                </p>
+
+                <p>
+                    <strong>Taken At:</strong>
+
+                    @selectedPhoto.TakenAt.ToString("dd MMM yyyy, h:mm tt")
+                </p>
+
+                <div class="d-flex gap-2 flex-wrap">
+
+                    <a asp-action="Edit"
+                    asp-route-id="@selectedPhoto.EvidencePhotoId"
+                    class="btn btn-warning fw-bold">
+                        Replace Image
+                    </a>
+
+                    @if (!string.IsNullOrEmpty(selectedPhoto.FileUrl))
+                    {
+                        <a href="@selectedPhoto.FileUrl"
+                    download
+                       class="btn btn-warning fw-bold">
+                            Download
+                        </a>
+                    }
+
+                    <a asp-action="Delete"
+         asp-route-id="@selectedPhoto.EvidencePhotoId"
+                       class="btn btn-danger fw-bold">
+                        Delete
+                    </a>
+
+                </div>
+            }
+            else
+            {
+                <p class="text-muted mb-0">
+                    No phto available to display.
+                </p>
+            }
+
+        </div>
+    </div>
+
+</div>

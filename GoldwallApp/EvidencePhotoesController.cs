@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using GoldwallApp.ViewModels;
 
 namespace GoldwallApp
 {
@@ -34,6 +35,31 @@ namespace GoldwallApp
         public async Task<IActionResult> Index()
         {
             return View(await _context.EvidencePhotos.ToListAsync());
+        }
+
+        public async Task<IActionResult> Gallery(int? selectedPhotoId)
+        {
+            var evidencePhotos = await _context.EvidencePhotos
+                .Include(photo => photo.WorkEvent)
+                    .ThenInclude(workEvent => workEvent.Surface)
+                        .ThenInclude(surface => surface.Room)
+                       .ThenInclude(room => room.Job)
+                .Include(photo => photo.DefectReport)
+               .ThenInclude(defectReport => defectReport.DefectType)
+                .OrderByDescending(photo => photo.TakenAt)
+                .ToListAsync(); //relationship loader
+
+            var viewModel = new EvidencePhotosViewModel
+            {
+                EvidencePhotos = evidencePhotos,
+
+                SelectedPhoto = selectedPhotoId.HasValue
+                    ? evidencePhotos.FirstOrDefault(photo => photo.EvidencePhotoId == selectedPhotoId.Value)
+                        ?? evidencePhotos.FirstOrDefault()
+                    : evidencePhotos.FirstOrDefault()
+            };
+
+            return View(viewModel);
         }
 
         // GET: EvidencePhotoes/Details/5

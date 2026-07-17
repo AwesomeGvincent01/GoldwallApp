@@ -4,11 +4,53 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<style>
+  body {
+    background-image: linear-gradient(rgba(255, 253, 242, 0.88), rgba(244, 231, 179, 0.92)), url('/images/ui/GWBackground.png');
+     background-size: cover;
+    background-position: center;
+     background-attachment: fixed;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+  h1 {
+    font-weight: 800;
+   color: #4a3a12;
+     text-shadow: 1px 1px 0 #d6b94c, 2px 2px 0 rgba(0, 0, 0, 0.12);
+  }
+
+  .card {
+     background-color: rgba(255, 255, 255, 0.86);
+    border: 1px solid rgba(150, 120, 35, 0.18);
+      border-radius: 16px;
+     box-shadow: 0 8px 18px rgba(80, 60, 10, 0.10);
+    }
+
+
+    .evidence-photo-img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+</style>
+
+@{
+    var selectedPhoto = Model.FirstOrDefault(); //show latest photos for preview
+}
+
+<div class="d-flex justify-content-between align-items-start mb-4"> 
+    <div>
+<h1>Evidence photos / gallery</h1> 
+
+<p>upload and manage job site evidence photos</p>
+
+
+</div>
+
+
+    <a asp-action="Create" class="btn btn-warning fw-bold px-4">Upload Photo</a>
+    </div>
+
 <table class="table">
     <thead>
         <tr>
