@@ -30,16 +30,45 @@ namespace GoldwallApp
 
 
 
-        public async Task<IActionResult> Defects()
+        public async Task<IActionResult> Defects(int? selectedDefectId)
         {
+
+     var defectsList = await _context.DefectReports
+             .Include(defectReport => defectReport.DefectType)
+             .Include(defectReport => defectReport.Surface)
+              .ThenInclude(surface => surface.Room)
+                .ThenInclude(room => room.Job)
+                .Include(defectReport => defectReport.EvidencePhotos)
+                 .OrderByDescending(defectReport => defectReport.ReportedAt)
+                .ToListAsync();
+
+
             var viewModel = new DefectsViewModel
             {
-              DefectsList = _context.DefectReports
-              .Include(defectReport => defectReport.DefectType)
-              .ToList()
+
+                AllDefectsCount = await _context.DefectReports.CountAsync(),
+
+                OpenDefectsCount = await _context.DefectReports.CountAsync(defectReport => defectReport.Status == "Open"),
+
+                HighSeverityCount = await _context.DefectReports.CountAsync(defectReport => defectReport.Severity == "High"),
+
+                MonitoringCount = await _context.DefectReports.CountAsync(defectReport => defectReport.Status == "Monitoring"),
+
+                FixedCount = await _context.DefectReports.CountAsync(defectReport => defectReport.Status == "Fixed"),
+
+                DefectsList = defectsList,
+
+                DefectsList = defectsList,
 
 
-            };
+                SelectedDefect = selectedDefectId.HasValue
+            ? defectsList.FirstOrDefault(defectReport =>defectReport.DefectReportId == selectedDefectId.Value)
+                ?? defectsList.FirstOrDefault()
+            : defectsList.FirstOrDefault()
+     
+
+
+    };
 
             return View(viewModel);
         }

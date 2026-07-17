@@ -27,6 +27,13 @@
         border-radius: 16px;
         box-shadow: 0 8px 18px rgba(80, 60, 10, 0.10);
     }
+
+ .evidence-photo-img {
+       width: 100%;
+    height: 160px;
+      object-fit: cover;
+    border-radius: 12px;
+}
 </style>
 
 
@@ -100,7 +107,7 @@
                   <div class="col-md-6 col-xl-4">
 
                        <div class="card card-body h-100">
-                           @*only show an image if the photo has a saved FileUrl, otherwise it just shows a broken/missing image thing*@
+                           @*only show an image if the photo has a saved FileUrl, otherwise it just shows nothing*@
                         @if (!string.IsNullOrEmpty(item.FileUrl))
                                 {
                                     <img src="@item.FileUrl"
@@ -118,11 +125,18 @@
                                     </strong>
                                 </p>
 
+                                @*displays the date in a readable format*@
+
                                 <p class="text-muted mb-3">
                                     @item.TakenAt.ToString("dd MMM yyyy")
                                 </p>
 
+
+                                @*button row for actions AN evidence photo*@
                                 <div class="d-flex gap-2 flex-wrap mt-auto">
+
+
+                                    @*IMPORTANT: this reloads the gallery page, passes the selected photo's ID which is used to display the selected photo details*@
 
                                     <a asp-action="Gallery"
                                        asp-route-selectedPhotoId="@item.EvidencePhotoId"
@@ -130,12 +144,15 @@
                                         View
                                     </a>
 
+
+                                    @*links to the existing scaffolded edit page, which will be modified*@
                                     <a asp-action="Edit"
                                        asp-route-id="@item.EvidencePhotoId"
                                        class="btn btn-sm btn-warning fw-bold">
                                         Edit
                                     </a>
 
+                                    @*links to existing scaffolded delete page, which will be modified*@
                                     <a asp-action="Delete"
                                        asp-route-id="@item.EvidencePhotoId"
                                        class="btn btn-sm btn-danger fw-bold">
@@ -153,6 +170,8 @@
             }
             else
             {
+@*Message shown if there are no evidence photo records (rows) in the database*@
+
                 <p class="text-muted mb-0">
                     No evidence photos have  uploaded yet.
                 </p>
@@ -161,14 +180,22 @@
         </div>
     </div>
 
+    @*Right column: takes up 4 columns on large screens.*@
+
     <div class="col-lg-4">
 
         <div class="card card-body">
             <h4 class="mb-3">Selected Photo Details</h4>
 
+
+            @*IMPORTANT: selectedphoto comes from viewmodel. the controller chooses it based on the selectedphotoid when user clicks view on a photo. if no photo has been selected yet, the controller just displays the first photo in the list. so when you first load the page, the first photo will be displayed by default. if there are no photos in the database, that's when nothing is displayed/selected photo is null. also, if it clicks view for a selectedphotoid that somehow doesnt exist anymore, the controller also falls back to the first photo.*@
+
             @if (Model.SelectedPhoto != null)
             {
                 var selectedPhoto = Model.SelectedPhoto;
+
+
+                @*shows a large image/preview of the selected photo*@
 
                 @if (!string.IsNullOrEmpty(selectedPhoto.FileUrl))
                 {
@@ -188,6 +215,9 @@
                 <p>
                     <strong>Job:</strong>
 
+
+                    @*this follows the relationship chain being: evidencephoto -> workevent -> surface -> room -> job. the question marks stop the page from crashing if any part of the chain is null, to which we fall back to "Not available" message for if any part of it is null.*@
+
                     @(selectedPhoto.WorkEvent?
               .Surface?
                           .Room?
@@ -198,6 +228,8 @@
                 <p>
                     <strong>Work Event:</strong>
 
+                    @*shows the work event notes. if missing, shows work event ID instead, as per the '??'*@
+
                @(selectedPhoto.WorkEvent?.Notes
                               ?? ("Work event #" + selectedPhoto.WorkEventId))
                 </p>
@@ -205,6 +237,7 @@
                 <p>
                     <strong>Defect:</strong>
 
+                    @*shows the linked defect type if photo is linked to a defect report*@
             @(selectedPhoto.DefectReport?
                            .DefectType?
                           .Name ?? "Not linked")
@@ -213,10 +246,13 @@
                 <p>
                     <strong>Taken At:</strong>
 
+                    @*shows the date and time the photo was taken*@
                     @selectedPhoto.TakenAt.ToString("dd MMM yyyy, h:mm tt")
                 </p>
 
                 <div class="d-flex gap-2 flex-wrap">
+
+                    @*links to the existing scaffolded edit page, which will be modified*@
 
                     <a asp-action="Edit"
                     asp-route-id="@selectedPhoto.EvidencePhotoId"
@@ -224,6 +260,7 @@
                         Replace Image
                     </a>
 
+                    @*the download link uses image file path. so basically, what it does is first check if the file URL is available, and if so, create a link to download the image through the browser.*@
                     @if (!string.IsNullOrEmpty(selectedPhoto.FileUrl))
                     {
                         <a href="@selectedPhoto.FileUrl"
@@ -232,7 +269,7 @@
                             Download
                         </a>
                     }
-
+                    @*uses existing scaffolded delete page*@
                     <a asp-action="Delete"
          asp-route-id="@selectedPhoto.EvidencePhotoId"
                        class="btn btn-danger fw-bold">
@@ -243,6 +280,8 @@
             }
             else
             {
+
+                @*message shown if there are no photos to select*@
                 <p class="text-muted mb-0">
                     No phto available to display.
                 </p>

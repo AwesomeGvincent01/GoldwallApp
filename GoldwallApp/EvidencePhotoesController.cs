@@ -37,6 +37,8 @@ namespace GoldwallApp
             return View(await _context.EvidencePhotos.ToListAsync());
         }
 
+        //this is for a custom gallery page. basically like jobs/overview. it uses evidencephotosviewmodel because the page needs both a list of all evidence photos for the gallery and a single selected photo to display in a larger view. the selected photo is determined by the optional selectedPhotoId parameter, which is passed in when a user clicks on a thumbnail in the gallery. if no photo is selected, the first photo in the list is displayed by default.
+
         public async Task<IActionResult> Gallery(int? selectedPhotoId)
         {
             var evidencePhotos = await _context.EvidencePhotos
@@ -47,11 +49,15 @@ namespace GoldwallApp
                 .Include(photo => photo.DefectReport)
                .ThenInclude(defectReport => defectReport.DefectType)
                 .OrderByDescending(photo => photo.TakenAt)
-                .ToListAsync(); //relationship loader
+                .ToListAsync(); 
+
+            //assigns the viewmodel that will be used for gallery.cshtml. evidencephotos is used for the left side photo grid while the selected photo is for the right.
 
             var viewModel = new EvidencePhotosViewModel
             {
                 EvidencePhotos = evidencePhotos,
+
+                //if selectedphotoid was from passed from clicking the view button, then it will be used to find the selected photo in the list of evidence photos. if not, the first photo in the list will be used as the default selected photo. if there are no photos in the list, selectedphoto will be null.
 
                 SelectedPhoto = selectedPhotoId.HasValue
                     ? evidencePhotos.FirstOrDefault(photo => photo.EvidencePhotoId == selectedPhotoId.Value)
