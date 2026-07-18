@@ -1,0 +1,140 @@
+﻿@model GoldwallApp.ViewModels.EvidencePhotosViewModel
+
+@{
+    ViewData["Title"] = "Defects";
+}
+
+<h1>Defects</h1>
+
+
+
+<style>
+    body {
+        background-image: linear-gradient(rgba(255, 253, 242, 0.88), rgba(244, 231, 179, 0.92)), url('/images/ui/GWBackground.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    h1 {
+        font-weight: 800;
+        color: #4a3a12;
+        text-shadow: 1px 1px 0 #d6b94c, 2px 2px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .card {
+        background-color: rgba(255, 255, 255, 0.86);
+        border: 1px solid rgba(150, 120, 35, 0.18);
+        border-radius: 16px;
+        box-shadow: 0 8px 18px rgba(80, 60, 10, 0.10);
+    }
+
+    .defect-tab {
+             background-color: rgba(255, 255, 255, 0.76);
+        border: 1px solid rgba(150, 120, 35, 0.20);
+        border-radius: 14px 14px 0 0;
+        padding: 12px 18px;
+        font-weight: 800;
+        color: #4a3a12;
+        min-width: 135px;
+        text-align: center;
+    }
+
+    .defect-tab-active {
+        background-color: rgba(255, 196, 0, 0.35);
+          border-bottom: 3px solid rgba(150, 120, 35, 0.55);
+    }
+
+          .defect-list-panel {
+         max-height: 610px;
+         overflow-y: auto;
+        }
+
+    .defect-card {
+        background-color: rgba(255, 250, 230, 0.88);
+          border: 1px solid rgba(150, 120, 35, 0.20);
+        border-radius: 18px;
+         padding: 16px;
+          margin-bottom: 14px;
+    }
+
+    .severity-box {
+         display: inline-block;
+         padding: 8px 12px;
+        border-radius: 12px;
+             background: rgba(255, 196, 0, 0.45);
+        border: 1px solid rgba(150, 120, 35, 0.25);
+        font-weight: 800;
+           color: #3d310c;
+        }
+
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(255, 196, 0, 0.35);
+        border: 1px solid rgba(150, 120, 35, 0.25);
+        font-weight: 800;
+        color: #3d310c;
+           }
+
+    .small-gw-text {
+        color: #6b5a21;
+        font-size: 0.95rem;
+        font-weight: 600;
+         }
+
+     .selected-defect-panel {
+        min-height: 610px;
+           }
+
+            .detail-line {
+              border-bottom: 1px solid rgba(150, 120, 35, 0.18);
+        padding-bottom: 10px;
+        margin-bottom: 12px;
+    }
+
+    .evidence-mini-box {
+            height: 95px;
+           border-radius: 16px;
+           background: rgba(255, 250, 230, 0.9);
+             border: 1px dashed rgba(120, 95, 25, 0.45);
+             display: flex;
+        align-items: center;
+            justify-content: center;
+        text-align: center;
+        color: #6b5a21;
+        font-weight: 800;
+    }
+
+             .activity-strip {
+        background-color: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(150, 120, 35, 0.18);
+        border-radius: 18px;
+        padding: 18px;
+        box-shadow: 0 8px 18px rgba(80, 60, 10, 0.10);
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+        <h1>Defects</h1>
+        <p>Track and resolve quality issues across jobs and surfaces.</p>
+    </div>
+
+    <a asp-action="Create" class="btn btn-warning fw-bold px-4">Report Defect</a>
+</div>
+
+
+
+
+<div class="d-flex flex-wrap mb-4">
+
+    <div class="defect-tab defect-tab-active">
+        All Defects (@Model.AllDefectsCount)
+    </div>
+
+    <div class="defect-tab">
+        Open (@Model.OpenDefectsCount)
+    </div>
+
+</div>
