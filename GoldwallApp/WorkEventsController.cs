@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GoldwallApp.ViewModels;
 
 namespace GoldwallApp
 {
@@ -27,6 +28,43 @@ namespace GoldwallApp
             var appDbContext = _context.WorkEvents.Include(w => w.EventType).Include(w => w.Surface).Include(w => w.User);
             return View(await appDbContext.ToListAsync());
         }
+
+
+
+        public async Task<IActionResult> WorkEventList()
+        {
+            var today = DateTime.Today;
+              var tomorrow = today.AddDays(1);
+               var now = DateTime.Now;
+
+            var workEventsList = await _context.WorkEvents
+                .Include(workEvent => workEvent.EventType)
+                  .Include(workEvent => workEvent.Surface)
+                .Include(workEvent => workEvent.User)
+                 .OrderByDescending(workEvent => workEvent.StartedAt)
+                .ToListAsync();
+
+               var viewModel = new WorkEventsViewModel
+            {
+                TotalWorkEventsCount = await   _context.WorkEvents.CountAsync(),
+
+                TodayWorkEventsCount =
+                    await _context.WorkEvents.CountAsync(
+                        workEvent =>
+                  workEvent.StartedAt >= today &&
+                            workEvent.StartedAt < tomorrow),
+
+                CompletedWorkEventsCount =
+                    await _context.WorkEvents.CountAsync(
+                 workEvent => workEvent.EndedAt <= now),
+
+                WorkEventsList = workEventsList
+            };
+
+            return View(viewModel);
+        }
+
+
 
         // GET: WorkEvents/Details/5
         public async Task<IActionResult> Details(int? id)

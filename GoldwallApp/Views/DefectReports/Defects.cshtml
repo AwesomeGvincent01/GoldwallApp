@@ -1,22 +1,403 @@
-﻿@model GoldwallApp.ViewModels.DefectsViewModel  
+﻿@model GoldwallApp.ViewModels.DefectsViewModel
 
 @{
     ViewData["Title"] = "Defects";
 }
 
-<h1>Defects</h1>
 
 
 
 
-        <tbody>
-            @foreach (var defectReport in Model.DefectsList)
-            {
-                <tr>
-      <td>@defectReport.DefectType?.Name</td>
-      <td>@defectReport.Description</td>
-                 
-                </tr>
-            }
-        </tbody>
+<style>
+    body {
+        background-image: linear-gradient(rgba(255, 253, 242, 0.88), rgba(244, 231, 179, 0.92)), url('/images/ui/GWBackground.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
 
+    h1 {
+        font-weight: 800;
+        color: #4a3a12;
+        text-shadow: 1px 1px 0 #d6b94c, 2px 2px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .card {
+        background-color: rgba(255, 255, 255, 0.86);
+        border: 1px solid rgba(150, 120, 35, 0.18);
+        border-radius: 16px;
+        box-shadow: 0 8px 18px rgba(80, 60, 10, 0.10);
+    }
+
+    .defect-tab {
+             background-color: rgba(255, 255, 255, 0.76);
+        border: 1px solid rgba(150, 120, 35, 0.20);
+        border-radius: 14px 14px 0 0;
+        padding: 12px 18px;
+        font-weight: 800;
+        color: #4a3a12;
+        min-width: 135px;
+        text-align: center;
+    }
+
+    .defect-tab-active {
+        background-color: rgba(255, 196, 0, 0.35);
+          border-bottom: 3px solid rgba(150, 120, 35, 0.55);
+    }
+
+          .defect-list-panel {
+         max-height: 610px;
+         overflow-y: auto;
+        }
+
+    .defect-card {
+        background-color: rgba(255, 250, 230, 0.88);
+          border: 1px solid rgba(150, 120, 35, 0.20);
+        border-radius: 18px;
+         padding: 16px;
+          margin-bottom: 14px;
+    }
+
+    .severity-box {
+         display: inline-block;
+         padding: 8px 12px;
+        border-radius: 12px;
+             background: rgba(255, 196, 0, 0.45);
+        border: 1px solid rgba(150, 120, 35, 0.25);
+        font-weight: 800;
+           color: #3d310c;
+        }
+
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(255, 196, 0, 0.35);
+        border: 1px solid rgba(150, 120, 35, 0.25);
+        font-weight: 800;
+        color: #3d310c;
+           }
+
+    .small-gw-text {
+        color: #6b5a21;
+        font-size: 0.95rem;
+        font-weight: 600;
+         }
+
+     .selected-defect-panel {
+        min-height: 610px;
+           }
+
+            .detail-line {
+              border-bottom: 1px solid rgba(150, 120, 35, 0.18);
+        padding-bottom: 10px;
+        margin-bottom: 12px;
+    }
+
+    .evidence-mini-box {
+            height: 95px;
+           border-radius: 16px;
+           background: rgba(255, 250, 230, 0.9);
+             border: 1px dashed rgba(120, 95, 25, 0.45);
+             display: flex;
+        align-items: center;
+            justify-content: center;
+        text-align: center;
+        color: #6b5a21;
+        font-weight: 800;
+    }
+
+             .activity-strip {
+        background-color: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(150, 120, 35, 0.18);
+        border-radius: 18px;
+        padding: 18px;
+        box-shadow: 0 8px 18px rgba(80, 60, 10, 0.10);
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+        <h1>Defects</h1>
+        <p>Track and resolve quality issues across jobs and surfaces.</p>
+    </div>
+
+    <a asp-action="Create" class="btn btn-warning fw-bold px-4">Report Defect</a>
+</div>
+
+
+
+
+    <div class="d-flex flex-wrap mb-4">
+
+    <div class="defect-tab defect-tab-active">
+        All Defects (@Model.AllDefectsCount)
+    </div>
+
+    <div class="defect-tab">
+        Open (@Model.OpenDefectsCount)
+    </div>
+
+         <div class="defect-tab">
+             
+              High Severity (@Model.HighSeverityCount)
+               </div>
+
+               <div class="defect-tab">
+                 Monitoring (@Model.MonitoringCount)
+               </div>
+
+                 <div class="defect-tab">
+                    Fixed (@Model.FixedCount)
+                  </div>
+                  </div>
+
+              <div class="card card-body mb-4">
+                 <div class="row g-3">
+
+                  <div class="col-md-3">
+                <input class="form-control" placeholder="Search defects..." />
+                   </div>
+
+                   <div class="col-md-3">
+                        <select class="form-select">
+                           <option>Severity</option>
+                         <option>High</option>
+                            <option>Medium</option>
+                            <option>Low</option>
+                               </select>
+                   </div>
+
+                      <div class="col-md-3">
+                         <select class="form-select">
+                          <option>Job</option>
+                            </select>
+                               </div>
+
+            <div class="col-md-3">
+                <select class="form-select">
+                    <option>Surface</option>
+                           </select>
+                          </div>
+
+                             </div>
+                          </div>
+
+                       <div class="row g-4 mb-4">
+
+                           <div class="col-lg-5">
+
+                             <div class="card card-body defect-list-panel">
+                                 <h4 class="mb-3">Defect Queue</h4>
+
+                                   @if (Model.DefectsList.Any())
+                                          {
+                                         @foreach (var defectReport in Model.DefectsList)
+                                                  {
+                                               var severityLabel = defectReport.Severity >= 3
+                                  ? "High"
+                            : defectReport.Severity == 2
+                                ? "Medium"
+                                : "Low";
+
+                                 <div class="defect-card">
+
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                <span class="severity-box">@severityLabel</span>
+
+                                <span class="status-badge">
+                                    @(string.IsNullOrWhiteSpace(defectReport.Status)
+                                        ? "No status"
+                                        : defectReport.Status)
+                                </span>
+                                     </div>
+
+                                     <h5 class="mb-1">
+                                @(defectReport.DefectType?.Name ?? "Defect")
+                                   </h5>
+
+                                         <div class="small-gw-text mb-2">
+                                      Job: @(defectReport.Surface?.Room?.Job?.Title ?? "Not available")
+                                       <br />
+                                       Surface: @(defectReport.Surface?.Label ?? "Not available")
+                                           </div>
+
+                                      <p class="mb-3">
+                                 @(string.IsNullOrWhiteSpace(defectReport.Description)
+                                    ? "No description has been recorded for this defect."
+                                    : defectReport.Description)
+                            </p>
+
+                            <div class="d-flex gap-2 flex-wrap">
+
+                                <a asp-action="Defects"
+                                   asp-route-selectedDefectId="@defectReport.DefectReportId"
+                                   class="btn btn-sm btn-warning fw-bold">
+                                    View
+                                </a>
+
+                                <a asp-controller="EvidencePhotoes"
+                                   asp-action="Create"
+                                   class="btn btn-sm btn-warning fw-bold">
+                                    Add Evidence
+                                </a>
+
+                                <button type="button" class="btn btn-sm btn-outline-dark fw-bold">
+                                    Mark Fixed
+                                </button>
+
+                            </div>
+
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted mb-0">
+                        No defect reports have been created yet.
+                    </p>
+                }
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-7">
+
+            <div class="card card-body selected-defect-panel">
+                <h4 class="mb-3">Selected Defect</h4>
+
+                @if (Model.SelectedDefect != null)
+                {
+                    var selectedDefect = Model.SelectedDefect;
+
+                    var selectedSeverityLabel = selectedDefect.Severity >= 3
+                        ? "High"
+                        : selectedDefect.Severity == 2
+                            ? "Medium"
+                            : "Low";
+
+                    <div class="detail-line">
+                        <h3 class="mb-2">
+                            @(selectedDefect.DefectType?.Name ?? "Defect")
+                        </h3>
+
+                        <div class="small-gw-text">
+                            Job: @(selectedDefect.Surface?.Room?.Job?.Title ?? "Not available")
+                            &nbsp; | &nbsp;
+                            Surface: @(selectedDefect.Surface?.Label ?? "Not available")
+                        </div>
+                    </div>
+
+                    <p>
+                        <strong>Severity:</strong>
+                        @selectedSeverityLabel
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        @(string.IsNullOrWhiteSpace(selectedDefect.Status)
+                            ? "No status"
+                            : selectedDefect.Status)
+                    </p>
+
+                    <p>
+                        <strong>Reported:</strong>
+                        @selectedDefect.ReportedAt.ToString("dd MMM yyyy, h:mm tt")
+                    </p>
+
+                    <p>
+                        <strong>Description:</strong>
+                        @(string.IsNullOrWhiteSpace(selectedDefect.Description)
+                            ? "No description has been recorded."
+                            : selectedDefect.Description)
+                    </p>
+
+                    <hr />
+
+                    <h4 class="mb-3">Linked Evidence (@(selectedDefect.EvidencePhotos?.Count ?? 0))</h4>
+
+                    <div class="row g-3 mb-4">
+
+                        @if (selectedDefect.EvidencePhotos != null && selectedDefect.EvidencePhotos.Any())
+                        {
+                            @foreach (var evidencePhoto in selectedDefect.EvidencePhotos.Take(2))
+                            {
+                                <div class="col-md-4">
+                                    <div class="evidence-mini-box">
+                                        @(string.IsNullOrWhiteSpace(evidencePhoto.Caption)
+                                            ? "Evidence photo"
+                                            : evidencePhoto.Caption)
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="col-md-4">
+                                <div class="evidence-mini-box">
+                                    No evidence yet
+                                </div>
+                            </div>
+                        }
+
+                        <div class="col-md-4">
+                            <a asp-controller="EvidencePhotoes"
+                               asp-action="Create"
+                               class="evidence-mini-box text-decoration-none">
+                                + Add more
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <div class="row align-items-center">
+                        <div class="col-md-7">
+                            <h5>Next Action:</h5>
+                            <p class="mb-0">
+                                Review this defect, add evidence if needed, then create or log a fix event.
+                            </p>
+                        </div>
+
+                        <div class="col-md-5 text-md-end mt-3 mt-md-0">
+                            <button type="button" class="btn btn-warning fw-bold">
+                                Create Fix Event
+                            </button>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted mb-0">
+                        No defect available to display.
+                    </p>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="activity-strip">
+        <h4>Recent Defect Activity</h4>
+
+        @* hardcoded activity feed, tbc when i get to doing the programming standard *@
+
+        <div class="row">
+            <div class="col-md-9">
+                <p class="mb-1">
+                    Mark reported a defect and link to it to to a surface for review
+                </p>
+
+            <p class="mb-0 text-muted">
+                More detailed user activity will be generated later when activity logging is properly implemented.
+            </p>
+            </div>
+
+            <div class="col-md-3 text-md-end">
+                <strong>Today, 9:15 AM</strong>
+            </div>
+        </div>
+    </div>

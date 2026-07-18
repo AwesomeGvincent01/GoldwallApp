@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GoldwallApp.ViewModels;
 
 namespace GoldwallApp
 {
@@ -27,6 +28,43 @@ namespace GoldwallApp
             var appDbContext = _context.Clients.Include(c => c.Business);
             return View(await appDbContext.ToListAsync());
         }
+
+
+
+
+
+        public async Task<IActionResult> ClientList()
+        {
+         var clientsList = await _context.Clients
+         .Include(client => client.Business)
+         .OrderBy(client => client.Name)
+         .ToListAsync();
+
+            var viewModel = new ClientsViewModel
+            {
+             TotalClientsCount = await _context.Clients.CountAsync(),
+
+           ClientsWithEmailCount =
+                await _context.Clients.CountAsync(
+                        client => client.Email != null &&      client.Email != ""),
+
+                ClientsWithoutEmailCount =
+                    await _context.Clients.CountAsync(
+                        client => client.Email == null || client.Email == ""),
+
+                      ClientsList = clientsList
+            };
+
+                    return View(viewModel);
+        }
+
+
+
+
+
+
+
+
 
         // GET: Clients/Details/5
         public async Task<IActionResult> Details(int? id)
