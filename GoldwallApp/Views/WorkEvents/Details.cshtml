@@ -1,54 +1,65 @@
 ﻿@model GoldwallApp.Models.WorkEvent
 
 @{
-    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_GoldwallLayout.cshtml";
+    ViewData["Title"] = "Delete Work Event";
+    ViewData["ActivePage"] = "WorkEvents";
 }
 
-<h1>Details</h1>
+<h1>Work Event Details</h1>
 
-<div>
-    <h4>WorkEvent</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StartedAt)
+<p class="text-muted">
+    View the saved information for this work event.
+</p>
+
+<div class="gw-crud-card">
+    <dl class="row mb-0">
+
+        <dt class="col-sm-3 gw-detail-label">
+            Started At
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StartedAt)
+        <dd class="col-sm-9">
+            @Model.StartedAt.ToString("dd MMM yyyy, h:mm tt")
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EndedAt)
+
+        <dt class="col-sm-3 gw-detail-label">
+            Ended At
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EndedAt)
+        <dd class="col-sm-9">
+            @Model.EndedAt.ToString("dd MMM yyyy, h:mm tt")
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Notes)
+
+        <dt class="col-sm-3 gw-detail-label">
+            Notes
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Notes)
+        <dd class="col-sm-9">
+            @if (string.IsNullOrWhiteSpace(Model.Notes))
+            {
+                <span class="text-muted">No notes entered</span>
+            }
+            else
+            {
+                @Model.Notes
+            }
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Surface)
+
+        <dt class="col-sm-3 gw-detail-label">
+            Surface
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Surface.SurfaceId)
+        <dd class="col-sm-9">
+            @Model.Surface?.Label
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
+
+        <dt class="col-sm-3 gw-detail-label">
+            Event Type
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.UserId)
+        <dd class="col-sm-9">
+            @Model.EventType?.Name
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EventType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventType.EventTypeId)
-        </dd>
+
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.WorkEventId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model?.WorkEventId" class="btn btn-warning fw-bold">Edit</a>
+    <a asp-action="WorkEventList" class="gw-back-link ms-2">Back to Work Events</a>
 </div>
