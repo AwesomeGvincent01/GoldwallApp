@@ -1,8 +1,9 @@
 ﻿@model GoldwallApp.ViewModels.JobsOverviewViewModel
 
 @{
-    Layout = "~/Views/Shared/GoldwallLayout.cshtml"; ViewData["Title"] = "Jobs";
-
+    Layout = "~/Views/Shared/GoldwallLayout.cshtml";
+    ViewData["Title"] = "Jobs";
+    ViewData["ActivePage"] = "Jobs";
 }
 
 <style>
@@ -58,97 +59,131 @@
     }
 </style>
 
-<h1>Jobs</h1>
-<p>Manage current, planned, and completed plastering work.</p>
+<div class="container mt-4 mb-5">
 
-<div class="mb-4">
-    <a asp-controller="Jobs" asp-action="Create" class="goldwall-btn">+ Create Job</a>
-</div>
-
-<div class="row mb-4">
-    <div class="col">
-        <div class="card card-body">
-            <h5>Total Jobs</h5>
-            <h2>@Model.TotalJobsCount</h2>
+    <div class="d-flex justify-content-between align-items-start mb-4">
+        <div>
+            <h1>Jobs</h1>
+            <p class="text-muted mb-0">
+                Manage current, planned, and completed plastering work.
+            </p>
         </div>
+
+        <a asp-controller="Jobs" asp-action="Create" class="btn btn-warning fw-bold">
+            Create Job
+        </a>
     </div>
 
-    <div class="col">
-        <div class="card card-body">
-            <h5>Active Jobs</h5>
-            <h2>@Model.ActiveJobsCount</h2>
+    <div class="row mb-4">
+
+        <div class="col-md-3 mb-3">
+            <div class="goldwall-card p-3">
+                <div class="text-muted">Total Jobs</div>
+                <div class="summary-number">@Model.TotalJobsCount</div>
+            </div>
         </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="goldwall-card p-3">
+                <div class="text-muted">Active Jobs</div>
+                <div class="summary-number">@Model.ActiveJobsCount</div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="goldwall-card p-3">
+                <div class="text-muted">Planned Jobs</div>
+                <div class="summary-number">@Model.PlannedJobsCount</div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="goldwall-card p-3">
+                <div class="text-muted">Completed Jobs</div>
+                <div class="summary-number">@Model.CompletedJobsCount</div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="col">
-        <div class="card card-body">
-            <h5>Planned Jobs</h5>
-            <h2>@Model.PlannedJobsCount</h2>
+    <div class="goldwall-card p-3 mb-4">
+        <div class="row">
+            <div class="col-md-3 mb-2">
+                <input class="form-control" placeholder="Search jobs..." />
+            </div>
+
+            <div class="col-md-3 mb-2">
+                <select class="form-control">
+                    <option>Status: All</option>
+                    <option>Active</option>
+                    <option>Planned</option>
+                    <option>Completed</option>
+                </select>
+            </div>
+
+            <div class="col-md-3 mb-2">
+                <select class="form-control">
+                    <option>Client: All</option>
+                </select>
+            </div>
+
+            <div class="col-md-3 mb-2">
+                <button class="btn btn-outline-secondary w-100">Clear Filters</button>
+            </div>
         </div>
+
+        <p class="text-muted mb-0 mt-2">
+            Filter controls are visual placeholders and will be implemented later.
+        </p>
     </div>
 
-    <div class="col">
-        <div class="card card-body">
-            <h5>Completed Jobs</h5>
-            <h2>@Model.CompletedJobsCount</h2>
-        </div>
-    </div>
-</div>
+    <div class="goldwall-card p-3">
 
-<div class="card card-body mb-4">
-    <div class="row">
-        <div class="col">
-            <input class="form-control" placeholder="Search jobs..." />
-        </div>
-
-        <div class="col">
-            <select class="form-control">
-                <option>Status: All</option> <!-- these options/search are still purely visual. will be implemented later -->
-                <option>Active</option>
-                <option>Planned</option>
-                <option>Completed</option>
-            </select>
-        </div>
-
-        <div class="col">
-            <select class="form-control">
-                <option>Client: All</option>
-            </select>
-        </div>
-
-        <div class="col">
-            <button class="btn btn-outline-secondary w-100">Clear Filters</button>
-        </div>
-    </div>
-</div>
-
-<div class="card card-body">
-    <h4>Job List</h4>
-
-    <table class="table table-sm">
-        <thead>
-            <tr>
-              <th>Job Title</th>
-              <th>Client</th>
-        <th>Address</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-
-        <tbody>
-         @foreach (var job in Model.Jobs)
-            {
+        <table class="table table-hover align-middle mb-0">
+            <thead>
                 <tr>
-                  <td>@job.Title</td>
-                    <td>@job.Client?.Name</td>
-                    <td>@job.Address</td>
-                  <td>@job.Status</td>
-                    <td>
-                <a asp-controller="Jobs" asp-action="Details" asp-route-id="@job.JobId" class="goldwall-small-btn">View</a>
-                    </td>
+                    <th>Job</th>
+                    <th>Client</th>
+                    <th>Address</th>
+                    <th>Status</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody>
+                @foreach (var job in Model.Jobs)
+                {
+                    <tr>
+                        <td class="fw-bold">@job.Title</td>
+
+                        <td>@job.Client?.Name</td>
+
+                        <td>@job.Address</td>
+
+                        <td>
+                            <span class="badge bg-warning text-dark">
+                                @job.Status
+                            </span>
+                        </td>
+
+                        <td class="text-end">
+                            <a asp-controller="Jobs" asp-action="Details" asp-route-id="@job.JobId" class="btn btn-sm btn-outline-secondary">
+                                Details
+                            </a>
+
+                            <a asp-controller="Jobs" asp-action="Edit" asp-route-id="@job.JobId" class="btn btn-sm btn-outline-primary">
+                                Edit
+                            </a>
+
+                            <a asp-controller="Jobs" asp-action="Delete" asp-route-id="@job.JobId" class="btn btn-sm btn-outline-danger">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
 </div>

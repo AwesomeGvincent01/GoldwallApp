@@ -1,85 +1,68 @@
 ﻿@model GoldwallApp.Models.Job
 
 @{
-    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/GoldwallLayout.cshtml";
+    ViewData["Title"] = "Create Job";
+    ViewData["ActivePage"] = "Jobs";
+}
 }
 
-<style>
-    body {
-        background-image: linear-gradient(rgba(255, 253, 242, 0.88), rgba(244, 231, 179, 0.92)), url('/images/ui/GWBackground.png');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-    }
 
-    h1 {
-        font-weight: 800;
-        color: #4a3a12;
-        text-shadow: 1px 1px 0 #d6b94c, 2px 2px 0 rgba(0, 0, 0, 0.12);
-    }
+<h1>Create Job</h1>
 
-    .card {
-        background-color: rgba(255, 255, 255, 0.86);
-        border: 1px solid rgba(150, 120, 35, 0.18);
-        border-radius: 16px;
-        box-shadow: 0 8px 18px rgba(80, 60, 10, 0.10);
-    }
-</style>
+<p class="text-muted">
+    Add a new plastering job and link it to a business and client.
+</p>
 
-<h1>Create job</h1>
+<div class="gw-crud-card gw-form-width">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<h4>Job</h4>
-<hr />
-<div class="card card-body mb-4">
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group mb-3">
-                <label asp-for="BusinessId" class="control-label"></label>
-                <select asp-for="BusinessId" class ="form-control" asp-items="ViewBag.BusinessId"></select>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="ClientId" class="control-label"></label>
-                <select asp-for="ClientId" class ="form-control" asp-items="ViewBag.ClientId"></select>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="StartDatePlanned" class="control-label"></label>
-                <input asp-for="StartDatePlanned" class="form-control" />
-                <span asp-validation-for="StartDatePlanned" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="EndDatePlanned" class="control-label"></label>
-                <input asp-for="EndDatePlanned" class="form-control" />
-                <span asp-validation-for="EndDatePlanned" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <input type="submit" value="Create" class="btn btn-warning fw-bold px-4" />
-            </div>
-        </form>
-    </div>
+        <div class="form-group">
+            <label asp-for="BusinessId" class="control-label">Business</label>
+            <select asp-for="BusinessId" class="form-control" asp-items="ViewBag.BusinessId"></select>
+            <span asp-validation-for="BusinessId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ClientId" class="control-label">Client</label>
+            <select asp-for="ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>
+            <span asp-validation-for="ClientId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Title" class="control-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Address" class="control-label"></label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Status" class="control-label"></label>
+            <input asp-for="Status" class="form-control" />
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StartDatePlanned" class="control-label"></label>
+            <input asp-for="StartDatePlanned" class="form-control" />
+            <span asp-validation-for="StartDatePlanned" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EndDatePlanned" class="control-label"></label>
+            <input asp-for="EndDatePlanned" class="form-control" />
+            <span asp-validation-for="EndDatePlanned" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-3">
+            <input type="submit" value="Create" class="btn btn-warning fw-bold" />
+            <a asp-action="Overview" class="gw-back-link ms-2">Back to Jobs</a>
+        </div>
+    </form>
 </div>
-
-<div>
-     <a asp-action="Overview" class="btn btn-warning fw-bold px-4">Back to Jobs</a>
-</div>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
