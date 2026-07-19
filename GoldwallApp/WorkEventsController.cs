@@ -90,9 +90,9 @@ namespace GoldwallApp
         // GET: WorkEvents/Create
         public IActionResult Create()
         {
-            ViewData["EventTypeId"] = new SelectList(_context.EventTypes, "EventTypeId", "EventTypeId");
-            ViewData["SurfaceId"] = new SelectList(_context.Surfaces, "SurfaceId", "SurfaceId");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+            ViewData["EventTypeId"] = new SelectList(_context.EventTypes.OrderBy(eventType => eventType.Name), "EventTypeId", "Name");
+            ViewData["SurfaceId"] = new SelectList(_context.Surfaces.OrderBy(surface => surface.Label), "SurfaceId", "Label");
+            ViewData["UserId"] = new SelectList(_context.Users.OrderBy(user => user.FullName), "UserId", "Name");
             return View();
         }
 
@@ -128,9 +128,9 @@ namespace GoldwallApp
             {
                 return NotFound();
             }
-            ViewData["EventTypeId"] = new SelectList(_context.EventTypes, "EventTypeId", "EventTypeId", workEvent.EventTypeId);
-            ViewData["SurfaceId"] = new SelectList(_context.Surfaces, "SurfaceId", "SurfaceId", workEvent.SurfaceId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", workEvent.UserId);
+            ViewData["EventTypeId"] = new SelectList(_context.EventTypes.OrderBy(eventType => eventType.Name), "EventTypeId", "Name", workEvent.EventTypeId);
+            ViewData["SurfaceId"] = new SelectList(_context.Surfaces.OrderBy(surface => surface.Label), "SurfaceId", "Label", workEvent.SurfaceId);
+            ViewData["UserId"] = new SelectList(_context.Users.OrderBy(user => user.FullName), "UserId", "Name", workEvent.UserId);
             return View(workEvent);
         }
 
@@ -166,9 +166,9 @@ namespace GoldwallApp
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EventTypeId"] = new SelectList(_context.EventTypes, "EventTypeId", "EventTypeId", workEvent.EventTypeId);
-            ViewData["SurfaceId"] = new SelectList(_context.Surfaces, "SurfaceId", "SurfaceId", workEvent.SurfaceId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", workEvent.UserId);
+            ViewData["EventTypeId"] = new SelectList(_context.EventTypes.OrderBy(eventType => eventType.Name), "EventTypeId", "Name", workEvent.EventTypeId);
+            ViewData["SurfaceId"] = new SelectList(_context.Surfaces.OrderBy(surface => surface.Label), "SurfaceId", "Label", workEvent.SurfaceId);
+            ViewData["UserId"] = new SelectList(_context.Users.OrderBy(user => user.FullName), "UserId", "Name", workEvent.UserId);
             return View(workEvent);
         }
 

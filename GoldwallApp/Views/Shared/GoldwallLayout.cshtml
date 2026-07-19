@@ -1,0 +1,141 @@
+﻿@{
+    var activePage = ViewData["ActivePage"]?.ToString();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"] - Goldwall</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <style>
+            body {
+                background-image: linear-gradient(rgba(255,253,242,0.88), rgba(244,231,179,0.92)), url('/images/ui/GWBackground.png');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .goldwall-shell {
+                display: flex;
+                min-height: 100vh;
+            }
+
+            .side-nav {
+                width: 260px;
+                padding: 25px;
+                background: rgba(255, 240, 170, 0.75);
+                border-right: 2px solid rgba(150, 120, 35, 0.25);
+                box-shadow: 8px 0 20px rgba(80, 60, 10, 0.08);
+            }
+
+            .side-logo {
+                width: 190px;
+                margin-bottom: 35px;
+            }
+
+            .nav-link-gw {
+                display: block;
+                padding: 13px 18px;
+                margin-bottom: 10px;
+                border-radius: 12px;
+                color: #2e2508;
+                text-decoration: none;
+                font-weight: 700;
+                font-size: 1.05rem;
+            }
+
+                .nav-link-gw:hover {
+                    background: rgba(255, 196, 0, 0.45);
+                    transform: scale(1.02);
+                    color: #2e2508;
+                }
+
+            .nav-link-active {
+                background: rgba(255, 196, 0, 0.55);
+                border: 1px solid rgba(150, 120, 35, 0.25);
+            }
+
+            .goldwall-main {
+                flex: 1;
+                padding: 35px;
+            }
+
+            .help-link {
+                margin-top: 70px;
+                border-top: 1px solid rgba(100, 80, 20, 0.25);
+                padding-top: 25px;
+            }
+
+            h1 {
+                font-weight: 800;
+                color: #4a3a12;
+                text-shadow: 1px 1px 0 #d6b94c, 2px 2px 0 rgba(0, 0, 0, 0.12);
+            }
+
+            .goldwall-card {
+                background-color: rgba(255, 255, 255, 0.88);
+                border: 1px solid rgba(150, 120, 35, 0.18);
+                border-radius: 16px;
+                box-shadow: 0 8px 18px rgba(80, 60, 10, 0.10);
+            }
+
+            .summary-number {
+                font-size: 1.7rem;
+                font-weight: 800;
+                color: #5a4510;
+            }
+
+            .table th {
+                color: #4a3a12;
+            }
+    </style>
+
+           @RenderSection("Styles", required: false)
+</head>
+
+<body>
+                   <div class="goldwall-shell">
+
+               <div class="side-nav">
+            <img src="/images/ui/goldwall.png" class="side-logo" />
+
+                 <a asp-controller="Home" asp-action="Index" class="nav-link-gw @(activePage == "Dashboard" ? "nav-link-active" : "")">▦ Dashboard</a>
+
+                                 <a asp-controller="Jobs" asp-action="Overview" class="nav-link-gw @(activePage == "Jobs" ? "nav-link-active" : "")">▣ Jobs</a>
+    
+             <a asp-controller="Clients" asp-action="ClientList" class="nav-link-gw @(activePage == "Clients" ? "nav-link-active" : "")">♙ Clients</a>
+
+                  <a asp-controller="WorkEvents" asp-action="WorkEventList" class="nav-link-gw @(activePage == "WorkEvents" ? "nav-link-active" : "")">▤ Work Events</a>
+
+              <a asp-controller="DefectReports" asp-action="Defects" class="nav-link-gw @(activePage == "Defects" ? "nav-link-active" : "")">△ Defects</a>
+
+             <a asp-controller="EvidencePhotoes" asp-action="Gallery" class="nav-link-gw @(activePage == "EvidencePhotos" ? "nav-link-active" : "")">▧ Evidence Photos</a>
+
+               <a asp-controller="Materials" asp-action="Index" class="nav-link-gw @(activePage == "Materials" ? "nav-link-active" : "")">◈ Materials</a>
+
+               <a href="#" class="nav-link-gw @(activePage == "Reports" ? "nav-link-active" : "")">▥ Reports</a>
+
+                   <a href="#" class="nav-link-gw @(activePage == "Settings" ? "nav-link-active" : "")">⚙ Settings</a>
+
+                         <div class="help-link">
+                <a href="#" class="nav-link-gw">? Help</a>
+            </div>
+                                         </div>
+
+              <div class="goldwall-main">
+            @RenderBody()
+        </div>
+
+    </div>
+    
+             <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
