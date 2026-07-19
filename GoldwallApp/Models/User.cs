@@ -25,9 +25,8 @@ namespace GoldwallApp.Models
         public string? Role { get; set; }
 
         [Required] //makes sure  password hash field isn't left blank
-        [StringLength(255)] //keep hash within reasonable length
-        [Display(Name = "Password Hash")]
-        public string? PasswordHash { get; set; }
+        [StringLength(255)] 
+
 
         [Display(Name = "Created At")]
         public DateTime CreatedAt { get; set; }

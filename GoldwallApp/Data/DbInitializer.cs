@@ -42,7 +42,7 @@ namespace GoldwallApp.Data
                     FullName = "Alan Admin",
                     Email = "alan@goldwall.local",
                     Role = "Admin",
-                    PasswordHash = "demo_hash_1",
+                  
                     CreatedAt = DateTime.Now
                 },
                 new User
@@ -51,7 +51,7 @@ namespace GoldwallApp.Data
                     FullName = "Site Recorder",
                     Email = "scribe@goldwall.local",
                     Role = "Recorder",
-                    PasswordHash = "demo_hash_2",
+                  
                     CreatedAt = DateTime.Now
                 },
                 new User
@@ -60,7 +60,7 @@ namespace GoldwallApp.Data
                     FullName = "Marcus Plasterer",
                     Email = "marcus@goldwall.local",
                     Role = "Worker",
-                    PasswordHash = "demo_hash_3",
+                   
                     CreatedAt = DateTime.Now
                 },
                 new User
@@ -69,7 +69,7 @@ namespace GoldwallApp.Data
                     FullName = "Nina Supervisor",
                     Email = "nina@northshore.local",
                     Role = "Admin",
-                    PasswordHash = "demo_hash_4",
+                 
                     CreatedAt = DateTime.Now
                 },
                 new User
@@ -78,7 +78,7 @@ namespace GoldwallApp.Data
                     FullName = "Leo Finisher",
                     Email = "leo@northshore.local",
                     Role = "Worker",
-                    PasswordHash = "demo_hash_5",
+                  
                     CreatedAt = DateTime.Now
                 }
             };

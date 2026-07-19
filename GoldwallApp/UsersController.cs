@@ -59,7 +59,7 @@ namespace GoldwallApp
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,BusinessId,FullNaame,Email,Role,PasswordHash,CreatedAt")] User user)
+        public async Task<IActionResult> Create([Bind("UserId,BusinessId,FullNaame,Email,Role,,CreatedAt")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace GoldwallApp
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,BusinessId,FullNaame,Email,Role,PasswordHash,CreatedAt")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,BusinessId,FullNaame,Email,Role,,CreatedAt")] User user)
         {
             if (id != user.UserId)
             {

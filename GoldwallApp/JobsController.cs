@@ -78,8 +78,14 @@ namespace GoldwallApp
         // GET: Jobs/Create
         public IActionResult Create()
         {
-            ViewData["BusinessId"] = new SelectList(_context.Businesses, "BusinessId", "BusinessId");
-            ViewData["ClientId"] = new SelectList(_context.Clients, "ClientId", "ClientId");
+            ViewData["BusinessId"] = new SelectList(
+    _context.Businesses.OrderBy(business => business.Name),
+    "BusinessId",
+    "Name");
+ViewData["ClientId"] = new SelectList(
+    _context.Clients.OrderBy(client => client.Name),
+    "ClientId",
+    "Name");
             return View();
         }
 
@@ -94,10 +100,18 @@ namespace GoldwallApp
             {
                 _context.Add(job);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Overview));
             }
-            ViewData["BusinessId"] = new SelectList(_context.Businesses, "BusinessId", "BusinessId", job.BusinessId);
-            ViewData["ClientId"] = new SelectList(_context.Clients, "ClientId", "ClientId", job.ClientId);
+            ViewData["BusinessId"] = new SelectList(
+             _context.Businesses.OrderBy(business => business.Name),
+              "BusinessId",
+             "Name",
+             job.BusinessId);
+            ViewData["ClientId"] = new SelectList(
+             _context.Clients.OrderBy(client => client.Name),
+            "ClientId",
+            "Name",
+             job.ClientId);
             return View(job);
         }
 
@@ -114,8 +128,16 @@ namespace GoldwallApp
             {
                 return NotFound();
             }
-            ViewData["BusinessId"] = new SelectList(_context.Businesses, "BusinessId", "BusinessId", job.BusinessId);
-            ViewData["ClientId"] = new SelectList(_context.Clients, "ClientId", "ClientId", job.ClientId);
+            ViewData["BusinessId"] = new SelectList(
+    _context.Businesses.OrderBy(business => business.Name),
+    "BusinessId",
+    "Name",
+    job.BusinessId);
+ViewData["ClientId"] = new SelectList(
+    _context.Clients.OrderBy(client => client.Name),
+    "ClientId",
+    "Name",
+    job.ClientId);
             return View(job);
         }
 
@@ -149,10 +171,18 @@ namespace GoldwallApp
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Overview));
             }
-            ViewData["BusinessId"] = new SelectList(_context.Businesses, "BusinessId", "BusinessId", job.BusinessId);
-            ViewData["ClientId"] = new SelectList(_context.Clients, "ClientId", "ClientId", job.ClientId);
+            ViewData["BusinessId"] = new SelectList(
+            _context.Businesses.OrderBy(business => business.Name),
+    "BusinessId",
+    "Name",
+    job.BusinessId);
+            ViewData["ClientId"] = new SelectList(
+          _context.Clients.OrderBy(client => client.Name),
+    "ClientId",
+    "Name",
+    job.ClientId);
             return View(job);
         }
 
@@ -188,7 +218,7 @@ namespace GoldwallApp
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Overview));
         }
 
         private bool JobExists(int id)

@@ -109,10 +109,10 @@ namespace GoldwallApp
                 return RedirectToAction(nameof(ClientList));
             }
             ViewData["BusinessId"] = new SelectList(
-    _context.Businesses.OrderBy(business => business.Name),
-    "BusinessId",
-    "Name",
-    client.BusinessId);
+      _context.Businesses.OrderBy(business => business.Name),
+      "BusinessId",
+      "Name",
+      client.BusinessId);
             return View(client);
         }
 
@@ -129,7 +129,11 @@ namespace GoldwallApp
             {
                 return NotFound();
             }
-            ViewData["BusinessId"] = new SelectList(_context.Businesses, "BusinessId", "BusinessId", client.BusinessId);
+            ViewData["BusinessId"] = new SelectList(
+         _context.Businesses.OrderBy(business => business.Name),
+                "BusinessId",
+                    "Name",
+    client.BusinessId);
             return View(client);
         }
 
@@ -163,13 +167,13 @@ namespace GoldwallApp
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ClientList));
             }
             ViewData["BusinessId"] = new SelectList(
-    _context.Businesses.OrderBy(business => business.Name),
-    "BusinessId",
-    "Name",
-    client.BusinessId);
+     _context.Businesses.OrderBy(business => business.Name),
+     "BusinessId",
+     "Name",
+     client.BusinessId);
             return View(client);
         }
 

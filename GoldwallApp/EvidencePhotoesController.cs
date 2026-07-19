@@ -89,8 +89,15 @@ namespace GoldwallApp
         // GET: EvidencePhotoes/Create
         public IActionResult Create()
         {
-            ViewData["DefectReportId"] = new SelectList(_context.DefectReports, "DefectReportId", "DefectReportId"); 
-            ViewData["WorkEventId"] = new SelectList(_context.WorkEvents, "WorkEventId", "WorkEventId"); 
+            ViewData["DefectReportId"] = new SelectList(
+        _context.DefectReports.OrderByDescending(defectReport => defectReport.ReportedAt),
+        "DefectReportId",
+        "Description");
+
+            ViewData["WorkEventId"] = new SelectList(
+                _context.WorkEvents.OrderByDescending(workEvent => workEvent.StartedAt),
+                "WorkEventId",
+                "StartedAt");
             return View();
         }
 
@@ -136,11 +143,9 @@ namespace GoldwallApp
             {
                 _context.Add(evidencePhoto);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Gallery));
             }
 
-            ViewData["DefectReportId"] = new SelectList(_context.DefectReports, "DefectReportId", "DefectReportId", evidencePhoto.DefectReportId); 
-            ViewData["WorkEventId"] = new SelectList(_context.WorkEvents, "WorkEventId", "WorkEventId", evidencePhoto.WorkEventId); 
             return View(evidencePhoto);
         }
 
@@ -157,9 +162,16 @@ namespace GoldwallApp
             {
                 return NotFound();
             }
-
-            ViewData["DefectReportId"] = new SelectList(_context.DefectReports, "DefectReportId", "DefectReportId", evidencePhoto.DefectReportId); 
-            ViewData["WorkEventId"] = new SelectList(_context.WorkEvents, "WorkEventId", "WorkEventId", evidencePhoto.WorkEventId); 
+            ViewData["DefectReportId"] = new SelectList(
+                _context.DefectReports.OrderByDescending(defectReport => defectReport.ReportedAt),
+                "DefectReportId",
+                "Description",
+                evidencePhoto.DefectReportId);
+            ViewData["WorkEventId"] = new SelectList(
+                _context.WorkEvents.OrderByDescending(workEvent => workEvent.StartedAt),
+                "WorkEventId",
+                "StartedAt",
+                evidencePhoto.WorkEventId);
             return View(evidencePhoto);
         }
 
@@ -241,11 +253,20 @@ namespace GoldwallApp
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Gallery));
             }
 
-            ViewData["DefectReportId"] = new SelectList(_context.DefectReports, "DefectReportId", "DefectReportId", evidencePhoto.DefectReportId); 
-            ViewData["WorkEventId"] = new SelectList(_context.WorkEvents, "WorkEventId", "WorkEventId", evidencePhoto.WorkEventId); 
+                     ViewData["DefectReportId"] = new SelectList(
+    _context.DefectReports.OrderByDescending(defectReport => defectReport.ReportedAt),
+    "DefectReportId",
+    "Description",
+    evidencePhoto.DefectReportId);
+
+ViewData["WorkEventId"] = new SelectList(
+    _context.WorkEvents.OrderByDescending(workEvent => workEvent.StartedAt),
+    "WorkEventId",
+    "StartedAt",
+    evidencePhoto.WorkEventId);
             return View(evidencePhoto);
         }
 
@@ -290,7 +311,7 @@ namespace GoldwallApp
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Gallery));
         }
 
         private bool EvidencePhotoExists(int id)

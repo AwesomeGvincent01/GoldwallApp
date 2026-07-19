@@ -83,7 +83,9 @@ namespace GoldwallApp
             }
 
             var defectReport = await _context.DefectReports
-                .FirstOrDefaultAsync(m => m.DefectReportId == id);
+            .Include(defectReport => defectReport.Surface)
+             .Include(defectReport => defectReport.DefectType)
+    .FirstOrDefaultAsync(m => m.DefectReportId == id);
             if (defectReport == null)
             {
                 return NotFound();
@@ -95,6 +97,16 @@ namespace GoldwallApp
         // GET: DefectReports/Create
         public IActionResult Create()
         {
+            ViewData["SurfaceId"] = new SelectList(
+                _context.Surfaces.OrderBy(surface => surface.Label),
+                "SurfaceId",
+                "Label");
+
+            ViewData["DefectTypeId"] = new SelectList(
+                _context.DefectTypes.OrderBy(defectType => defectType.Name),
+                "DefectTypeId",
+                "Name");
+
             return View();
         }
 
@@ -109,8 +121,20 @@ namespace GoldwallApp
             {
                 _context.Add(defectReport);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Defects));
             }
+            ViewData["SurfaceId"] = new SelectList(
+    _context.Surfaces.OrderBy(surface => surface.Label),
+    "SurfaceId",
+    "Label",
+    defectReport.SurfaceId);
+
+ViewData["DefectTypeId"] = new SelectList(
+    _context.DefectTypes.OrderBy(defectType => defectType.Name),
+    "DefectTypeId",
+    "Name",
+    defectReport.DefectTypeId);
+
             return View(defectReport);
         }
 
@@ -127,6 +151,18 @@ namespace GoldwallApp
             {
                 return NotFound();
             }
+            ViewData["SurfaceId"] = new SelectList(
+    _context.Surfaces.OrderBy(surface => surface.Label),
+    "SurfaceId",
+    "Label",
+    defectReport.SurfaceId);
+
+ViewData["DefectTypeId"] = new SelectList(
+    _context.DefectTypes.OrderBy(defectType => defectType.Name),
+    "DefectTypeId",
+    "Name",
+    defectReport.DefectTypeId);
+
             return View(defectReport);
         }
 
@@ -160,8 +196,19 @@ namespace GoldwallApp
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Defects));
             }
+            ViewData["SurfaceId"] = new SelectList(
+    _context.Surfaces.OrderBy(surface => surface.Label),
+    "SurfaceId",
+    "Label",
+    defectReport.SurfaceId);
+
+ViewData["DefectTypeId"] = new SelectList(
+    _context.DefectTypes.OrderBy(defectType => defectType.Name),
+    "DefectTypeId",
+    "Name",
+    defectReport.DefectTypeId);
             return View(defectReport);
         }
 
@@ -174,7 +221,9 @@ namespace GoldwallApp
             }
 
             var defectReport = await _context.DefectReports
-                .FirstOrDefaultAsync(m => m.DefectReportId == id);
+             .Include(defectReport => defectReport.Surface)
+                 .Include(defectReport => defectReport.DefectType)
+    .FirstOrDefaultAsync(m => m.DefectReportId == id);
             if (defectReport == null)
             {
                 return NotFound();
@@ -195,7 +244,7 @@ namespace GoldwallApp
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Defects));
         }
 
         private bool DefectReportExists(int id)

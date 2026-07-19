@@ -3,6 +3,7 @@
 @{
     Layout = null;
     ViewData["Title"] = "Home";
+
 }
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -207,10 +208,10 @@
             <p>Overview of jobs, defects, work events, evidence, and quality trends.</p>
 
             <div class="quick-actions">
-                <button type="button" class="quick-action-btn">Create Job</button>
-                <button type="button" class="quick-action-btn">Log Work Event</button>
-                <button type="button" class="quick-action-btn">Report Defect</button>
-                <button type="button" class="quick-action-btn">Upload Photo</button>
+                <a asp-controller="Jobs" asp-action="Create" class="quick-action-btn">Create Job</a>
+                <a asp-controller="WorkEvents" asp-action="Create" class="quick-action-btn">Log Work Event</a>
+                <a asp-controller="DefectReports" asp-action="Create" class="quick-action-btn">Report Defect</a>
+                <a asp-controller="EvidencePhotoes" asp-action="Create" class="quick-action-btn">Upload Photo</a>
             </div>
         </div>
 
