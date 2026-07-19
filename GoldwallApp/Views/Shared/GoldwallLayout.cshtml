@@ -142,6 +142,21 @@
                 color: #7a3a00;
                 font-weight: 700;
             }
+
+            .logout-form {
+                margin: 0;
+            }
+
+            .logout-button {
+                width: 100%;
+                text-align: left;
+                border: none;
+                background: transparent;
+            }
+
+                .logout-button:hover {
+                    background: rgba(255, 196, 0, 0.45);
+                }
     </style>
 
            @RenderSection("Styles", required: false)
@@ -165,18 +180,20 @@
 
              <a asp-controller="EvidencePhotoes" asp-action="Gallery" class="nav-link-gw @(activePage == "EvidencePhotos" ? "nav-link-active" : "")">▧ Evidence Photos</a>
 
-               <a asp-controller="Materials" asp-action="Index" class="nav-link-gw @(activePage == "Materials" ? "nav-link-active" : "")">◈ Materials</a>
+            
 
-               <a href="#" class="nav-link-gw @(activePage == "Reports" ? "nav-link-active" : "")">▥ Reports</a>
-
-                   <a href="#" class="nav-link-gw @(activePage == "Settings" ? "nav-link-active" : "")">⚙ Settings</a>
-
-                         <div class="help-link">
-                <a href="#" class="nav-link-gw">? Help</a>
+                   <a asp-controller="Home" asp-action="Settings" class="nav-link-gw @(activePage == "Settings" ? "nav-link-active" : "")">⚙ Settings</a>
+            <div class="help-link">
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Landing", "Home", new { area = "" })" method="post">
+                    <button type="submit" class="nav-link-gw" style="width:100%; text-align:left; border:none; background:transparent;">
+                        Log Out
+                    </button>
+                </form>
             </div>
-                                         </div>
 
-              <div class="goldwall-main">
+        </div>
+
+        <div class="goldwall-main">
             @RenderBody()
         </div>
 

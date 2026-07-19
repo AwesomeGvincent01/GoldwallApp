@@ -187,12 +187,16 @@
         <a asp-controller="WorkEvents" asp-action="WorkEventList" class="nav-link-gw">▤ Work Events</a>
         <a asp-controller="DefectReports" asp-action="Defects" class="nav-link-gw">△ Defects</a>
         <a asp-controller="EvidencePhotoes" asp-action="Gallery" class="nav-link-gw">▧ Evidence Photos</a>
-        <a asp-controller="Materials" asp-action="Index" class="nav-link-gw">◈ Materials</a>
-        <a href="#" class="nav-link-gw">▥ Reports</a>
-        <a href="#" class="nav-link-gw">⚙ Settings</a>
+        
+        
+        <a asp-controller="Home" asp-action="Settings" class="nav-link-gw">⚙ Settings</a>
 
         <div class="help-link">
-            <a href="#" class="nav-link-gw">? Help</a>
+            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Landing", "Home", new { area = "" })" method="post">
+                <button type="submit" class="nav-link-gw" style="width:100%; text-align:left; border:none; background:transparent;">
+                    Log Out
+                </button>
+            </form>
         </div>
     </div>
 

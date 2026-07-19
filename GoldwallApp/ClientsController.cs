@@ -88,7 +88,10 @@ namespace GoldwallApp
         // GET: Clients/Create
         public IActionResult Create()
         {
-            ViewData["BusinessId"] = new SelectList(_context.Businesses, "BusinessId", "BusinessId");
+            ViewData["BusinessId"] = new SelectList(
+        _context.Businesses.OrderBy(business => business.Name),
+        "BusinessId",
+        "Name");
             return View();
         }
 
@@ -103,9 +106,13 @@ namespace GoldwallApp
             {
                 _context.Add(client);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ClientList));
             }
-            ViewData["BusinessId"] = new SelectList(_context.Businesses, "BusinessId", "BusinessId", client.BusinessId);
+            ViewData["BusinessId"] = new SelectList(
+    _context.Businesses.OrderBy(business => business.Name),
+    "BusinessId",
+    "Name",
+    client.BusinessId);
             return View(client);
         }
 
@@ -158,7 +165,11 @@ namespace GoldwallApp
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BusinessId"] = new SelectList(_context.Businesses, "BusinessId", "BusinessId", client.BusinessId);
+            ViewData["BusinessId"] = new SelectList(
+    _context.Businesses.OrderBy(business => business.Name),
+    "BusinessId",
+    "Name",
+    client.BusinessId);
             return View(client);
         }
 
@@ -193,7 +204,7 @@ namespace GoldwallApp
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ClientList));
         }
 
         private bool ClientExists(int id)

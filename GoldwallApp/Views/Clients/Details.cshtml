@@ -1,48 +1,66 @@
 ﻿@model GoldwallApp.Models.Client
 
 @{
-    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/GoldwallLayout.cshtml";
+    ViewData["Title"] = "Client Details";
+    ViewData["ActivePage"] = "Clients";
 }
 
-<h1>Details</h1>
+<h1>Client Details</h1>
 
-<div>
-    <h4>Client</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+<p class="text-muted">
+    View the saved contact information for this client.
+</p>
+
+<div class="gw-crud-card">
+    <dl class="row mb-0">
+
+        <dt class="col-sm-3 gw-detail-label">
+            Name
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+        <dd class="col-sm-9">
+            @Model.Name
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phone)
+
+        <dt class="col-sm-3 gw-detail-label">
+            Phone
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phone)
+        <dd class="col-sm-9">
+            @Model.Phone
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
+
+        <dt class="col-sm-3 gw-detail-label">
+            Email
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
+        <dd class="col-sm-9">
+            @if (string.IsNullOrWhiteSpace(Model.Email))
+            {
+                <span class="text-muted">No email entered</span>
+            }
+            else
+            {
+                @Model.Email
+            }
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
+
+        <dt class="col-sm-3 gw-detail-label">
+            Created At
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
+        <dd class="col-sm-9">
+            @Model.CreatedAt.ToString("dd MMM yyyy")
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Business)
+
+        <dt class="col-sm-3 gw-detail-label">
+            Business
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Business.BusinessId)
+        <dd class="col-sm-9">
+            @(Model.Business != null ? "Linked business record" : "No business linked")
         </dd>
+
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ClientId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model?.ClientId" class="btn btn-warning fw-bold">Edit</a>
+    <a asp-action="ClientList" class="gw-back-link ms-2">Back to Clients</a>
 </div>

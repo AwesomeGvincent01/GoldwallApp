@@ -1,71 +1,70 @@
 ﻿@model GoldwallApp.Models.EvidencePhoto
 
 @{
-    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/GoldwallLayout.cshtml";
+    ViewData["Title"] = "Edit Evidence Photo";
+    ViewData["ActivePage"] = "EvidencePhotos";
 }
 
-<h1>Edit</h1>
+<h1>Edit Evidence Photo</h1>
 
-<h4>EvidencePhoto</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            @* //new *@
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="EvidencePhotoId" />
-            <input type="hidden" asp-for="FileUrl" /> @* //new *@
+<p class="text-muted">
+    Update the saved information for this evidence photo.
+</p>
 
+<div class="gw-crud-card gw-form-width">
+    <form asp-action="Edit" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="hidden" asp-for="EvidencePhotoId" />
+        <input type="hidden" asp-for="FileUrl" />
+
+        <div class="form-group">
+            <label asp-for="WorkEventId" class="control-label">Work Event</label>
+            <select asp-for="WorkEventId" class="form-control" asp-items="ViewBag.WorkEventId"></select>
+            <span asp-validation-for="WorkEventId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DefectReportId" class="control-label">Defect Report</label>
+            <select asp-for="DefectReportId" class="form-control" asp-items="ViewBag.DefectReportId">
+                <option value="">None</option>
+            </select>
+            <span asp-validation-for="DefectReportId" class="text-danger"></span>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.FileUrl))
+        {
             <div class="form-group">
-                <label asp-for="WorkEventId" class="control-label"></label>
-                <select asp-for="WorkEventId" class="form-control" asp-items="ViewBag.WorkEventId"></select> @* //new *@
-                <span asp-validation-for="WorkEventId" class="text-danger"></span>
+                <label class="control-label">Current Image</label>
+                <br />
+                <img src="@Model.FileUrl" width="180" class="rounded" />
             </div>
-            <div class="form-group">
-                <label asp-for="DefectReportId" class="control-label"></label>
-                <select asp-for="DefectReportId" class="form-control" asp-items="ViewBag.DefectReportId">
-                    @* //new *@
-                    <option value="">None</option> @* //new *@
-                </select> @* //new *@
-                <span asp-validation-for="DefectReportId" class="text-danger"></span>
-            </div>
+        }
 
-            @if (!string.IsNullOrEmpty(Model.FileUrl)) @* //new *@
-            {
-                <div class="form-group">
-                    @* //new *@
-                    <label class="control-label">Current Image</label> @* //new *@
-                    <br /> @* //new *@
-                    <img src="@Model.FileUrl" width="150" /> @* //new *@
-                </div> @* //new *@
-            }
+        <div class="form-group">
+            <label asp-for="ImageFile" class="control-label">Replace Image</label>
+            <input asp-for="ImageFile" type="file" class="form-control" />
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
+        </div>
 
-            <div class="form-group">
-                @* //new *@
-                <label asp-for="ImageFile" class="control-label"></label> @* //new *@
-                <input asp-for="ImageFile" type="file" class="form-control" /> @* //new *@
-                <span asp-validation-for="ImageFile" class="text-danger"></span> @* //new *@
-            </div> @* //new *@
+        <div class="form-group">
+            <label asp-for="Caption" class="control-label"></label>
+            <input asp-for="Caption" class="form-control" />
+            <span asp-validation-for="Caption" class="text-danger"></span>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="Caption" class="control-label"></label>
-                <input asp-for="Caption" class="form-control" />
-                <span asp-validation-for="Caption" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TakenAt" class="control-label"></label>
-                <input asp-for="TakenAt" class="form-control" />
-                <span asp-validation-for="TakenAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+        <div class="form-group">
+            <label asp-for="TakenAt" class="control-label"></label>
+            <input asp-for="TakenAt" class="form-control" />
+            <span asp-validation-for="TakenAt" class="text-danger"></span>
+        </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+        <div class="form-group mt-3">
+            <input type="submit" value="Save" class="btn btn-warning fw-bold" />
+            <a asp-action="Gallery" class="gw-back-link ms-2">Back to Gallery</a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {

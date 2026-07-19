@@ -1,6 +1,9 @@
+using GoldwallApp.Areas.Identity.Data;
 using GoldwallApp.Data;
 using GoldwallApp.Models;
 using GoldwallApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -91,6 +94,11 @@ namespace GoldwallApp.Controllers
 
         // Simple About page for now
         public IActionResult About()
+        {
+            return View();
+        }
+
+        public IActionResult Settings()
         {
             return View();
         }

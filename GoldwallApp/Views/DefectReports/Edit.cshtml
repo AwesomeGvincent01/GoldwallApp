@@ -1,69 +1,80 @@
 ﻿@model GoldwallApp.Models.DefectReport
 
 @{
-    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/GoldwallLayout.cshtml";
+    ViewData["Title"] = "Edit Defect";
+    ViewData["ActivePage"] = "Defects";
 }
 
-<h1>Edit</h1>
+<h1>Edit Defect</h1>
 
-<h4>DefectReport</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="DefectReportId" />
-            <div class="form-group">
-                <label asp-for="SurfaceId" class="control-label"></label>
-                <input asp-for="SurfaceId" class="form-control" />
-                <span asp-validation-for="SurfaceId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DefectTypeId" class="control-label"></label>
-                <input asp-for="DefectTypeId" class="form-control" />
-                <span asp-validation-for="DefectTypeId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReportedAt" class="control-label"></label>
-                <input asp-for="ReportedAt" class="form-control" />
-                <span asp-validation-for="ReportedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Severity" class="control-label"></label>
-                <input asp-for="Severity" class="form-control" />
-                <span asp-validation-for="Severity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SuspectedCauseEventId" class="control-label"></label>
-                <input asp-for="SuspectedCauseEventId" class="form-control" />
-                <span asp-validation-for="SuspectedCauseEventId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FixEventId" class="control-label"></label>
-                <input asp-for="FixEventId" class="form-control" />
-                <span asp-validation-for="FixEventId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+<p class="text-muted">
+    Update the saved information for this defect report.
+</p>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="gw-crud-card gw-form-width">
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="hidden" asp-for="DefectReportId" />
+
+        <div class="form-group">
+            <label asp-for="SurfaceId" class="control-label">Surface</label>
+            <select asp-for="SurfaceId" class="form-control" asp-items="ViewBag.SurfaceId"></select>
+            <span asp-validation-for="SurfaceId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DefectTypeId" class="control-label">Defect Type</label>
+            <select asp-for="DefectTypeId" class="form-control" asp-items="ViewBag.DefectTypeId"></select>
+            <span asp-validation-for="DefectTypeId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ReportedAt" class="control-label"></label>
+            <input asp-for="ReportedAt" class="form-control" />
+            <span asp-validation-for="ReportedAt" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Severity" class="control-label"></label>
+            <input asp-for="Severity" class="form-control" />
+            <span asp-validation-for="Severity" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="SuspectedCauseEventId" class="control-label">Suspected Cause Event</label>
+            <input asp-for="SuspectedCauseEventId" class="form-control" />
+            <span asp-validation-for="SuspectedCauseEventId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="FixEventId" class="control-label">Fix Event</label>
+            <input asp-for="FixEventId" class="form-control" />
+            <span asp-validation-for="FixEventId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Status" class="control-label"></label>
+            <input asp-for="Status" class="form-control" />
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-3">
+            <input type="submit" value="Save" class="btn btn-warning fw-bold" />
+            <a asp-action="Defects" class="gw-back-link ms-2">Back to Defects</a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
