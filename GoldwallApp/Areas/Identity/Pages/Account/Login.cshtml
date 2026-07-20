@@ -87,25 +87,29 @@
     }
 
     .exit-button {
-        position: fixed;
-        left: 45px;
-        top: 35px;
-        width: 135px;
-        height: 135px;
-        display: block;
-        background-image: url('/images/ui/Exit.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        }
-        .exit-button:hover {
-            background-image: url('/images/ui/Exithover.png');
-            transform: scale(1.02);
-        }
+    position: fixed;
+    left: 45px;
+    top: 35px;
+    display: block;
+    padding: 12px 22px;
+    border-radius: 12px;
+    background: rgba(255, 196, 0, 0.75);
+    border: 2px solid rgba(150, 120, 35, 0.35);
+    color: #2e2508;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 1.4rem;
+}
+
+                    .exit-button:hover {
+                background: rgba(255, 196, 0, 0.95);
+                  color: #2e2508;
+                  transform: scale(1.02);
+                }
 
 </style>
 
-<a asp-controller="Home" asp-action="Landing" class="exit-button" aria-label="go back to landing page"></a>
+<a asp-controller="Home" asp-action="Landing" class="exit-button" aria-label="go back to landing page">EXIT</a>
 <div class="auth-page">
     <div class="auth-box">
         <img src="/images/ui/goldwall.png" class="auth-logo" alt="Goldwall logo" />
@@ -132,14 +136,14 @@
                     <input class="form-check-input" asp-for="Input.RememberMe" />
                     @Html.DisplayNameFor(m => m.Input.RememberMe)
                 </label>
-                <a id="forgot-password" asp-page="./ForgotPassword">Forgot password?</a>
+                <span class="text-muted">Forgot password?</span>
             </div>
 
             <button id="login-submit" type="submit" class="login-image-button" aria-label="Log in"></button>
 
             <div class="auth-links">
                 <p>
-                    <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    <span class="text-muted">Forgot password?</span>
                 </p>
                 <p>
                     <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
