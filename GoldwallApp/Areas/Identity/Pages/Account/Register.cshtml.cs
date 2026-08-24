@@ -104,6 +104,7 @@ namespace GoldwallApp.Areas.Identity.Pages.Account
 
             [Required]
             [EmailAddress]
+           [StringLength(250)]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
